@@ -1,4 +1,5 @@
-import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Menu, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,13 +17,17 @@ const LandingPageNavbar = () => {
         >
           Home
         </Link>
-        <Link href={"/contact"} className="">
-          Contact
+        <Link href={"/pricing"} className="bg-primary">
+          Pricing
         </Link>
-        <Link href={"/doc"}>Docs</Link>
-        <Link href={"/profile"}>Profile</Link>
+        <Link href={"/contact"}>Contact</Link>
       </div>
-      LandingPageNavbar
+      <Link href={"/auth/sign-in"}>
+        <Button className="text-base flex gap-x-2 bg-white cursor-pointer text-black hover:bg-slate-200">
+          <User fill="#000" />
+          Login
+        </Button>
+      </Link>
     </nav>
   );
 };
