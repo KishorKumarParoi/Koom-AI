@@ -20,6 +20,7 @@ const LandingPageNavbar = () => {
         <Link href={"/pricing"} className="bg-primary">
           Pricing
         </Link>
+        <Link href={"/about"}>About</Link>
         <Link href={"/contact"}>Contact</Link>
       </div>
       <Link href={"/auth/sign-in"}>
