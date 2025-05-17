@@ -1,4 +1,5 @@
 import { ThemeProvider } from "@/components/theme";
+import ReactQueryProvider from "@/react-query";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
@@ -26,7 +27,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <ReactQueryProvider>{children}</ReactQueryProvider>
           </ThemeProvider>
         </body>
       </html>

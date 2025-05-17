@@ -6,6 +6,8 @@ import { currentUser } from "@clerk/nextjs/server";
 export const onAuthenticateUser = async () => {
   try {
     const user = await currentUser();
+    console.log("user: ", user);
+
     if (!user) {
       return {
         status: 403,
@@ -35,26 +37,6 @@ export const onAuthenticateUser = async () => {
         message: "User already exists",
       };
     }
-
-    //model User {
-    //   id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-    //   email        String         @unique
-    //   firstname    String?
-    //   lastname     String?
-    //   clerkid      String         @unique
-    //   image        String?
-    //   createdAt    DateTime       @default(now())
-    //   updatedAt    DateTime       @updatedAt
-    //   trial        Boolean        @default(false)
-    //   studio       Media?
-    //   workspace    WorkSpace[]
-    //   videos       Video[]
-    //   subscription Subscription?
-    //   members      Member[]
-    //   notification Notification[]
-    //   sender       Invite[]       @relation("sender")
-    //   receiver     Invite[]       @relation("receiver")
-    // }
 
     // create new user
     const newUser = await client.user.create({
@@ -92,6 +74,9 @@ export const onAuthenticateUser = async () => {
         },
       },
     });
+
+    console.log("New User: ", newUser);
+
     if (newUser) {
       return {
         status: 201,

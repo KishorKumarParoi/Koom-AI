@@ -5,7 +5,12 @@ import {
   getWorkSpaces,
   verifyAccessToWorkspace,
 } from "@/actions/workspace";
-import { QueryClient } from "@tanstack/react-query";
+import Sidebar from "@/components/global/sidebar";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 
 type Props = {
@@ -20,15 +25,28 @@ const DashboardLayout = async ({
   children,
 }: Props) => {
   const auth = await onAuthenticateUser();
+  console.log("Dashboard Auth Layout: ", auth);
+
   if (!auth.user?.workspace) redirect("/auth/sign-in");
   if (!auth.user?.workspace.length) redirect("/auth/sign-in");
 
   // Check if the user has the right to access the workspace
   const hasAccess = await verifyAccessToWorkspace(workSpaceId);
+  console.log("HasAccess file", hasAccess);
 
   // if the hasAccess status is not 200, redirect to the first workspace
   if (hasAccess.status !== 200) {
-    redirect(`/dashboard/${auth.user?.workspace[0].id}`);
+    // Prevent redirect loop by checking if the current workspace is the same as the first one
+    const firstWorkspaceId = auth.user?.workspace[0]?.id;
+    console.log("firstWorkSpaceId: ", firstWorkspaceId);
+    console.log("WorkspaceId: ", workSpaceId);
+
+    if (workSpaceId === firstWorkspaceId) {
+      // No accessible workspace, redirect to sign-in or error page
+      redirect("/auth/sign-in");
+    } else {
+      redirect(`/dashboard/${firstWorkspaceId}`);
+    }
   }
 
   // if the user has no access to the workspace, return null
@@ -58,10 +76,12 @@ const DashboardLayout = async ({
   });
 
   return (
-    <div>
-      DashboardLayout
-      {children}
-    </div>
+    <HydrationBoundary state={dehydrate(query)}>
+      <div className="flex h-screen w-screen">
+        <Sidebar activeWorkSpaceId={workSpaceId} />
+        {children}
+      </div>
+    </HydrationBoundary>
   );
 };
 
