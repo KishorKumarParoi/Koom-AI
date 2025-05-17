@@ -108,3 +108,50 @@ export const onAuthenticateUser = async () => {
     };
   }
 };
+
+export const getUserNotifications = async () => {
+  try {
+    const user = await currentUser();
+
+    if (!user) {
+      return {
+        status: 403,
+        message: "User not authenticated",
+      };
+    }
+
+    const notifications = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        notification: true,
+        _count: {
+          select: {
+            notification: true,
+          },
+        },
+      },
+    });
+
+    if (notifications && notifications.notification.length > 0) {
+      return {
+        status: 200,
+        message: "User Notifications found!",
+        data: { notifications },
+      };
+    }
+
+    return {
+      status: 404,
+      message: "Can't find any notifications",
+      data: { data: [] },
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to get user notifications: ${error}`,
+      data: { data: [] },
+    };
+  }
+};
