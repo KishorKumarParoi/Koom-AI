@@ -15,10 +15,8 @@ export const onAuthenticateUser = async () => {
       };
     }
 
-    const userExist = await client.user.findUnique({
-      where: {
-        clerkid: user.id,
-      },
+    const userByClerkId = await client.user.findUnique({
+      where: { clerkid: user.id },
       include: {
         workspace: {
           where: {
@@ -29,12 +27,22 @@ export const onAuthenticateUser = async () => {
         },
       },
     });
-
-    if (userExist) {
+    if (userByClerkId) {
       return {
         status: 200,
-        user: userExist,
+        user: userByClerkId,
         message: "User already exists",
+      };
+    }
+
+    const userByEmail = await client.user.findUnique({
+      where: { email: user.emailAddresses[0].emailAddress },
+    });
+
+    if (userByEmail) {
+      return {
+        status: 409,
+        message: "A user with this email already exists.",
       };
     }
 

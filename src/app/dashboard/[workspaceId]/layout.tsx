@@ -17,13 +17,17 @@ type Props = {
   params: {
     workSpaceId: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
   children: React.ReactNode;
 };
 
 const DashboardLayout = async ({
   params: { workSpaceId },
+  searchParams,
   children,
 }: Props) => {
+  console.log("WorkSpaceId@before: ", workSpaceId);
+  console.log("Search Params: ", searchParams);
   const auth = await onAuthenticateUser();
   console.log("Dashboard Auth Layout: ", auth);
 
@@ -32,20 +36,21 @@ const DashboardLayout = async ({
 
   // Check if the user has the right to access the workspace
   const hasAccess = await verifyAccessToWorkspace(workSpaceId);
+  const firstWorkspaceId = auth.user?.workspace[0]?.id;
+
   console.log("HasAccess file", hasAccess);
+
+  console.log("WorkspaceId: ", workSpaceId);
+  console.log("firstWorkSpaceId: ", firstWorkspaceId);
 
   // if the hasAccess status is not 200, redirect to the first workspace
   if (hasAccess.status !== 200) {
     // Prevent redirect loop by checking if the current workspace is the same as the first one
-    const firstWorkspaceId = auth.user?.workspace[0]?.id;
-    console.log("firstWorkSpaceId: ", firstWorkspaceId);
-    console.log("WorkspaceId: ", workSpaceId);
-
     if (workSpaceId === firstWorkspaceId) {
       // No accessible workspace, redirect to sign-in or error page
       redirect("/auth/sign-in");
     } else {
-      redirect(`/dashboard/${firstWorkspaceId}`);
+      redirect(`/`);
     }
   }
 

@@ -6,14 +6,19 @@ import { currentUser } from "@clerk/nextjs/server";
 export const verifyAccessToWorkspace = async (workSpaceId: string) => {
   try {
     const user = await currentUser();
+    console.log("User@verifyAccess: ", user);
+
+    console.log("workSpaceId@workspace.ts:", workSpaceId);
+
     if (!user) {
       return {
         status: 403,
         message: "User not authenticated",
+        data: { workSpace: null },
       };
     }
 
-    const isUserInWorkSpace = await client.workSpace.findUnique({
+    const isUserInWorkSpace = await client.workSpace.findFirst({
       where: {
         id: workSpaceId,
         OR: [
@@ -24,7 +29,7 @@ export const verifyAccessToWorkspace = async (workSpaceId: string) => {
           },
           {
             members: {
-              every: {
+              some: {
                 User: {
                   clerkid: user.id,
                 },
@@ -34,6 +39,14 @@ export const verifyAccessToWorkspace = async (workSpaceId: string) => {
         ],
       },
     });
+
+    if (!isUserInWorkSpace) {
+      return {
+        status: 403,
+        message: "User does not have access to the workspace",
+        data: { workSpace: null },
+      };
+    }
 
     return {
       status: 200,
@@ -92,8 +105,9 @@ export const getAllUserVideos = async (workSpaceId: string) => {
     const user = await currentUser();
     if (!user) {
       return {
-        status: 404,
+        status: 403,
         message: "User not authenticated",
+        data: { videos: null },
       };
     }
 
@@ -201,4 +215,3 @@ export const getWorkSpaces = async () => {
     };
   }
 };
-

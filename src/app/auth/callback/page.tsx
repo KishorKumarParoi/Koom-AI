@@ -11,7 +11,12 @@ const AuthCallBackPage = async () => {
     return redirect(`/dashboard/${auth.user?.workspace[0].id}`);
   }
 
-  if (auth.status === 400 || auth.status === 404 || auth.status === 500) {
+  if (
+    auth.status === 400 ||
+    auth.status === 404 ||
+    auth.status === 500 ||
+    auth.status === 409
+  ) {
     return redirect("/");
   }
   return <div>AuthCallBackPage</div>;
