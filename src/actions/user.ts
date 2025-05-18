@@ -6,7 +6,7 @@ import { currentUser } from "@clerk/nextjs/server";
 export const onAuthenticateUser = async () => {
   try {
     const user = await currentUser();
-    console.log("user: ", user);
+    console.log("user@user.ts: ", user);
 
     if (!user) {
       return {

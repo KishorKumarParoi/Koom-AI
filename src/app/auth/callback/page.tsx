@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 const AuthCallBackPage = async () => {
   // Authentication check
   const auth = await onAuthenticateUser();
-  console.log("Auth: ", auth);
+  console.log("Auth@AuthCallback: ", auth);
 
   if (auth.status === 200 || auth.status === 201) {
     console.log("Hello I am here");
