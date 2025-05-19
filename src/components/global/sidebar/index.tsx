@@ -1,14 +1,18 @@
 "use client";
 
+import { getWorkSpaces } from "@/actions/workspace";
 import {
   Select,
   SelectContent,
   SelectGroup,
+  SelectItem,
   SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import useQueryData from "@/hooks/useQueryData";
+import { WorkSpaceProps } from "@/types/index.type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -18,6 +22,11 @@ type Props = {
 
 const Sidebar = ({ activeWorkSpaceId }: Props) => {
   const router = useRouter();
+
+  const { data, isFetched } = useQueryData(["user-workspaces"], getWorkSpaces);
+  const { data: workSpacesData } = data as WorkSpaceProps;
+  const workspaceArray = workSpacesData.workSpaces.workspace || [];
+  console.log(workspaceArray);
 
   const onChangeActiveWorkSpace = (value: string) => {
     router.push(`/dashboard/${value}`);
@@ -44,7 +53,19 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
             <SelectGroup>
               <SelectLabel>WorkSpaces</SelectLabel>
               <Separator />
-              {}
+              {isFetched &&
+              Array.isArray(workspaceArray) &&
+              workspaceArray.length > 0 ? (
+                workspaceArray.map((ws) => (
+                  <SelectItem key={ws.id} value={ws.id}>
+                    {ws.name}
+                  </SelectItem>
+                ))
+              ) : (
+                <SelectItem value="Empty WorkSpace" disabled>
+                  No workspace found
+                </SelectItem>
+              )}
             </SelectGroup>
           </SelectContent>
         </Select>
