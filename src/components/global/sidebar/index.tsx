@@ -28,9 +28,11 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
 
   // Safely extract the workspace array from the fetched data
   const { data: workSpacesData } = data as WorkSpaceProps;
+  const workspaceMembers = workSpacesData.workSpaces.members || [];
   const workspaceArray = workSpacesData.workSpaces.workspace || [];
+  console.log(workSpacesData);
   console.log(workspaceArray); // Debug: log the workspace array
-
+  console.log(workspaceMembers);
   // Handler for when a different workspace is selected
   const onChangeActiveWorkSpace = (value: string) => {
     router.push(`/dashboard/${value}`); // Navigate to the selected workspace dashboard
@@ -74,6 +76,19 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
                   No workspace found
                 </SelectItem>
               )}
+
+              {workspaceMembers.length > 0 &&
+                workspaceMembers.map(
+                  (workspace) =>
+                    workspace.WorkSpace && (
+                      <SelectItem
+                        value={workspace.WorkSpace.id}
+                        key={workspace.WorkSpace.id}
+                      >
+                        {workspace.WorkSpace.name}
+                      </SelectItem>
+                    )
+                )}
             </SelectGroup>
           </SelectContent>
         </Select>
