@@ -148,3 +148,75 @@ export const getUserNotifications = async () => {
     };
   }
 };
+
+export const searchWorkspace = async (query: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 404,
+        message: "Can't find any workspace",
+        data: { data: [] },
+      };
+    }
+
+    const workspace = await client.user.findMany({
+      where: {
+        OR: [
+          {
+            firstname: {
+              contains: query,
+            },
+          },
+          {
+            email: {
+              contains: query,
+            },
+          },
+          {
+            lastname: {
+              contains: query,
+            },
+          },
+        ],
+        NOT: [
+          {
+            clerkid: user.id,
+          },
+        ],
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+        email: true,
+        image: true,
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
+    });
+
+    if (workspace && workspace.length > 0) {
+      return {
+        status: 200,
+        data: workspace,
+        message: "Workspace found successfully!",
+      };
+    }
+
+    return {
+      status: 404,
+      data: undefined,
+      message: "Can't find any workspace",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to get workspace: ${error}`,
+      data: undefined,
+    };
+  }
+};

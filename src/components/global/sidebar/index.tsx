@@ -13,8 +13,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 import useQueryData from "@/hooks/useQueryData";
 import { WorkSpaceProps } from "@/types/index.type";
+import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Modal from "../modal";
 
 type Props = {
   activeWorkSpaceId: string;
@@ -33,6 +35,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
   console.log(workSpacesData);
   console.log(workspaceArray); // Debug: log the workspace array
   console.log(workspaceMembers);
+  console.log(activeWorkSpaceId);
   // Handler for when a different workspace is selected
   const onChangeActiveWorkSpace = (value: string) => {
     router.push(`/dashboard/${value}`); // Navigate to the selected workspace dashboard
@@ -92,6 +95,20 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
             </SelectGroup>
           </SelectContent>
         </Select>
+        <Modal
+          trigger={
+            <span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/90 w-full rounded-sm p-[5px] gap-2">
+              <PlusCircle size={15} />
+              <span className="text-neutral-400 font-semibold text-xs">
+                Invite to Workspace
+              </span>
+            </span>
+          }
+          title="Invite to Workspace"
+          description="Invite others to your workspace"
+        >
+          Workspace Search
+        </Modal>
       </div>
     </div>
   );
