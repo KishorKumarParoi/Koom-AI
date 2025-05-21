@@ -1,8 +1,8 @@
-import { searchWorkspace } from "@/actions/user";
+import { searchUsers } from "@/actions/user";
 import { useEffect, useRef, useState } from "react";
 import useQueryData from "./useQueryData";
 
-export const useSearch = (key: string, type: "WORKSPACE") => {
+export const useSearch = (key: string, type: "USERS") => {
   const [query, setQuery] = useState("");
   const [debounce, setDebounce] = useState("");
   const [onUsers, setOnUsers] = useState<
@@ -52,11 +52,11 @@ export const useSearch = (key: string, type: "WORKSPACE") => {
   const { refetch, isFetching } = useQueryData(
     [key, debounce],
     async ({ queryKey }) => {
-      if (type === "WORKSPACE") {
-        const workspace = await searchWorkspace(queryKey[1] as string);
-        if (workspace.status === 200) {
-          const filtered = Array.isArray(workspace?.data)
-            ? workspace.data
+      if (type === "USERS") {
+        const users = await searchUsers(queryKey[1] as string);
+        if (users.status === 200) {
+          const filtered = Array.isArray(users?.data)
+            ? users.data
                 .filter(
                   (user) =>
                     user.subscription &&
@@ -88,7 +88,7 @@ export const useSearch = (key: string, type: "WORKSPACE") => {
       setOnUsers(undefined);
     }
     return () => {
-      debounce;
+      // debounce;
     };
   }, [debounce, refetch]);
 

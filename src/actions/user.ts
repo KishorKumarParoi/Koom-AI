@@ -149,18 +149,18 @@ export const getUserNotifications = async () => {
   }
 };
 
-export const searchWorkspace = async (query: string) => {
+export const searchUsers = async (query: string) => {
   try {
     const user = await currentUser();
     if (!user) {
       return {
         status: 404,
-        message: "Can't find any workspace",
+        message: "Can't find any user",
         data: { data: [] },
       };
     }
 
-    const workspace = await client.user.findMany({
+    const users = await client.user.findMany({
       where: {
         OR: [
           {
@@ -199,23 +199,23 @@ export const searchWorkspace = async (query: string) => {
       },
     });
 
-    if (workspace && workspace.length > 0) {
+    if (users && users.length > 0) {
       return {
         status: 200,
-        data: workspace,
-        message: "Workspace found successfully!",
+        data: users,
+        message: "Users found successfully!",
       };
     }
 
     return {
       status: 404,
       data: undefined,
-      message: "Can't find any workspace",
+      message: "Can't find any user",
     };
   } catch (error) {
     return {
       status: 500,
-      message: `Internal server error, unable to get workspace: ${error}`,
+      message: `Internal server error, unable to get user: ${error}`,
       data: undefined,
     };
   }

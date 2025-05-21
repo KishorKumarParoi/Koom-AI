@@ -106,6 +106,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
           }
           title="Invite to Workspace"
           description="Invite others to your workspace"
+          className="mt-2"
         >
           Workspace Search
         </Modal>
