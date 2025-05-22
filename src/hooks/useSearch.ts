@@ -78,7 +78,7 @@ export const useSearch = (key: string, type: "USERS") => {
     false
   );
 
-  // reftch data
+  // refetch data
 
   useEffect(() => {
     if (debounce) {
