@@ -1,5 +1,6 @@
 "use client";
 
+import { getUserNotifications } from "@/actions/user";
 import { getWorkSpaces } from "@/actions/workspace";
 import {
   Select,
@@ -11,13 +12,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { MENU_ITEMS } from "@/constants";
 import useQueryData from "@/hooks/useQueryData";
-import { WorkSpaceProps } from "@/types/index.type";
+import { NotificationProps, WorkSpaceProps } from "@/types/index.type";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Modal from "../modal";
 import Search from "../search";
+import SideBarItem from "./sidebar-item";
 
 type Props = {
   activeWorkSpaceId: string;
@@ -25,9 +28,19 @@ type Props = {
 
 const Sidebar = ({ activeWorkSpaceId }: Props) => {
   const router = useRouter();
+  const pathName = usePathname();
+
+  const { data: notifications } = useQueryData(
+    ["user-notifications"],
+    getUserNotifications
+  );
+
+  const { data: count } = notifications as NotificationProps;
 
   // Fetch workspaces for the current user using a custom hook
   const { data, isFetched } = useQueryData(["user-workspaces"], getWorkSpaces);
+
+  const menuItems = MENU_ITEMS(activeWorkSpaceId);
 
   // Safely extract the workspace array from the fetched data
   const { data: workSpacesData } = data as WorkSpaceProps;
@@ -121,8 +134,26 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
 
         <p className="w-full text-[#9D9D9D] font-bold mt-4">Menu</p>
         <nav className="w-full">
-          <ul></ul>
+          <ul>
+            {menuItems.map((item) => (
+              <div key={item.title}>
+                <SideBarItem
+                  icon={item.icon}
+                  title={item.title}
+                  href={item.href}
+                  selected={pathName === item.href}
+                  notifications={
+                    (item.title === "Notifications" &&
+                      count._count &&
+                      count._count.notification) ||
+                    0
+                  }
+                />
+              </div>
+            ))}
+          </ul>
         </nav>
+        <Separator className="w-4/5" />
       </div>
     </div>
   );

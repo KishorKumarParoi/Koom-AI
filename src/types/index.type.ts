@@ -19,3 +19,12 @@ export type WorkSpaceProps = {
     };
   };
 };
+
+export type NotificationProps = {
+  status: number;
+  data: {
+    _count: {
+      notification: number;
+    };
+  };
+};
