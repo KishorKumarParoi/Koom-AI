@@ -42,6 +42,10 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
     router.push(`/dashboard/${value}`); // Navigate to the selected workspace dashboard
   };
 
+  const currentWorkSpace = workSpacesData.workSpaces.workspace.find(
+    (ws) => ws.id === activeWorkSpaceId
+  );
+
   return (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
       {/* Logo and workspace selector section */}
@@ -96,21 +100,23 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Modal
-          trigger={
-            <span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/90 w-full rounded-sm p-[5px] gap-2">
-              <PlusCircle size={15} />
-              <span className="text-neutral-400 font-semibold text-xs">
-                Invite to Workspace
+        {currentWorkSpace?.type === "PUBLIC" && (
+          <Modal
+            trigger={
+              <span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/90 w-full rounded-sm p-[5px] gap-2">
+                <PlusCircle size={15} />
+                <span className="text-neutral-400 font-semibold text-xs">
+                  Invite to Workspace
+                </span>
               </span>
-            </span>
-          }
-          title="Invite to Workspace"
-          description="Invite others to your workspace"
-          className="mt-2"
-        >
-          <Search workSpaceId={activeWorkSpaceId} />
-        </Modal>
+            }
+            title="Invite to Workspace"
+            description="Invite others to your workspace"
+            className="mt-2"
+          >
+            <Search workSpaceId={activeWorkSpaceId} />
+          </Modal>
+        )}
       </div>
     </div>
   );
