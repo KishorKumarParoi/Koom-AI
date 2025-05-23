@@ -17,6 +17,7 @@ import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Modal from "../modal";
+import Search from "../search";
 
 type Props = {
   activeWorkSpaceId: string;
@@ -108,7 +109,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
           description="Invite others to your workspace"
           className="mt-2"
         >
-          Workspace Search
+          <Search workSpaceId={activeWorkSpaceId} />
         </Modal>
       </div>
     </div>
