@@ -100,23 +100,29 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        {currentWorkSpace?.type === "PUBLIC" && (
-          <Modal
-            trigger={
-              <span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/90 w-full rounded-sm p-[5px] gap-2">
-                <PlusCircle size={15} />
-                <span className="text-neutral-400 font-semibold text-xs">
-                  Invite to Workspace
+        {currentWorkSpace?.type === "PUBLIC" &&
+          workSpacesData.workSpaces.subscription?.plan === "PRO" && (
+            <Modal
+              trigger={
+                <span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90 hover:bg-neutral-800/90 w-full rounded-sm p-[5px] gap-2">
+                  <PlusCircle size={15} />
+                  <span className="text-neutral-400 font-semibold text-xs">
+                    Invite to Workspace
+                  </span>
                 </span>
-              </span>
-            }
-            title="Invite to Workspace"
-            description="Invite others to your workspace"
-            className="mt-2"
-          >
-            <Search workSpaceId={activeWorkSpaceId} />
-          </Modal>
-        )}
+              }
+              title="Invite to Workspace"
+              description="Invite others to your workspace"
+              className="mt-2"
+            >
+              <Search workSpaceId={activeWorkSpaceId} />
+            </Modal>
+          )}
+
+        <p className="w-full text-[#9D9D9D] font-bold mt-4">Menu</p>
+        <nav className="w-full">
+          <ul></ul>
+        </nav>
       </div>
     </div>
   );
