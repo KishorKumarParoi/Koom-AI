@@ -5,6 +5,7 @@ import {
   getWorkSpaces,
   verifyAccessToWorkspace,
 } from "@/actions/workspace";
+import GlobalHeader from "@/components/global/global-header";
 import Sidebar from "@/components/global/sidebar";
 import {
   dehydrate,
@@ -21,11 +22,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-const DashboardLayout = async ({
-  params: { workSpaceId },
-  searchParams,
-  children,
-}: Props) => {
+const DashboardLayout = async (props: Props) => {
+  const { params, searchParams, children } = props;
+  const { workSpaceId } = await params;
+
   console.log("WorkSpaceId@before: ", workSpaceId);
   console.log("Search Params: ", searchParams);
   const auth = await onAuthenticateUser();
@@ -83,8 +83,16 @@ const DashboardLayout = async ({
   return (
     <HydrationBoundary state={dehydrate(query)}>
       <div className="flex h-screen w-screen">
-        <Sidebar activeWorkSpaceId={workSpaceId} />
-        {children}
+        <div className="shadow-3xl md:border-r">
+          <Sidebar activeWorkSpaceId={workSpaceId} />
+        </div>
+        <div
+          className="w-full
+        pt-28 p-6 overflow-y-scroll overflow-x-hidden "
+        >
+          <GlobalHeader workspace={hasAccess.data.workSpace} />
+          <div className="mt-4">{children}</div>
+        </div>
       </div>
     </HydrationBoundary>
   );

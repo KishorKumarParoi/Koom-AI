@@ -325,3 +325,11 @@ body {
     box-shadow: 0 0 0 4px rgba(62, 166, 255, 0.2);
   }
 }
+
+/* Custom placeholder color utility */
+.placeholder-neutral-500::placeholder,
+[class~="!placeholder-neutral-500"]::placeholder {
+  color: #737373 !important;
+  /* Tailwind's neutral-500 */
+  opacity: 1;
+}

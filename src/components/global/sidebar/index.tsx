@@ -27,6 +27,7 @@ import { Menu, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import GlobalCard from "../global-card";
+import InfoBar from "../infobar";
 import Loader from "../loader";
 import Modal from "../modal";
 import Search from "../search";
@@ -227,7 +228,9 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
                 variant={"default"}
                 className="text-sm flex items-center justify-center mx-auto cursor-pointer w-2/3"
               >
-                <Loader state={false}>Upgrade</Loader>
+                <Loader state={false} color="#000">
+                  Upgrade
+                </Loader>
               </Button>
             }
           ></GlobalCard>
@@ -237,8 +240,9 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
   );
 
   return (
-    <div className="w-full">
+    <div className="w-full h-screen">
       {/* INFOBAR */}
+      <InfoBar />
       {/* Sheet mobile and Desktop */}
       <div className="md:hidden fixed my-4">
         <Sheet>
