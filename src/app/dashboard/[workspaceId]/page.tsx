@@ -1,3 +1,4 @@
+import CreateFolders from "@/components/global/create-folders";
 import CreateWorkSpace from "@/components/global/create-workspace";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -28,6 +29,7 @@ const WorkSpaceIdPage = (props: Props) => {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkSpace />
+            <CreateFolders workSpaceId={workSpaceId} />
           </div>
         </div>
       </Tabs>

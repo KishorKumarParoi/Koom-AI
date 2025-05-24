@@ -22,24 +22,22 @@ const CreateWorkSpace = () => {
     return <></>;
   }
 
-  //   if (plan?.subscription?.plan === "PRO") {
-
-  //   }
-
-  return (
-    <Modal
-      title="Create a Workspace"
-      description="Workspace helps you collaborate with your team members. You are assigned a deafault personal workspace where you can share videos in private with yourself"
-      trigger={
-        <Button className="bg-[#1D1D1D] text-[#c9c1c1] hover:text-black flex items-center cursor-pointer gap-2 py-6 px-4 rounded-2xl ">
-          <FolderPlusIcon />
-          Create a Workspace
-        </Button>
-      }
-    >
-      <WorkspaceForm />
-    </Modal>
-  );
+  if (plan?.subscription?.plan === "PRO") {
+    return (
+      <Modal
+        title="Create a Workspace"
+        description="Workspace helps you collaborate with your team members. You are assigned a deafault personal workspace where you can share videos in private with yourself"
+        trigger={
+          <Button className="bg-[#1D1D1D] text-[#c9c1c1] hover:text-black flex items-center cursor-pointer gap-2 py-6 px-4 rounded-2xl ">
+            <FolderPlusIcon />
+            Create a Workspace
+          </Button>
+        }
+      >
+        <WorkspaceForm />
+      </Modal>
+    );
+  }
 };
 
 export default CreateWorkSpace;
