@@ -83,7 +83,7 @@ const DashboardLayout = async (props: Props) => {
   return (
     <HydrationBoundary state={dehydrate(query)}>
       <div className="flex h-screen w-screen">
-        <div className="shadow-3xl md:border-r">
+        <div className="shadow-3xl md:border-r h-full">
           <Sidebar activeWorkSpaceId={workSpaceId} />
         </div>
         <div

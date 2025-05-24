@@ -14,11 +14,11 @@ const InfoBar = () => {
         />
       </div>
       <div className="flex items-center gap-4 mt-2">
-        <Button className="bg-[#9D9D9D] flex items-center gap-2">
+        <Button className="bg-[#9D9D9D] flex items-center gap-2 cursor-pointer">
           <UploadIcon size={20} />{" "}
           <span className="flex items-center gap-2">Upload</span>
         </Button>
-        <Button className="bg-[#9D9D9D] flex items-center gap-2">
+        <Button className="bg-[#9D9D9D] flex items-center gap-2 cursor-pointer">
           <VideoIcon />
           <span className="flex items-center gap-2 ">Record</span>
         </Button>

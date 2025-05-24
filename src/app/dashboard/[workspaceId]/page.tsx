@@ -1,4 +1,5 @@
-import { Tabs } from "@/components/ui/tabs";
+import CreateWorkSpace from "@/components/global/create-workspace";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type Props = {
   params: {
@@ -12,7 +13,24 @@ const WorkSpaceIdPage = (props: Props) => {
 
   return (
     <div>
-      <Tabs>Kishor</Tabs>
+      <Tabs defaultValue="videos" className="mt-6">
+        <div className="flex w-full justify-between items-center">
+          <TabsList className="bg-transparent gap-2 pl-0 ">
+            <TabsTrigger
+              className="p-[13px] px-6 rounded-full cursor-pointer data-[state=active]:bg-[#252525] "
+              value="videos"
+            >
+              Videos
+            </TabsTrigger>
+            <TabsTrigger value="archive" className="cursor-pointer">
+              Archive
+            </TabsTrigger>
+          </TabsList>
+          <div className="flex gap-x-3">
+            <CreateWorkSpace />
+          </div>
+        </div>
+      </Tabs>
     </div>
   );
 };
