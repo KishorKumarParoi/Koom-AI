@@ -109,6 +109,7 @@ model Media {
 
 enum Type {
   PERSONAL
+  PUBLIC
   PRIVATE
 }
 

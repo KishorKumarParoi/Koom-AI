@@ -215,3 +215,65 @@ export const getWorkSpaces = async () => {
     };
   }
 };
+
+export const createWorkspace = async (name: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get User",
+        data: null,
+      };
+    }
+
+    const authorized = await client.user.findFirst({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
+    });
+
+    if (authorized?.subscription?.plan === "PRO") {
+      const workspace = await client.user.update({
+        where: {
+          clerkid: user.id,
+        },
+        data: {
+          workspace: {
+            create: {
+              name,
+              type: "PUBLIC",
+            },
+          },
+        },
+      });
+
+      if (workspace) {
+        return {
+          status: 201,
+          message: "New Workspace Created",
+          data: workspace,
+        };
+      }
+    }
+
+    return {
+      status: 404,
+      message: "Can't create Workspace",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to create workspaces: ${error}`,
+      data: { workSpaces: null },
+    };
+  }
+};

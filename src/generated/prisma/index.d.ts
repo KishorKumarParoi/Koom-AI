@@ -81,6 +81,7 @@ export type PRESET = (typeof PRESET)[keyof typeof PRESET]
 
 export const Type: {
   PERSONAL: 'PERSONAL',
+  PUBLIC: 'PUBLIC',
   PRIVATE: 'PRIVATE'
 };
 

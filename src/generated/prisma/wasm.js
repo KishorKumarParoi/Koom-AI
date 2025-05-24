@@ -228,6 +228,7 @@ exports.PRESET = exports.$Enums.PRESET = {
 
 exports.Type = exports.$Enums.Type = {
   PERSONAL: 'PERSONAL',
+  PUBLIC: 'PUBLIC',
   PRIVATE: 'PRIVATE'
 };
 
