@@ -18,11 +18,11 @@ const CreateWorkSpace = () => {
     };
   };
 
-  if (plan?.subscription?.plan === "FREE") {
-    return <></>;
-  }
+  // if (plan?.subscription?.plan === "FREE") {
+  //   return <></>;
+  // }
 
-  if (plan?.subscription?.plan === "PRO") {
+  if (plan?.subscription?.plan === "FREE") {
     return (
       <Modal
         title="Create a Workspace"

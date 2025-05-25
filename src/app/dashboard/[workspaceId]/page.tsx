@@ -1,6 +1,7 @@
 import CreateFolders from "@/components/global/create-folders";
 import CreateWorkSpace from "@/components/global/create-workspace";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Folders from "@/components/global/folders";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type Props = {
   params: {
@@ -32,6 +33,11 @@ const WorkSpaceIdPage = (props: Props) => {
             <CreateFolders workSpaceId={workSpaceId} />
           </div>
         </div>
+        <section className="py-9">
+          <TabsContent value="videos">
+            <Folders workSpaceId={workSpaceId} />
+          </TabsContent>
+        </section>
       </Tabs>
     </div>
   );

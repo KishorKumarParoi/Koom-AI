@@ -277,3 +277,45 @@ export const createWorkspace = async (name: string) => {
     };
   }
 };
+
+export const renameFolders = async (folderId: string, name: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for renaming folders",
+        data: null,
+      };
+    }
+
+    const folder = await client.folder.update({
+      where: {
+        id: folderId,
+      },
+      data: {
+        name,
+      },
+    });
+
+    if (folder) {
+      return {
+        status: 200,
+        message: "Folder renamed Successfully!",
+        data: folder,
+      };
+    }
+
+    return {
+      status: 404,
+      message: "Folder doesn't Exist!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to rename Folders: ${error}`,
+      data: { workSpaces: null },
+    };
+  }
+};
