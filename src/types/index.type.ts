@@ -28,3 +28,17 @@ export type NotificationProps = {
     };
   };
 };
+
+export type FoldersProps = {
+  status: number;
+  data: ({
+    _count: {
+      videos: number;
+    };
+  } & {
+    id: string;
+    name: string;
+    createdAt: string;
+    workSpaceId: string | null;
+  })[];
+};
