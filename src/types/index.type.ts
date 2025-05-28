@@ -42,3 +42,27 @@ export type FoldersProps = {
     workSpaceId: string | null;
   })[];
 };
+
+export type PlanProps = {
+  status: number;
+  message: string;
+  data: {
+    workSpaces: {
+      subscription: {
+        plan: "FREE" | "PRO";
+      } | null;
+      workspace: {
+        id: string;
+        name: string;
+        type: "PUBLIC" | "PERSONAL";
+      }[];
+      members: {
+        WorkSpace: {
+          id: string;
+          name: string;
+          type: "PUBLIC" | "PERSONAL";
+        };
+      }[];
+    };
+  };
+};
