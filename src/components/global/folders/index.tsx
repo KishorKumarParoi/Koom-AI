@@ -1,3 +1,4 @@
+"use client";
 import { getWorkSpaceFolders } from "@/actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
 import useQueryData from "@/hooks/useQueryData";
@@ -16,7 +17,7 @@ const Folders = (props: Props) => {
 
   // get folders
   const { data, isFetched } = useQueryData(["workspace-folders"], () => {
-    getWorkSpaceFolders(workSpaceId);
+    return getWorkSpaceFolders(workSpaceId);
   });
 
   const { latestVariables } = useMutationDataState(["create-folder"]);

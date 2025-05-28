@@ -319,3 +319,40 @@ export const renameFolders = async (folderId: string, name: string) => {
     };
   }
 };
+
+export const createFolder = async (workSpaceId: string) => {
+  try {
+    const isNewFolder = await client.workSpace.update({
+      where: {
+        id: workSpaceId,
+      },
+      data: {
+        folders: {
+          create: {
+            name: "Untitled",
+          },
+        },
+      },
+    });
+
+    if (isNewFolder) {
+      return {
+        status: 200,
+        message: "New Folder created Successfully!",
+        data: isNewFolder,
+      };
+    }
+
+    return {
+      status: 404,
+      message: "New Folder can't be created!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to create Folder: ${error}`,
+      data: { workSpaces: null },
+    };
+  }
+};
