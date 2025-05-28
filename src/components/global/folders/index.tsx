@@ -21,7 +21,7 @@ const Folders = (props: Props) => {
   });
 
   const { latestVariables } = useMutationDataState(["create-folder"]);
-  const { status, data: folders } = data as FoldersProps;
+  const { status, data: folders = [] } = data as FoldersProps;
 
   if (isFetched && folders) {
     // TODO: Redux store
@@ -62,14 +62,15 @@ const Folders = (props: Props) => {
               />
             )}
 
-            {folders.map((folder) => (
-              <Folder
-                name={folder.name}
-                id={folder.id}
-                count={folder._count.videos}
-                key={folder.id}
-              />
-            ))}
+            {Array.isArray(folders) &&
+              folders.map((folder) => (
+                <Folder
+                  name={folder.name}
+                  id={folder.id}
+                  count={folder._count.videos}
+                  key={folder.id}
+                />
+              ))}
           </>
         )}
       </section>
