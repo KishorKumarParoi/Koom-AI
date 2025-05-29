@@ -43,7 +43,7 @@ const Folder = (props: Props) => {
 
   const { mutate, isPending } = useMutationData(
     ["rename-folders"],
-    (data: { name: string }) => renameFolders(id, name),
+    (data: { name: string }) => renameFolders(id, data.name),
     "workspace-folders",
     Renamed
   );
@@ -51,7 +51,7 @@ const Folder = (props: Props) => {
   const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
     console.log("event@updatefoldername func: ", e.target);
 
-    if (inputRef.current && folderCardRef.current) {
+    if (inputRef.current) {
       if (inputRef.current.value) {
         console.log("Running...");
         mutate({

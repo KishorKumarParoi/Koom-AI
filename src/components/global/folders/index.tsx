@@ -23,9 +23,11 @@ const Folders = (props: Props) => {
   const { latestVariables } = useMutationDataState(["create-folder"]);
   const { status, data: folders = [] } = data as FoldersProps;
 
-  if (isFetched && folders) {
-    // TODO: Redux store
-  }
+  console.log("LatestVariables@Folders: ", latestVariables);
+
+  // if (isFetched && folders) {
+  //   // TODO: Redux store
+  // }
 
   // TODO: Add Redux Stuff
 
@@ -33,7 +35,7 @@ const Folders = (props: Props) => {
   // TODO: add the classnames for the folder based on success response
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4" suppressHydrationWarning>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <FolderIcon />
