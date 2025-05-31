@@ -27,6 +27,13 @@ const Folder = (props: Props) => {
   const Rename = () => setonRename(true);
   const Renamed = () => setonRename(false);
 
+  const { mutate } = useMutationData(
+    ["rename-folders"],
+    (data: { name: string }) => renameFolders(id, data.name),
+    "workspace-folders",
+    Renamed
+  );
+
   const handleFolderClick = () => {
     if (onRename) return;
     router.push(`${pathname}/folder/${id}`);
@@ -35,18 +42,11 @@ const Folder = (props: Props) => {
   const handleNameDoubleClick = (e: React.MouseEvent<HTMLParagraphElement>) => {
     e.stopPropagation();
     Rename();
-    // TODO: Rename Functionality
+    // Rename Functionality
   };
 
-  // TODO: Add Loading state
-  // TODO: Optimistic UI Updates
-
-  const { mutate, isPending } = useMutationData(
-    ["rename-folders"],
-    (data: { name: string }) => renameFolders(id, data.name),
-    "workspace-folders",
-    Renamed
-  );
+  // Add Loading state
+  // Optimistic UI Updates
 
   const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
     console.log("event@updatefoldername func: ", e.target);

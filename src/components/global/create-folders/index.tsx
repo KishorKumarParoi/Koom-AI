@@ -11,7 +11,7 @@ const CreateFolders = (props: Props) => {
   const workSpaceId = props.workSpaceId;
   console.log("@createFolders, workSpaceId: ", workSpaceId);
 
-  // TODO: WIP for optimistic ui update and watching folders
+  //  WIP for optimistic ui update and watching folders
   const { onCreateNewFolder } = useCreateFolder(workSpaceId);
 
   return (

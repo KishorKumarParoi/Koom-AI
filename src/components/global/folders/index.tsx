@@ -5,7 +5,6 @@ import useQueryData from "@/hooks/useQueryData";
 import { cn } from "@/lib/utils";
 import { FoldersProps } from "@/types/index.type";
 import { ArrowRight, FolderIcon } from "lucide-react";
-import { useEffect } from "react";
 import Folder from "./folders";
 
 type Props = {
@@ -17,7 +16,7 @@ const Folders = (props: Props) => {
   console.log("@Folders, workSpaceId: ", workSpaceId);
 
   // get folders
-  const { data, isFetched } = useQueryData(["workspace-folders"], () => {
+  const { data } = useQueryData(["workspace-folders"], () => {
     return getWorkSpaceFolders(workSpaceId);
   });
 
@@ -27,47 +26,13 @@ const Folders = (props: Props) => {
   console.log("LatestVariables@Folders: ", latestVariables);
 
   // if (isFetched && folders) {
-  //   // TODO: Redux store
+  // add redux store
   // }
 
-  // TODO: Add Redux Stuff
+  // Add Redux Stuff
 
   // optimistic variable
-  // TODO: add the classnames for the folder based on success response
-
-  const [optimisticFolders, setOptimisticFolders] = useState<any[]>([]);
-
-  // Watch for new optimistic folder creation
-  useEffect(() => {
-    if (
-      latestVariables &&
-      latestVariables.status === "pending" &&
-      !optimisticFolders.some((f) => f.id === latestVariables.variables.id)
-    ) {
-      setOptimisticFolders((prev) => [
-        ...prev,
-        {
-          id: latestVariables.variables.id,
-          name: latestVariables.variables.name,
-          optimistic: true,
-        },
-      ]);
-    }
-    // Remove optimistic folder if mutation is no longer pending
-    if (latestVariables && latestVariables.status !== "pending") {
-      setOptimisticFolders((prev) =>
-        prev.filter((f) => f.id !== latestVariables.variables.id)
-      );
-    }
-  }, [latestVariables]);
-
-  // Merge optimistic folders with server folders (avoid duplicates)
-  const allFolders = [
-    ...optimisticFolders,
-    ...folders.filter(
-      (folder) => !optimisticFolders.some((opt) => opt.id === folder.id)
-    ),
-  ];
+  // add the classnames for the folder based on success response
 
   return (
     <div className="flex flex-col gap-4" suppressHydrationWarning>
