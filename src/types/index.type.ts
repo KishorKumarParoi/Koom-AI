@@ -31,16 +31,19 @@ export type NotificationProps = {
 
 export type FoldersProps = {
   status: number;
-  data: ({
-    _count: {
-      videos: number;
-    };
-  } & {
-    id: string;
-    name: string;
-    createdAt: string;
-    workSpaceId: string | null;
-  })[];
+  message: string;
+  data: {
+    folders: ({
+      _count: {
+        videos: number;
+      };
+    } & {
+      id: string;
+      name: string;
+      createdAt: string;
+      workSpaceId: string | null;
+    })[];
+  };
 };
 
 export type PlanProps = {

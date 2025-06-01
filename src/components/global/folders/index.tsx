@@ -16,12 +16,14 @@ const Folders = (props: Props) => {
   console.log("@Folders, workSpaceId: ", workSpaceId);
 
   // get folders
-  const { data } = useQueryData(["workspace-folders"], () => {
+  const { data: foldersData } = useQueryData(["workspace-folders"], () => {
     return getWorkSpaceFolders(workSpaceId);
   });
 
+  console.log("Data: ", foldersData);
+
   const { latestVariables } = useMutationDataState(["create-folder"]);
-  const { status, data: folders = [] } = data as FoldersProps;
+  const { status, data: folders } = foldersData as FoldersProps;
 
   console.log("LatestVariables@Folders: ", latestVariables);
 
@@ -33,6 +35,10 @@ const Folders = (props: Props) => {
 
   // optimistic variable
   // add the classnames for the folder based on success response
+
+  const allFolders = folders.folders;
+  console.log("All Folders: ", allFolders);
+  console.log(typeof allFolders);
 
   return (
     <div className="flex flex-col gap-4" suppressHydrationWarning>
@@ -64,21 +70,13 @@ const Folders = (props: Props) => {
               />
             )}
 
-            {/* {latestVariables && latestVariables.status === "success" && (
-              <Folder
-                id={latestVariables.variables.id}
-                name={latestVariables.variables.name}
-                optimistic
-              />
-            )} */}
-
-            {Array.isArray(folders) &&
-              folders.map((folder) => (
+            {Array.isArray(allFolders) &&
+              allFolders.map((folder) => (
                 <Folder
-                  name={folder.name}
-                  id={folder.id}
-                  count={folder._count.videos}
                   key={folder.id}
+                  id={folder.id}
+                  name={folder.name}
+                  count={folder._count.videos}
                 />
               ))}
           </>
