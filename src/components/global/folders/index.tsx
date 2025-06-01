@@ -64,6 +64,14 @@ const Folders = (props: Props) => {
               />
             )}
 
+            {/* {latestVariables && latestVariables.status === "success" && (
+              <Folder
+                id={latestVariables.variables.id}
+                name={latestVariables.variables.name}
+                optimistic
+              />
+            )} */}
+
             {Array.isArray(folders) &&
               folders.map((folder) => (
                 <Folder

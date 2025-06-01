@@ -255,7 +255,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
           </SheetTrigger>
           <SheetContent side={"left"} className="p-0 w-fit h-full">
             {SidebarSection}
-          </SheetContent>
+          </SheetContent> 
         </Sheet>
       </div>
       <div className="md:block hidden h-full">{SidebarSection}</div>

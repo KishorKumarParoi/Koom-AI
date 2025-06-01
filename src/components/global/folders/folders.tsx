@@ -1,7 +1,7 @@
 "use client";
 import { renameFolders } from "@/actions/workspace";
 import { Input } from "@/components/ui/input";
-import { useMutationData } from "@/hooks/useMutationData";
+import { useMutationData, useMutationDataState } from "@/hooks/useMutationData";
 import { cn } from "@/lib/utils";
 import { FolderIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -45,6 +45,9 @@ const Folder = (props: Props) => {
     // Rename Functionality
   };
 
+  const { latestVariables } = useMutationDataState(["rename-folders"]);
+  console.log("latestVariables@Folder: ", latestVariables);
+
   // Add Loading state
   // Optimistic UI Updates
 
@@ -56,6 +59,7 @@ const Folder = (props: Props) => {
         console.log("Running...");
         mutate({
           name: inputRef.current.value,
+          id,
         });
       } else {
         Renamed();
@@ -90,7 +94,11 @@ const Folder = (props: Props) => {
               className="text-neutral-300"
               onDoubleClick={handleNameDoubleClick}
             >
-              {name}
+              {latestVariables &&
+              latestVariables.status === "pending" &&
+              latestVariables.variables.id === id
+                ? latestVariables.variables.name
+                : name}
             </p>
           )}
 

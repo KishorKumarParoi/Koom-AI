@@ -23,8 +23,12 @@ export const useMutationData = (
         description: data?.data,
       });
     },
+    // await client.invalidateQueries({ queryKey: [queryKey] });
     onSettled: async () => {
-      return await client.invalidateQueries({ queryKey: [queryKey] });
+      return await client.invalidateQueries({
+        queryKey: [queryKey],
+        exact: true,
+      });
     },
   });
 
@@ -42,6 +46,8 @@ export const useMutationDataState = (mutationKey: MutationKey) => {
     },
   });
 
-  const latestVariables = data[data.length - 1];
+  console.log("All mutation state: ", data);
+
+  const latestVariables = data.length > 0 ? data[data.length - 1] : undefined;
   return { latestVariables };
 };
