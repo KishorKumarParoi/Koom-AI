@@ -1,5 +1,11 @@
 import { getAllUserVideos, getFolderInfo } from "@/actions/workspace";
-import { QueryClient } from "@tanstack/react-query";
+import FolderInfo from "@/components/global/folders/folder-info";
+import Videos from "@/components/global/videos";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 type Props = {
   params: {
@@ -8,11 +14,7 @@ type Props = {
   };
 };
 
-const FolderIdPage = async (props: Props) => {
-  const { params } = props;
-  const folderId = params.folderId;
-  const workSpaceId = params.workSpaceId;
-
+const FolderIdPage = async ({ params: { folderId, workSpaceId } }: Props) => {
   const query = new QueryClient();
   await query.prefetchQuery({
     queryKey: ["folder-videos"],
@@ -24,7 +26,16 @@ const FolderIdPage = async (props: Props) => {
     queryFn: () => getFolderInfo(folderId),
   });
 
-  return <div>FolderIdPage</div>;
+  return (
+    <HydrationBoundary state={dehydrate(query)}>
+      <FolderInfo folderId={folderId} />
+      <Videos
+        folderId={folderId}
+        workSpaceId={workSpaceId}
+        videosKey={"folder-videos"}
+      />
+    </HydrationBoundary>
+  );
 };
 
 export default FolderIdPage;
