@@ -353,3 +353,39 @@ export const createFolder = async (workSpaceId: string) => {
     };
   }
 };
+
+export const getFolderInfo = async (folderId: string) => {
+  try {
+    const folder = await client.folder.findUnique({
+      where: {
+        id: folderId,
+      },
+      select: {
+        name: true,
+        _count: {
+          select: {
+            videos: true,
+          },
+        },
+      },
+    });
+
+    if (folder) {
+      return {
+        status: 200,
+        data: folder,
+        message: "Folder information fetched Successfully!",
+      };
+    }
+    return {
+      status: 404,
+      message: "New Folder can't be created!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to get Folder info: ${error}`,
+    };
+  }
+};
