@@ -92,14 +92,33 @@ export type VideosProps = {
         image: string | null;
       } | null;
       id: string;
-      processing: boolean;
       Folder: {
         id: string;
         name: string;
       } | null;
+      processing: boolean;
       createdAt: Date;
       title: string | null;
-      souce: string;
+      source: string;
+      workSpaceId: string;
     }[];
   };
+};
+
+export type VideoCardProps = {
+  User: {
+    firstname: string | null;
+    lastname: string | null;
+    image: string | null;
+  } | null;
+  id: string;
+  Folder: {
+    id: string;
+    name: string;
+  } | null;
+  processing: boolean;
+  createdAt: Date;
+  title: string | null;
+  source: string;
+  workSpaceId: string;
 };
