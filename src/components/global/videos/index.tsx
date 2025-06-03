@@ -2,8 +2,9 @@
 import { getAllUserVideos } from "@/actions/workspace";
 import useQueryData from "@/hooks/useQueryData";
 import { cn } from "@/lib/utils";
-import { VideosProps } from "@/types/index.type";
+import { VideoCardProps, VideosProps } from "@/types/index.type";
 import { Video } from "lucide-react";
+import VideoCard from "./video-card";
 
 type Props = {
   folderId: string;
@@ -12,6 +13,23 @@ type Props = {
 };
 
 // WIP videos logic
+
+const video: VideoCardProps = {
+  User: {
+    firstname: "Kishor",
+    lastname: "Paroi",
+    image: "https://example.com/avatar1.png",
+  },
+  id: "video-1",
+  Folder: {
+    id: "folder-1",
+    name: "Demo Folder",
+  },
+  processing: false,
+  createdAt: new Date("2025-06-01T10:00:00Z"),
+  title: "First Video",
+  source: "https://example.com/video1.mp4",
+};
 
 const Videos = (props: Props) => {
   const { folderId, videosKey, workSpaceId } = props;
@@ -40,6 +58,7 @@ const Videos = (props: Props) => {
         ) : (
           <p className="text-[#BdBdBd]">No videos in workspace</p>
         )} */}
+        <VideoCard workSpaceId={workSpaceId} video={video} />
       </section>
     </div>
   );
