@@ -29,6 +29,7 @@ const video: VideoCardProps = {
   createdAt: new Date("2025-06-01T10:00:00Z"),
   title: "First Video",
   source: "https://example.com/video1.mp4",
+  workSpaceId: "workspace-1",
 };
 
 const Videos = (props: Props) => {
