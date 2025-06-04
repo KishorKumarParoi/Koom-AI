@@ -23,12 +23,12 @@ const VideoCardMenu = ({
       trigger={<Move size={20} fill="#a4a4a4" className="text-[#a4a4a4]" />}
     >
       Video Card Menu
-      <ChangeVideoLocation
+      {/* <ChangeVideoLocation
         currentFolder={currentFolder}
         currentWorkSpace={currentWorkSpace}
         videoId={videoId}
         currentFolderName={currentFolderName}
-      />
+      /> */}
     </Modal>
   );
 };
