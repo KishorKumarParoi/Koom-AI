@@ -1,5 +1,4 @@
 import { Move } from "lucide-react";
-import ChangeVideoLocation from "../forms/change-video-location";
 import Modal from "../modal";
 
 type Props = {
@@ -24,10 +23,10 @@ const VideoCardMenu = ({
     >
       Video Card Menu
       {/* <ChangeVideoLocation
-        currentFolder={currentFolder}
-        currentWorkSpace={currentWorkSpace}
-        videoId={videoId}
-        currentFolderName={currentFolderName}
+        currentFolder={props.Folder?.id}
+        currentWorkSpace={props.workSpaceId}
+        videoId={props.id}
+        currentFolderName={props.Folder?.name}
       /> */}
     </Modal>
   );

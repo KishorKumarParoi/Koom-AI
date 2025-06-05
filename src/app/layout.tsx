@@ -4,6 +4,7 @@ import { ReduxProvider } from "@/redux/provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"] });
@@ -27,7 +28,10 @@ export default function RootLayout({
         >
           <ThemeProviderClient>
             <ReduxProvider>
-              <ReactQueryProvider>{children}</ReactQueryProvider>
+              <ReactQueryProvider>
+                {children}
+                <Toaster />
+              </ReactQueryProvider>
             </ReduxProvider>
           </ThemeProviderClient>
         </body>

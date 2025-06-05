@@ -28,11 +28,16 @@ const ChangeVideoLocation = ({
   const folder = folders.find((f) => f.id === currentFolder);
   const workspace = workspaces.find((w) => w.id === currentWorkSpace);
 
+  console.log("workspace@change-video-location: ", workspace);
+  console.log("folder@change-video-location: ", folder);
+
   return (
     <form className="flex flex-col gap-y-5">
       <div className="border-[1px] rounded-xl p-5">
         <h2 className="text-xs mb-5 text-[#a4a4a4]">Current</h2>
-        <p className="text-[#a4a4a4]">Workspace</p>
+        {workspace && (
+          <p className="text-[#a4a4a4]">{workspace.name} Workspace</p>
+        )}
         <p className="text-[#a4a4a4] text-sm">Kepi.ai videos list</p>
       </div>
 
