@@ -127,6 +127,13 @@ export const getAllUserVideos = async (workSpaceId: string) => {
             name: true,
           },
         },
+        User: {
+          select: {
+            firstname: true,
+            lastname: true,
+            image: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "asc",
