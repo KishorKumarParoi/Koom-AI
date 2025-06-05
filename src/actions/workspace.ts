@@ -389,3 +389,41 @@ export const getFolderInfo = async (folderId: string) => {
     };
   }
 };
+
+export const moveVideoLocation = async (
+  videoId: string,
+  workSpaceId: string,
+  folderId: string
+) => {
+  try {
+    const location = await client.video.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        folderId: folderId || null,
+        workSpaceId,
+      },
+    });
+
+    if (location) {
+      return {
+        status: 200,
+        data: location,
+        message: "Folder location changed Successfully!",
+      };
+    }
+
+    return {
+      status: 404,
+      message: "workspace/folder not found!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      message: `Internal server error, unable to move fodler location: ${error}`,
+    };
+  }
+};

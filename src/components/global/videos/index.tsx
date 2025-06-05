@@ -32,8 +32,7 @@ const video: VideoCardProps = {
   workSpaceId: "workspace-1",
 };
 
-const Videos = (props: Props) => {
-  const { folderId, videosKey, workSpaceId } = props;
+const Videos = ({ folderId, videosKey, workSpaceId }: Props) => {
   const { data: videosData } = useQueryData([videosKey], () =>
     getAllUserVideos(folderId)
   );

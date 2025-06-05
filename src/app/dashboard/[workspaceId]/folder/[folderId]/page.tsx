@@ -14,6 +14,8 @@ type Props = {
   };
 };
 
+// http://localhost:3000/dashboard/12933df9-51f4-42ad-80d6-add40c882485/folder/edf85d1f-c724-41c5-9c35-f7634ae662a4
+
 const FolderIdPage = async ({ params: { folderId, workSpaceId } }: Props) => {
   const query = new QueryClient();
   await query.prefetchQuery({

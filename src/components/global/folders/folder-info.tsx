@@ -18,7 +18,7 @@ const FolderInfo = (props: Props) => {
 
   return (
     <div className="flex items-center">
-      <h1 className="text-[#BDBDBD] text-2xl block">{folder.name}</h1>
+      <h1 className="text-[#BDBDBD] text-6xl block">{folder.name}</h1>
     </div>
   );
 };
