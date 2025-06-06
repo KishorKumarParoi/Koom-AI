@@ -5,7 +5,11 @@ import Folders from "@/components/global/folders";
 import RecentVideosList from "@/components/global/videos/recent-videos-list";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { QueryClient } from "@tanstack/react-query";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 
 type Props = {
   params: {
@@ -52,14 +56,15 @@ const WorkSpaceIdPage = async (props: Props) => {
 
         <Separator className="bg-white" />
 
-        <section className="py-9">
-          <h1 className="text-4xl text-[#a4a4a4]">Recent Videos </h1>
-          <RecentVideosList
-            folderId={workSpaceId}
-            workSpaceId={workSpaceId}
-            videosKey="recent-videos"
-          />
-        </section>
+        <HydrationBoundary state={dehydrate(query)}>
+          <section className="py-9">
+            <h1 className="text-4xl text-[#a4a4a4]">Recent Videos </h1>
+            <RecentVideosList
+              workSpaceId={workSpaceId}
+              videosKey="recent-videos"
+            />
+          </section>
+        </HydrationBoundary>
       </Tabs>
     </div>
   );

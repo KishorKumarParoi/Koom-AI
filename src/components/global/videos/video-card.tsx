@@ -80,7 +80,9 @@ const VideoCard = (props: Props) => {
                 </p>
                 <p className="text-[#6d6d6d] text-xs flex items-center">
                   <Dot />
-                  {Math.floor(daysAgo) === 0 ? "Today" : `${daysAgo}d ago`}
+                  {Math.floor(daysAgo) === 0
+                    ? "Today"
+                    : `${Math.floor(daysAgo)}d ago`}
                 </p>
               </div>
             </div>

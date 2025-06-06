@@ -2,28 +2,52 @@
 
 import { getAllVideos } from "@/actions/workspace";
 import useQueryData from "@/hooks/useQueryData";
+import { cn } from "@/lib/utils";
+import { Video } from "lucide-react";
+import VideoCard from "./video-card";
 
 type Props = {
-  folderId: string;
   workSpaceId: string;
   videosKey: string;
 };
 
-const RecentVideosList = ({ folderId, workSpaceId, videosKey }: Props) => {
+export type VideosProps = {
+  status: number;
+  message: string;
+  data: {
+    User: {
+      firstname: string | null;
+      lastname: string | null;
+      image: string | null;
+    } | null;
+    id: string;
+    Folder: {
+      id: string;
+      name: string;
+    } | null;
+    processing: boolean;
+    createdAt: Date;
+    title: string | null;
+    source: string;
+    workSpaceId: string;
+  }[];
+};
+
+const RecentVideosList = ({ workSpaceId, videosKey }: Props) => {
   const { data: videosData } = useQueryData([videosKey], () =>
-    getAllVideos(folderId, workSpaceId)
+    getAllVideos(workSpaceId)
   );
 
   console.log("videosData: ", videosData);
 
-  //   const { status: videosStatus, data: videos } = videosData as VideosProps;
-  //   console.log("Videos: ", videos);
+  const { status: videosStatus, data: videos } = videosData as VideosProps;
+  console.log("Videos: ", videos);
+
+  //   http://localhost:3000/dashboard/12933df9-51f4-42ad-80d6-add40c882485
 
   return (
     <div className="flex flex-col gap-4 mt-4">
-      {" "}
-      kkp
-      {/* <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Video />
           <h2 className="text-[#BdBdBd] text-xl">Videos</h2>
@@ -37,11 +61,11 @@ const RecentVideosList = ({ folderId, workSpaceId, videosKey }: Props) => {
         )}
       >
         {videosStatus === 200 ? (
-          videos.videos.map((video) => <VideoCard key={video.id} {...video} />)
+          videos.map((video) => <VideoCard key={video.id} {...video} />)
         ) : (
           <p className="text-[#BdBdBd]">No videos in workspace</p>
         )}
-      </section> */}
+      </section>
     </div>
   );
 };

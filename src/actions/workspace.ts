@@ -436,7 +436,7 @@ export const moveVideoLocation = async (
   }
 };
 
-export const getAllVideos = async (folderId: string, workSpaceId: string) => {
+export const getAllVideos = async (workSpaceId: string) => {
   try {
     const user = await currentUser();
     if (!user) {
@@ -457,8 +457,7 @@ export const getAllVideos = async (folderId: string, workSpaceId: string) => {
 
     const videos = await client.video.findMany({
       where: {
-        OR: [{ workSpaceId }],
-        userId: user.id,
+        workSpaceId,
       },
       select: {
         User: {
