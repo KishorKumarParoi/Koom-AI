@@ -1,7 +1,11 @@
+import { getAllVideos } from "@/actions/workspace";
 import CreateFolders from "@/components/global/create-folders";
 import CreateWorkSpace from "@/components/global/create-workspace";
 import Folders from "@/components/global/folders";
+import RecentVideosList from "@/components/global/videos/recent-videos-list";
+import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { QueryClient } from "@tanstack/react-query";
 
 type Props = {
   params: {
@@ -9,9 +13,16 @@ type Props = {
   };
 };
 
-const WorkSpaceIdPage = (props: Props) => {
-  const workSpaceId = props.params.workSpaceId;
-  console.log("dashboard/[workspaceid]/page.tsx -> workSpaceId: ", workSpaceId);
+const WorkSpaceIdPage = async (props: Props) => {
+  const { params } = props;
+  const workSpaceId = await params.workSpaceId;
+  console.log("dashboard/[workSpaceId]/page.tsx -> workSpaceId: ", workSpaceId);
+
+  const query = new QueryClient();
+  await query.prefetchQuery({
+    queryKey: ["recent-videos"],
+    queryFn: () => getAllVideos(workSpaceId),
+  });
 
   return (
     <div>
@@ -37,6 +48,17 @@ const WorkSpaceIdPage = (props: Props) => {
           <TabsContent value="videos">
             <Folders workSpaceId={workSpaceId} />
           </TabsContent>
+        </section>
+
+        <Separator className="bg-white" />
+
+        <section className="py-9">
+          <h1 className="text-4xl text-[#a4a4a4]">Recent Videos </h1>
+          <RecentVideosList
+            folderId={workSpaceId}
+            workSpaceId={workSpaceId}
+            videosKey="recent-videos"
+          />
         </section>
       </Tabs>
     </div>

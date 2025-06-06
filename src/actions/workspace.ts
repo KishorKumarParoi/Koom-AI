@@ -2,6 +2,7 @@
 
 import client from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import { validate as isUuid } from "uuid";
 
 export const verifyAccessToWorkspace = async (workSpaceId: string) => {
   try {
@@ -430,7 +431,78 @@ export const moveVideoLocation = async (
     return {
       status: 500,
       data: null,
-      message: `Internal server error, unable to move fodler location: ${error}`,
+      message: `Internal server error, unable to move folder location: ${error}`,
+    };
+  }
+};
+
+export const getAllVideos = async (folderId: string, workSpaceId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for fetching all videos",
+        data: null,
+      };
+    }
+
+    if (!isUuid(workSpaceId)) {
+      return {
+        status: 400,
+        message: "Invalid workspace ID Format",
+        data: { videos: null },
+      };
+    }
+
+    const videos = await client.video.findMany({
+      where: {
+        OR: [{ workSpaceId }],
+        userId: user.id,
+      },
+      select: {
+        User: {
+          select: {
+            firstname: true,
+            lastname: true,
+            image: true,
+          },
+        },
+        id: true,
+        Folder: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        processing: true,
+        createdAt: true,
+        source: true,
+        workSpaceId: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    if (videos && videos.length > 0) {
+      return {
+        status: 200,
+        data: videos,
+        message: "Fetched All Videos Successfully!",
+      };
+    }
+
+    return {
+      status: 404,
+      message: "videos not found!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      message: `Internal server error, unable to get all videos list: ${error}`,
     };
   }
 };
