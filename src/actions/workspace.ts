@@ -122,6 +122,9 @@ export const getAllUserVideos = async (workSpaceId: string) => {
         createdAt: true,
         source: true,
         processing: true,
+        description: true,
+        views: true,
+        summary: true,
         Folder: {
           select: {
             id: true,
@@ -475,12 +478,16 @@ export const getAllVideos = async (workSpaceId: string) => {
           },
         },
         processing: true,
+        title: true,
+        description: true,
+        views: true,
+        summary: true,
         createdAt: true,
         source: true,
         workSpaceId: true,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 
