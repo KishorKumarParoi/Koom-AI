@@ -96,7 +96,7 @@ const VideoCard = (props: Props) => {
             </div>
           </div>
         </Link>
-      </div>a
+      </div>
     </Loader>
   );
 };

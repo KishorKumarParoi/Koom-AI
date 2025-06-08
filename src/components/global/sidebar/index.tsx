@@ -22,10 +22,13 @@ import {
 } from "@/components/ui/sheet";
 import { MENU_ITEMS } from "@/constants";
 import useQueryData from "@/hooks/useQueryData";
+import { WORKSPACES } from "@/redux/slices/workspaces";
 import { NotificationProps, WorkSpaceProps } from "@/types/index.type";
 import { Menu, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import GlobalCard from "../global-card";
 import InfoBar from "../infobar";
 import Loader from "../loader";
@@ -41,6 +44,7 @@ type Props = {
 const Sidebar = ({ activeWorkSpaceId }: Props) => {
   const router = useRouter();
   const pathName = usePathname();
+  const dispatch = useDispatch();
 
   const { data: notifications } = useQueryData(
     ["user-notifications"],
@@ -70,6 +74,16 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
   const currentWorkSpace = workSpacesData.workSpaces.workspace.find(
     (ws) => ws.id === activeWorkSpaceId
   );
+
+  useEffect(() => {
+    if (isFetched && workSpacesData) {
+      dispatch(
+        WORKSPACES({
+          workspaces: workSpacesData.workSpaces.workspace,
+        })
+      );
+    }
+  }, [isFetched, dispatch, workSpacesData]);
 
   // TODO: Add the Upgrade Button
 
@@ -255,7 +269,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
           </SheetTrigger>
           <SheetContent side={"left"} className="p-0 w-fit h-full">
             {SidebarSection}
-          </SheetContent> 
+          </SheetContent>
         </Sheet>
       </div>
       <div className="md:block hidden h-full">{SidebarSection}</div>

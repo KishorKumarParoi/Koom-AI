@@ -3,8 +3,11 @@ import { getWorkSpaceFolders } from "@/actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
 import useQueryData from "@/hooks/useQueryData";
 import { cn } from "@/lib/utils";
+import { FOLDERS } from "@/redux/slices/folders";
 import { FoldersProps } from "@/types/index.type";
 import { ArrowRight, FolderIcon } from "lucide-react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Folder from "./folders";
 
 type Props = {
@@ -12,13 +15,17 @@ type Props = {
 };
 
 const Folders = (props: Props) => {
+  const dispatch = useDispatch();
   const workSpaceId = props.workSpaceId;
   console.log("@Folders, workSpaceId: ", workSpaceId);
 
   // get folders
-  const { data: foldersData } = useQueryData(["workspace-folders"], () => {
-    return getWorkSpaceFolders(workSpaceId);
-  });
+  const { isFetched, data: foldersData } = useQueryData(
+    ["workspace-folders"],
+    () => {
+      return getWorkSpaceFolders(workSpaceId);
+    }
+  );
 
   console.log("Data: ", foldersData);
 
@@ -27,9 +34,12 @@ const Folders = (props: Props) => {
 
   console.log("LatestVariables@Folders: ", latestVariables);
 
-  // if (isFetched && folders) {
   // add redux store
-  // }
+  useEffect(() => {
+    if (isFetched && folders) {
+      dispatch(FOLDERS({ folders: folders.folders }));
+    }
+  }, [isFetched, folders, dispatch]);
 
   // Add Redux Stuff
 
