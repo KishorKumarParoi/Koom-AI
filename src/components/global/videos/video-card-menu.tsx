@@ -22,7 +22,6 @@ const VideoCardMenu = ({
       description="This action can't be undone. This will permannently delete your account and remove your data from our servers"
       trigger={<Move size={20} fill="#a4a4a4" className="text-[#a4a4a4]" />}
     >
-      Video Card Menu
       <ChangeVideoLocation
         currentFolder={currentFolder}
         currentWorkSpace={currentWorkSpace}
