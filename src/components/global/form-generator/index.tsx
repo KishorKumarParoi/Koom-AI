@@ -38,7 +38,7 @@ export const FormGenerator = (props: Props) => {
             id={`input-${label}`}
             type={type}
             placeholder={placeholder}
-            className="bg-transparent border-slate-700 text-slate-900 "
+            className="bg-transparent border-slate-700 text-white"
             {...register(name)}
           />
 

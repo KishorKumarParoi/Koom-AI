@@ -40,7 +40,7 @@ export type FoldersProps = {
     } & {
       id: string;
       name: string;
-      createdAt: string;
+      createdAt: Date;
       workSpaceId: string | null;
     })[];
   };

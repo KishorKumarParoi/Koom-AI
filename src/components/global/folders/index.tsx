@@ -39,10 +39,7 @@ const Folders = (props: Props) => {
     if (isFetched && folders) {
       dispatch(
         FOLDERS({
-          folders: folders.folders.map((folder) => ({
-            ...folder,
-            createdAt: new Date(folder.createdAt),
-          })),
+          folders: folders.folders,
         })
       );
     }

@@ -238,7 +238,7 @@ export const createWorkspace = async (name: string) => {
       };
     }
 
-    const authorized = await client.user.findFirst({
+    const authorized = await client.user.findUnique({
       where: {
         clerkid: user.id,
       },
