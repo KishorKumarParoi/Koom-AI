@@ -72,7 +72,7 @@ const Folders = (props: Props) => {
           "flex items-center gap-4 overflow-x-auto w-full"
         )}
       >
-        {status !== 200 ? (
+        {status !== 200 && status !== 201 ? (
           <p className="text-neutral-300"> No Folders in Workspace </p>
         ) : (
           <>
