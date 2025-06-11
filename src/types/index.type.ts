@@ -122,3 +122,35 @@ export type VideoCardProps = {
   source: string;
   workSpaceId: string;
 };
+
+export type VideoProps = {
+  status: number;
+  message: string;
+  author: boolean;
+  data:
+    | {
+        User: {
+          firstname: string | null;
+          lastname: string | null;
+          clerkid: string;
+          image: string | null;
+          subscription: {
+            plan: "PRO" | "FREE";
+          };
+          trial: boolean;
+        } | null;
+        id: string;
+        Folder: {
+          id: string;
+          name: string;
+        } | null;
+        processing: boolean;
+        createdAt: Date;
+        title: string | null;
+        description: string | null;
+        source: string;
+        views: true;
+        summary: true;
+      }
+    | undefined;
+};

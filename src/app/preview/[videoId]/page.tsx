@@ -14,16 +14,17 @@ type Props = {
 
 const PreviewPage = async (props: Props) => {
   const { params } = props;
+  const { videoId } = await params;
   const query = new QueryClient();
 
   await query.prefetchQuery({
     queryKey: ["preview-data"],
-    queryFn: () => getPreviewVideo(params.videoId),
+    queryFn: () => getPreviewVideo(videoId),
   });
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
-      <VideoPreview videoId={params.videoId} />
+      <VideoPreview videoId={videoId} />
     </HydrationBoundary>
   );
 };
