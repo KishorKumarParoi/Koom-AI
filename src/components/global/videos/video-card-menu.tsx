@@ -17,7 +17,7 @@ const VideoCardMenu = ({
 }: Props) => {
   return (
     <Modal
-      className="flex items-center cursor-pointer gap-x-2 "
+      className="flex items-center cursor-pointer gap-x-2 ml-2 hover:text-white"
       title="Move to new Workspace/Folder"
       description="This action can't be undone. This will permannently delete your account and remove your data from our servers"
       trigger={<Move size={20} fill="#a4a4a4" className="text-[#a4a4a4]" />}

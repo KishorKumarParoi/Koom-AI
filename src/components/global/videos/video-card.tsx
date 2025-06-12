@@ -27,7 +27,6 @@ type Props = {
 const VideoCard = (props: Props) => {
   console.log("props: ", props);
 
-  // wip: wire up date
   const daysAgo =
     Math.floor(new Date().getTime() - props.createdAt.getTime()) /
     (24 * 60 * 60 * 1000);
@@ -46,12 +45,12 @@ const VideoCard = (props: Props) => {
             currentWorkSpace={props.workSpaceId}
           />
           <CopyLink
-            className="p-0 h-5 bg-hover:bg-transparent cursor-pointer"
+            className="p-0 h-5 bg-hover:bg-transparent bg-[#a7a7a7] cursor-pointer"
             videoId={props.id}
           />
         </div>
         <Link
-          href={`/preview/${props.id}`}
+          href={`/dashboard/${props.workSpaceId}/video/${props.id}`}
           className=" hover:bg-[#252525] transition duration-150 flex flex-col justify-between h-full"
         >
           <video

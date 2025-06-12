@@ -12,7 +12,7 @@ type Props = {
   };
 };
 
-const PreviewPage = async (props: Props) => {
+const VideoPage = async (props: Props) => {
   const { params } = props;
   const { videoId } = await params;
   const query = new QueryClient();
@@ -29,4 +29,4 @@ const PreviewPage = async (props: Props) => {
   );
 };
 
-export default PreviewPage;
+export default VideoPage;

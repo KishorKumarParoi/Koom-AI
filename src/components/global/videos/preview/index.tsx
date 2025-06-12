@@ -20,6 +20,8 @@ type Props = {
 
 const VideoPreview = ({ videoId }: Props) => {
   // WIP: Setup Notiify first view
+  // wip: set activity flag
+
   const router = useRouter();
   const { data } = useQueryData(["preview-video"], () =>
     getPreviewVideo(videoId)
@@ -130,7 +132,7 @@ const VideoPreview = ({ videoId }: Props) => {
           >
             <>
               <AiTools plan={"FREE"} trial={false} videoId={videoId} />
-              <VideoTranscript />
+              <VideoTranscript transcript="Transcript" />
               <Activity />
             </>
           </TabMenu>

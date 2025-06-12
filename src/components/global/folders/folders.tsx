@@ -27,7 +27,7 @@ const Folder = (props: Props) => {
   const Rename = () => setonRename(true);
   const Renamed = () => setonRename(false);
 
-  const { mutate } = useMutationData(
+  const { isPending, mutate } = useMutationData(
     ["rename-folders"],
     (data: { name: string }) => renameFolders(id, data.name),
     "workspace-folders",
@@ -76,7 +76,7 @@ const Folder = (props: Props) => {
         "flex hover:bg-neutral-800 cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-6 px-4 rounded-lg border-[1px]"
       )}
     >
-      <Loader state={false}>
+      <Loader state={isPending}>
         <div className="flex flex-col gap-[1px]">
           {onRename ? (
             <Input
