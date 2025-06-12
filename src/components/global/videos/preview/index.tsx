@@ -9,7 +9,7 @@ import Activity from "../../activity";
 import AiTools from "../../ai-tools";
 import Loader from "../../loader";
 import TabMenu from "../../tabs";
-import Transcript from "../../transcript";
+import VideoTranscript from "../../transcript";
 import CopyLink from "../copy-link";
 import EditVideo from "../edit-video";
 import RichLink from "./rich-link";
@@ -130,7 +130,7 @@ const VideoPreview = ({ videoId }: Props) => {
           >
             <>
               <AiTools plan={"FREE"} trial={false} videoId={videoId} />
-              <Transcript />
+              <VideoTranscript />
               <Activity />
             </>
           </TabMenu>

@@ -1,6 +1,8 @@
 import { TabsContent } from "@/components/ui/tabs";
-
-const Transcript = () => {
+type Props = {
+  transcript: string;
+};
+const VideoTranscript = ({ transcript }: Props) => {
   return (
     <TabsContent
       value="Transcript"
@@ -11,4 +13,4 @@ const Transcript = () => {
   );
 };
 
-export default Transcript;
+export default VideoTranscript;
