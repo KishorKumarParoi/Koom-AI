@@ -129,7 +129,8 @@ exports.Prisma.UserScalarFieldEnum = {
   image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  trial: 'trial'
+  trial: 'trial',
+  firstView: 'firstView'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {

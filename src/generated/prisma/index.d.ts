@@ -1823,6 +1823,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     trial: boolean | null
+    firstView: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1835,6 +1836,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     trial: boolean | null
+    firstView: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1847,6 +1849,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     trial: number
+    firstView: number
     _all: number
   }
 
@@ -1861,6 +1864,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     trial?: true
+    firstView?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1873,6 +1877,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     trial?: true
+    firstView?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1885,6 +1890,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     trial?: true
+    firstView?: true
     _all?: true
   }
 
@@ -1970,6 +1976,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     trial: boolean
+    firstView: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1999,6 +2006,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     trial?: boolean
+    firstView?: boolean
     studio?: boolean | User$studioArgs<ExtArgs>
     workspace?: boolean | User$workspaceArgs<ExtArgs>
     videos?: boolean | User$videosArgs<ExtArgs>
@@ -2020,6 +2028,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     trial?: boolean
+    firstView?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2032,6 +2041,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     trial?: boolean
+    firstView?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2044,9 +2054,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     trial?: boolean
+    firstView?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "firstname" | "lastname" | "clerkid" | "image" | "createdAt" | "updatedAt" | "trial", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "firstname" | "lastname" | "clerkid" | "image" | "createdAt" | "updatedAt" | "trial" | "firstView", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studio?: boolean | User$studioArgs<ExtArgs>
     workspace?: boolean | User$workspaceArgs<ExtArgs>
@@ -2083,6 +2094,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       trial: boolean
+      firstView: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2523,6 +2535,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly trial: FieldRef<"User", 'Boolean'>
+    readonly firstView: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -12141,7 +12154,8 @@ export namespace Prisma {
     image: 'image',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    trial: 'trial'
+    trial: 'trial',
+    firstView: 'firstView'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -12391,6 +12405,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     trial?: BoolFilter<"User"> | boolean
+    firstView?: BoolFilter<"User"> | boolean
     studio?: XOR<MediaNullableScalarRelationFilter, MediaWhereInput> | null
     workspace?: WorkSpaceListRelationFilter
     videos?: VideoListRelationFilter
@@ -12411,6 +12426,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
     studio?: MediaOrderByWithRelationInput
     workspace?: WorkSpaceOrderByRelationAggregateInput
     videos?: VideoOrderByRelationAggregateInput
@@ -12434,6 +12450,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     trial?: BoolFilter<"User"> | boolean
+    firstView?: BoolFilter<"User"> | boolean
     studio?: XOR<MediaNullableScalarRelationFilter, MediaWhereInput> | null
     workspace?: WorkSpaceListRelationFilter
     videos?: VideoListRelationFilter
@@ -12454,6 +12471,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -12472,6 +12490,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     trial?: BoolWithAggregatesFilter<"User"> | boolean
+    firstView?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type NotificationWhereInput = {
@@ -12986,6 +13005,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -13006,6 +13026,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -13026,6 +13047,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -13046,6 +13068,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -13066,6 +13089,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -13078,6 +13102,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -13090,6 +13115,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type NotificationCreateInput = {
@@ -13722,6 +13748,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -13734,6 +13761,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -13746,6 +13774,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trial?: SortOrder
+    firstView?: SortOrder
   }
 
   export type UuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -15615,6 +15644,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -15634,6 +15664,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -15669,6 +15700,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -15688,6 +15720,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -15707,6 +15740,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -15726,6 +15760,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -15788,6 +15823,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -15807,6 +15843,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -15859,6 +15896,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -15878,6 +15916,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -15913,6 +15952,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -15932,6 +15972,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -16082,6 +16123,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -16101,6 +16143,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -16188,6 +16231,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -16207,6 +16251,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -16259,6 +16304,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -16278,6 +16324,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -16313,6 +16360,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -16332,6 +16380,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
@@ -16351,6 +16400,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -16370,6 +16420,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -16394,6 +16445,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
@@ -16413,6 +16465,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
@@ -16475,6 +16528,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -16494,6 +16548,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -16524,6 +16579,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
@@ -16543,6 +16599,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
@@ -16595,6 +16652,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
@@ -16614,6 +16672,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trial?: boolean
+    firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
@@ -16759,6 +16818,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
@@ -16778,6 +16838,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
