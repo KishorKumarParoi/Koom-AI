@@ -28,7 +28,7 @@ const CopyLink = ({ videoId, className, variant }: Props) => {
 
   return (
     <Button variant={variant} onClick={onCopyClipboard} className={className}>
-      <Link size={20} className="text-[#a4a4a4]" />
+      <Link size={20} className="text-[#f6f6f6]" />
     </Button>
   );
 };

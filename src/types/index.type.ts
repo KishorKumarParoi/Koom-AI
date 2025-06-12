@@ -148,7 +148,7 @@ export type VideoProps = {
         createdAt: Date;
         title: string | null;
         description: string | null;
-        source: string;
+        source: string | undefined;
         views: true;
         summary: true;
       }
