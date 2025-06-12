@@ -24,7 +24,7 @@ const GlobalHeader = (props: Props) => {
         style={{ textAlign: "left" }}
       >
         {pathname && !pathname.includes("folder")
-          ? pathname.charAt(0).toUpperCase() + pathname.slice(1).toLowerCase()
+          ? pathname.charAt(1).toUpperCase() + pathname.slice(2).toLowerCase()
           : "My Library"}
       </h1>
     </article>

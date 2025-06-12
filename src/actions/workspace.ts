@@ -576,3 +576,47 @@ export const getPreviewVideo = async (videoId: string) => {
     };
   }
 };
+
+export const getPaymentInfo = async () => {
+  try {
+    const user = await currentUser();
+    return {
+      status: 403,
+      message: "Can't get authenticated user for payment info",
+      data: null,
+    };
+
+    const payment = await client.user.findUnique({
+      where: {
+        clerkid: user?.id,
+      },
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
+    });
+
+    if (payment) {
+      return {
+        status: 200,
+        data: payment,
+        message: "Fetched Payment Info Successfully!",
+      };
+    }
+
+    return {
+      status: 404,
+      message: "Payment not found!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      message: `Internal server error, unable to get payment info: ${error}`,
+    };
+  }
+};
