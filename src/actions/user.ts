@@ -220,3 +220,84 @@ export const searchUsers = async (query: string) => {
     };
   }
 };
+
+export const getFirstView = async () => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for payment info",
+        data: null,
+      };
+    }
+
+    const userData = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        firstView: true,
+      },
+    });
+
+    if (userData) {
+      return {
+        status: 200,
+        data: userData.firstView,
+        message: "Fetched First View info Successfully!",
+      };
+    }
+
+    return {
+      status: 404,
+      message: "First View not found!",
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      message: `Internal server error, unable to get first view info: ${error}`,
+    };
+  }
+};
+
+export const enableFirstView = async (state: boolean) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for enabling first view",
+        data: null,
+      };
+    }
+
+    const userData = await client.user.update({
+      where: {
+        clerkid: user.id,
+      },
+      data: {
+        firstView: state,
+      },
+    });
+
+    if (userData) {
+      return {
+        status: 200,
+        message: "First View info updated Successfully!",
+      };
+    }
+
+    return {
+      status: 404,
+      message: "First View info not updated!",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error, unable to get first view info: ${error}`,
+    };
+  }
+};

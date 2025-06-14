@@ -580,11 +580,13 @@ export const getPreviewVideo = async (videoId: string) => {
 export const getPaymentInfo = async () => {
   try {
     const user = await currentUser();
-    return {
-      status: 403,
-      message: "Can't get authenticated user for payment info",
-      data: null,
-    };
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for payment info",
+        data: null,
+      };
+    }
 
     const payment = await client.user.findUnique({
       where: {
@@ -620,3 +622,5 @@ export const getPaymentInfo = async () => {
     };
   }
 };
+
+
