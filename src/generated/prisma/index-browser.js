@@ -133,6 +133,15 @@ exports.Prisma.UserScalarFieldEnum = {
   firstView: 'firstView'
 };
 
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  comment: 'comment',
+  commentId: 'commentId',
+  userId: 'userId',
+  videoId: 'videoId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -235,6 +244,7 @@ exports.Type = exports.$Enums.Type = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Comment: 'Comment',
   Notification: 'Notification',
   Member: 'Member',
   Subscription: 'Subscription',

@@ -33,6 +33,21 @@ model User {
   notification Notification[]
   sender       Invite[]       @relation("sender")
   receiver     Invite[]       @relation("receiver")
+  comment      Comment[]
+}
+
+model Comment {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  comment   String
+  reply     Comment[] @relation("reply")
+  Comment   Comment?  @relation("reply", fields: [commentId], references: [id])
+  commentId String?   @db.Uuid
+
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?  @db.Uuid
+  Video     Video?   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  videoId   String?  @db.Uuid
+  createdAt DateTime @default(now())
 }
 
 model Notification {
@@ -91,6 +106,7 @@ model Video {
   workSpaceId String?    @db.Uuid
   views       Int        @default(0)
   summary     String?
+  Comment     Comment[]
 }
 
 enum PRESET {

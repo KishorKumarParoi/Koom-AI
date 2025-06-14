@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Comment
+ * 
+ */
+export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
+/**
  * Model Notification
  * 
  */
@@ -235,6 +240,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Comments
+    * const comments = await prisma.comment.findMany()
+    * ```
+    */
+  get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
@@ -756,6 +771,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Comment: 'Comment',
     Notification: 'Notification',
     Member: 'Member',
     Subscription: 'Subscription',
@@ -782,7 +798,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "notification" | "member" | "subscription" | "folder" | "video" | "media" | "invite" | "workSpace"
+      modelProps: "user" | "comment" | "notification" | "member" | "subscription" | "folder" | "video" | "media" | "invite" | "workSpace"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -857,6 +873,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Comment: {
+        payload: Prisma.$CommentPayload<ExtArgs>
+        fields: Prisma.CommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findFirst: {
+            args: Prisma.CommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findMany: {
+            args: Prisma.CommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          create: {
+            args: Prisma.CommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          createMany: {
+            args: Prisma.CommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          delete: {
+            args: Prisma.CommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          update: {
+            args: Prisma.CommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          aggregate: {
+            args: Prisma.CommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComment>
+          }
+          groupBy: {
+            args: Prisma.CommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommentCountArgs<ExtArgs>
+            result: $Utils.Optional<CommentCountAggregateOutputType> | number
           }
         }
       }
@@ -1537,6 +1627,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    comment?: CommentOmit
     notification?: NotificationOmit
     member?: MemberOmit
     subscription?: SubscriptionOmit
@@ -1645,6 +1736,7 @@ export namespace Prisma {
     notification: number
     sender: number
     receiver: number
+    comment: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1654,6 +1746,7 @@ export namespace Prisma {
     notification?: boolean | UserCountOutputTypeCountNotificationArgs
     sender?: boolean | UserCountOutputTypeCountSenderArgs
     receiver?: boolean | UserCountOutputTypeCountReceiverArgs
+    comment?: boolean | UserCountOutputTypeCountCommentArgs
   }
 
   // Custom InputTypes
@@ -1709,6 +1802,44 @@ export namespace Prisma {
     where?: InviteWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+
+  /**
+   * Count Type CommentCountOutputType
+   */
+
+  export type CommentCountOutputType = {
+    reply: number
+  }
+
+  export type CommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reply?: boolean | CommentCountOutputTypeCountReplyArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommentCountOutputType
+     */
+    select?: CommentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountReplyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
 
   /**
    * Count Type FolderCountOutputType
@@ -1738,6 +1869,37 @@ export namespace Prisma {
    */
   export type FolderCountOutputTypeCountVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VideoWhereInput
+  }
+
+
+  /**
+   * Count Type VideoCountOutputType
+   */
+
+  export type VideoCountOutputType = {
+    Comment: number
+  }
+
+  export type VideoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Comment?: boolean | VideoCountOutputTypeCountCommentArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * VideoCountOutputType without action
+   */
+  export type VideoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the VideoCountOutputType
+     */
+    select?: VideoCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * VideoCountOutputType without action
+   */
+  export type VideoCountOutputTypeCountCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
   }
 
 
@@ -2015,6 +2177,7 @@ export namespace Prisma {
     notification?: boolean | User$notificationArgs<ExtArgs>
     sender?: boolean | User$senderArgs<ExtArgs>
     receiver?: boolean | User$receiverArgs<ExtArgs>
+    comment?: boolean | User$commentArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2067,6 +2230,7 @@ export namespace Prisma {
     notification?: boolean | User$notificationArgs<ExtArgs>
     sender?: boolean | User$senderArgs<ExtArgs>
     receiver?: boolean | User$receiverArgs<ExtArgs>
+    comment?: boolean | User$commentArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2083,6 +2247,7 @@ export namespace Prisma {
       notification: Prisma.$NotificationPayload<ExtArgs>[]
       sender: Prisma.$InvitePayload<ExtArgs>[]
       receiver: Prisma.$InvitePayload<ExtArgs>[]
+      comment: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2497,6 +2662,7 @@ export namespace Prisma {
     notification<T extends User$notificationArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sender<T extends User$senderArgs<ExtArgs> = {}>(args?: Subset<T, User$senderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     receiver<T extends User$receiverArgs<ExtArgs> = {}>(args?: Subset<T, User$receiverArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comment<T extends User$commentArgs<ExtArgs> = {}>(args?: Subset<T, User$commentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3106,6 +3272,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.comment
+   */
+  export type User$commentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3121,6 +3311,1180 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Comment
+   */
+
+  export type AggregateComment = {
+    _count: CommentCountAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  export type CommentMinAggregateOutputType = {
+    id: string | null
+    comment: string | null
+    commentId: string | null
+    userId: string | null
+    videoId: string | null
+    createdAt: Date | null
+  }
+
+  export type CommentMaxAggregateOutputType = {
+    id: string | null
+    comment: string | null
+    commentId: string | null
+    userId: string | null
+    videoId: string | null
+    createdAt: Date | null
+  }
+
+  export type CommentCountAggregateOutputType = {
+    id: number
+    comment: number
+    commentId: number
+    userId: number
+    videoId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommentMinAggregateInputType = {
+    id?: true
+    comment?: true
+    commentId?: true
+    userId?: true
+    videoId?: true
+    createdAt?: true
+  }
+
+  export type CommentMaxAggregateInputType = {
+    id?: true
+    comment?: true
+    commentId?: true
+    userId?: true
+    videoId?: true
+    createdAt?: true
+  }
+
+  export type CommentCountAggregateInputType = {
+    id?: true
+    comment?: true
+    commentId?: true
+    userId?: true
+    videoId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comment to aggregate.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Comments
+    **/
+    _count?: true | CommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type GetCommentAggregateType<T extends CommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComment[P]>
+      : GetScalarType<T[P], AggregateComment[P]>
+  }
+
+
+
+
+  export type CommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithAggregationInput | CommentOrderByWithAggregationInput[]
+    by: CommentScalarFieldEnum[] | CommentScalarFieldEnum
+    having?: CommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommentCountAggregateInputType | true
+    _min?: CommentMinAggregateInputType
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type CommentGroupByOutputType = {
+    id: string
+    comment: string
+    commentId: string | null
+    userId: string | null
+    videoId: string | null
+    createdAt: Date
+    _count: CommentCountAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  type GetCommentGroupByPayload<T extends CommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommentGroupByOutputType[P]>
+            : GetScalarType<T[P], CommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+    reply?: boolean | Comment$replyArgs<ExtArgs>
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectScalar = {
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "comment" | "commentId" | "userId" | "videoId" | "createdAt", ExtArgs["result"]["comment"]>
+  export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reply?: boolean | Comment$replyArgs<ExtArgs>
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }
+  export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }
+
+  export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Comment"
+    objects: {
+      reply: Prisma.$CommentPayload<ExtArgs>[]
+      Comment: Prisma.$CommentPayload<ExtArgs> | null
+      User: Prisma.$UserPayload<ExtArgs> | null
+      Video: Prisma.$VideoPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      comment: string
+      commentId: string | null
+      userId: string | null
+      videoId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["comment"]>
+    composites: {}
+  }
+
+  type CommentGetPayload<S extends boolean | null | undefined | CommentDefaultArgs> = $Result.GetResult<Prisma.$CommentPayload, S>
+
+  type CommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommentCountAggregateInputType | true
+    }
+
+  export interface CommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Comment'], meta: { name: 'Comment' } }
+    /**
+     * Find zero or one Comment that matches the filter.
+     * @param {CommentFindUniqueArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommentFindUniqueArgs>(args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Comment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommentFindFirstArgs>(args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Comments
+     * const comments = await prisma.comment.findMany()
+     * 
+     * // Get first 10 Comments
+     * const comments = await prisma.comment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommentFindManyArgs>(args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Comment.
+     * @param {CommentCreateArgs} args - Arguments to create a Comment.
+     * @example
+     * // Create one Comment
+     * const Comment = await prisma.comment.create({
+     *   data: {
+     *     // ... data to create a Comment
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommentCreateArgs>(args: SelectSubset<T, CommentCreateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Comments.
+     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommentCreateManyArgs>(args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Comments and returns the data saved in the database.
+     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Comment.
+     * @param {CommentDeleteArgs} args - Arguments to delete one Comment.
+     * @example
+     * // Delete one Comment
+     * const Comment = await prisma.comment.delete({
+     *   where: {
+     *     // ... filter to delete one Comment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommentDeleteArgs>(args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Comment.
+     * @param {CommentUpdateArgs} args - Arguments to update one Comment.
+     * @example
+     * // Update one Comment
+     * const comment = await prisma.comment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommentUpdateArgs>(args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Comments.
+     * @param {CommentDeleteManyArgs} args - Arguments to filter Comments to delete.
+     * @example
+     * // Delete a few Comments
+     * const { count } = await prisma.comment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommentDeleteManyArgs>(args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommentUpdateManyArgs>(args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments and returns the data updated in the database.
+     * @param {CommentUpdateManyAndReturnArgs} args - Arguments to update many Comments.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommentUpdateManyAndReturnArgs>(args: SelectSubset<T, CommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Comment.
+     * @param {CommentUpsertArgs} args - Arguments to update or create a Comment.
+     * @example
+     * // Update or create a Comment
+     * const comment = await prisma.comment.upsert({
+     *   create: {
+     *     // ... data to create a Comment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Comment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommentUpsertArgs>(args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentCountArgs} args - Arguments to filter Comments to count.
+     * @example
+     * // Count the number of Comments
+     * const count = await prisma.comment.count({
+     *   where: {
+     *     // ... the filter for the Comments we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommentCountArgs>(
+      args?: Subset<T, CommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommentAggregateArgs>(args: Subset<T, CommentAggregateArgs>): Prisma.PrismaPromise<GetCommentAggregateType<T>>
+
+    /**
+     * Group by Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommentGroupByArgs['orderBy'] }
+        : { orderBy?: CommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Comment model
+   */
+  readonly fields: CommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Comment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reply<T extends Comment$replyArgs<ExtArgs> = {}>(args?: Subset<T, Comment$replyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Comment<T extends Comment$CommentArgs<ExtArgs> = {}>(args?: Subset<T, Comment$CommentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    User<T extends Comment$UserArgs<ExtArgs> = {}>(args?: Subset<T, Comment$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Video<T extends Comment$VideoArgs<ExtArgs> = {}>(args?: Subset<T, Comment$VideoArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Comment model
+   */
+  interface CommentFieldRefs {
+    readonly id: FieldRef<"Comment", 'String'>
+    readonly comment: FieldRef<"Comment", 'String'>
+    readonly commentId: FieldRef<"Comment", 'String'>
+    readonly userId: FieldRef<"Comment", 'String'>
+    readonly videoId: FieldRef<"Comment", 'String'>
+    readonly createdAt: FieldRef<"Comment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Comment findUnique
+   */
+  export type CommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findUniqueOrThrow
+   */
+  export type CommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findFirst
+   */
+  export type CommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findFirstOrThrow
+   */
+  export type CommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findMany
+   */
+  export type CommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comments to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment create
+   */
+  export type CommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Comment.
+     */
+    data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+  }
+
+  /**
+   * Comment createMany
+   */
+  export type CommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Comment createManyAndReturn
+   */
+  export type CommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment update
+   */
+  export type CommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Comment.
+     */
+    data: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+    /**
+     * Choose, which Comment to update.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment updateMany
+   */
+  export type CommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment updateManyAndReturn
+   */
+  export type CommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment upsert
+   */
+  export type CommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Comment to update in case it exists.
+     */
+    where: CommentWhereUniqueInput
+    /**
+     * In case the Comment found by the `where` argument doesn't exist, create a new Comment with this data.
+     */
+    create: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+    /**
+     * In case the Comment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+  }
+
+  /**
+   * Comment delete
+   */
+  export type CommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter which Comment to delete.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment deleteMany
+   */
+  export type CommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comments to delete
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment.reply
+   */
+  export type Comment$replyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment.Comment
+   */
+  export type Comment$CommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+  }
+
+  /**
+   * Comment.User
+   */
+  export type Comment$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Comment.Video
+   */
+  export type Comment$VideoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Video
+     */
+    select?: VideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Video
+     */
+    omit?: VideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoInclude<ExtArgs> | null
+    where?: VideoWhereInput
+  }
+
+  /**
+   * Comment without action
+   */
+  export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
   }
 
 
@@ -7712,6 +9076,8 @@ export namespace Prisma {
     Folder?: boolean | Video$FolderArgs<ExtArgs>
     User?: boolean | Video$UserArgs<ExtArgs>
     WorkSpace?: boolean | Video$WorkSpaceArgs<ExtArgs>
+    Comment?: boolean | Video$CommentArgs<ExtArgs>
+    _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["video"]>
 
   export type VideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7767,6 +9133,8 @@ export namespace Prisma {
     Folder?: boolean | Video$FolderArgs<ExtArgs>
     User?: boolean | Video$UserArgs<ExtArgs>
     WorkSpace?: boolean | Video$WorkSpaceArgs<ExtArgs>
+    Comment?: boolean | Video$CommentArgs<ExtArgs>
+    _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Folder?: boolean | Video$FolderArgs<ExtArgs>
@@ -7785,6 +9153,7 @@ export namespace Prisma {
       Folder: Prisma.$FolderPayload<ExtArgs> | null
       User: Prisma.$UserPayload<ExtArgs> | null
       WorkSpace: Prisma.$WorkSpacePayload<ExtArgs> | null
+      Comment: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -8195,6 +9564,7 @@ export namespace Prisma {
     Folder<T extends Video$FolderArgs<ExtArgs> = {}>(args?: Subset<T, Video$FolderArgs<ExtArgs>>): Prisma__FolderClient<$Result.GetResult<Prisma.$FolderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     User<T extends Video$UserArgs<ExtArgs> = {}>(args?: Subset<T, Video$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     WorkSpace<T extends Video$WorkSpaceArgs<ExtArgs> = {}>(args?: Subset<T, Video$WorkSpaceArgs<ExtArgs>>): Prisma__WorkSpaceClient<$Result.GetResult<Prisma.$WorkSpacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Comment<T extends Video$CommentArgs<ExtArgs> = {}>(args?: Subset<T, Video$CommentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8685,6 +10055,30 @@ export namespace Prisma {
      */
     include?: WorkSpaceInclude<ExtArgs> | null
     where?: WorkSpaceWhereInput
+  }
+
+  /**
+   * Video.Comment
+   */
+  export type Video$CommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
   }
 
   /**
@@ -12161,6 +13555,18 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const CommentScalarFieldEnum: {
+    id: 'id',
+    comment: 'comment',
+    commentId: 'commentId',
+    userId: 'userId',
+    videoId: 'videoId',
+    createdAt: 'createdAt'
+  };
+
+  export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
   export const NotificationScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
@@ -12414,6 +13820,7 @@ export namespace Prisma {
     notification?: NotificationListRelationFilter
     sender?: InviteListRelationFilter
     receiver?: InviteListRelationFilter
+    comment?: CommentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12435,6 +13842,7 @@ export namespace Prisma {
     notification?: NotificationOrderByRelationAggregateInput
     sender?: InviteOrderByRelationAggregateInput
     receiver?: InviteOrderByRelationAggregateInput
+    comment?: CommentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12459,6 +13867,7 @@ export namespace Prisma {
     notification?: NotificationListRelationFilter
     sender?: InviteListRelationFilter
     receiver?: InviteListRelationFilter
+    comment?: CommentListRelationFilter
   }, "id" | "email" | "clerkid">
 
   export type UserOrderByWithAggregationInput = {
@@ -12491,6 +13900,75 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     trial?: BoolWithAggregatesFilter<"User"> | boolean
     firstView?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
+  export type CommentWhereInput = {
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    id?: UuidFilter<"Comment"> | string
+    comment?: StringFilter<"Comment"> | string
+    commentId?: UuidNullableFilter<"Comment"> | string | null
+    userId?: UuidNullableFilter<"Comment"> | string | null
+    videoId?: UuidNullableFilter<"Comment"> | string | null
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    reply?: CommentListRelationFilter
+    Comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Video?: XOR<VideoNullableScalarRelationFilter, VideoWhereInput> | null
+  }
+
+  export type CommentOrderByWithRelationInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    videoId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    reply?: CommentOrderByRelationAggregateInput
+    Comment?: CommentOrderByWithRelationInput
+    User?: UserOrderByWithRelationInput
+    Video?: VideoOrderByWithRelationInput
+  }
+
+  export type CommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    comment?: StringFilter<"Comment"> | string
+    commentId?: UuidNullableFilter<"Comment"> | string | null
+    userId?: UuidNullableFilter<"Comment"> | string | null
+    videoId?: UuidNullableFilter<"Comment"> | string | null
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    reply?: CommentListRelationFilter
+    Comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Video?: XOR<VideoNullableScalarRelationFilter, VideoWhereInput> | null
+  }, "id">
+
+  export type CommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    videoId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CommentCountOrderByAggregateInput
+    _max?: CommentMaxOrderByAggregateInput
+    _min?: CommentMinOrderByAggregateInput
+  }
+
+  export type CommentScalarWhereWithAggregatesInput = {
+    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    OR?: CommentScalarWhereWithAggregatesInput[]
+    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Comment"> | string
+    comment?: StringWithAggregatesFilter<"Comment"> | string
+    commentId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
+    userId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
+    videoId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
   }
 
   export type NotificationWhereInput = {
@@ -12727,6 +14205,7 @@ export namespace Prisma {
     Folder?: XOR<FolderNullableScalarRelationFilter, FolderWhereInput> | null
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     WorkSpace?: XOR<WorkSpaceNullableScalarRelationFilter, WorkSpaceWhereInput> | null
+    Comment?: CommentListRelationFilter
   }
 
   export type VideoOrderByWithRelationInput = {
@@ -12744,6 +14223,7 @@ export namespace Prisma {
     Folder?: FolderOrderByWithRelationInput
     User?: UserOrderByWithRelationInput
     WorkSpace?: WorkSpaceOrderByWithRelationInput
+    Comment?: CommentOrderByRelationAggregateInput
   }
 
   export type VideoWhereUniqueInput = Prisma.AtLeast<{
@@ -12764,6 +14244,7 @@ export namespace Prisma {
     Folder?: XOR<FolderNullableScalarRelationFilter, FolderWhereInput> | null
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     WorkSpace?: XOR<WorkSpaceNullableScalarRelationFilter, WorkSpaceWhereInput> | null
+    Comment?: CommentListRelationFilter
   }, "id" | "source">
 
   export type VideoOrderByWithAggregationInput = {
@@ -13014,6 +14495,7 @@ export namespace Prisma {
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13035,6 +14517,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -13056,6 +14539,7 @@ export namespace Prisma {
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13077,6 +14561,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13116,6 +14601,70 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trial?: BoolFieldUpdateOperationsInput | boolean
     firstView?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CommentCreateInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    User?: UserCreateNestedOneWithoutCommentInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentCreateManyInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateInput = {
@@ -13339,6 +14888,7 @@ export namespace Prisma {
     Folder?: FolderCreateNestedOneWithoutVideosInput
     User?: UserCreateNestedOneWithoutVideosInput
     WorkSpace?: WorkSpaceCreateNestedOneWithoutVideosInput
+    Comment?: CommentCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateInput = {
@@ -13353,6 +14903,7 @@ export namespace Prisma {
     workSpaceId?: string | null
     views?: number
     summary?: string | null
+    Comment?: CommentUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUpdateInput = {
@@ -13367,6 +14918,7 @@ export namespace Prisma {
     Folder?: FolderUpdateOneWithoutVideosNestedInput
     User?: UserUpdateOneWithoutVideosNestedInput
     WorkSpace?: WorkSpaceUpdateOneWithoutVideosNestedInput
+    Comment?: CommentUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateInput = {
@@ -13381,6 +14933,7 @@ export namespace Prisma {
     workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
     summary?: NullableStringFieldUpdateOperationsInput | string | null
+    Comment?: CommentUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoCreateManyInput = {
@@ -13713,6 +15266,12 @@ export namespace Prisma {
     none?: InviteWhereInput
   }
 
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -13735,6 +15294,10 @@ export namespace Prisma {
   }
 
   export type InviteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13862,9 +15425,61 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+  export type CommentNullableScalarRelationFilter = {
+    is?: CommentWhereInput | null
+    isNot?: CommentWhereInput | null
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type VideoNullableScalarRelationFilter = {
+    is?: VideoWhereInput | null
+    isNot?: VideoWhereInput | null
+  }
+
+  export type CommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrder
+    userId?: SortOrder
+    videoId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrder
+    userId?: SortOrder
+    videoId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrder
+    userId?: SortOrder
+    videoId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NotificationCountOrderByAggregateInput = {
@@ -13883,21 +15498,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     content?: SortOrder
-  }
-
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type WorkSpaceNullableScalarRelationFilter = {
@@ -14252,6 +15852,13 @@ export namespace Prisma {
     connect?: InviteWhereUniqueInput | InviteWhereUniqueInput[]
   }
 
+  export type CommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type MediaUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<MediaCreateWithoutUserInput, MediaUncheckedCreateWithoutUserInput>
     connectOrCreate?: MediaCreateOrConnectWithoutUserInput
@@ -14304,6 +15911,13 @@ export namespace Prisma {
     connectOrCreate?: InviteCreateOrConnectWithoutReceiverInput | InviteCreateOrConnectWithoutReceiverInput[]
     createMany?: InviteCreateManyReceiverInputEnvelope
     connect?: InviteWhereUniqueInput | InviteWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14426,6 +16040,20 @@ export namespace Prisma {
     deleteMany?: InviteScalarWhereInput | InviteScalarWhereInput[]
   }
 
+  export type CommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type MediaUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<MediaCreateWithoutUserInput, MediaUncheckedCreateWithoutUserInput>
     connectOrCreate?: MediaCreateOrConnectWithoutUserInput
@@ -14528,6 +16156,110 @@ export namespace Prisma {
     update?: InviteUpdateWithWhereUniqueWithoutReceiverInput | InviteUpdateWithWhereUniqueWithoutReceiverInput[]
     updateMany?: InviteUpdateManyWithWhereWithoutReceiverInput | InviteUpdateManyWithWhereWithoutReceiverInput[]
     deleteMany?: InviteScalarWhereInput | InviteScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutCommentInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedOneWithoutReplyInput = {
+    create?: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutReplyInput
+    connect?: CommentWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCommentInput = {
+    create?: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VideoCreateNestedOneWithoutCommentInput = {
+    create?: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutCommentInput
+    connect?: VideoWhereUniqueInput
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutCommentInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutCommentInput | CommentUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutCommentInput | CommentUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutCommentInput | CommentUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentUpdateOneWithoutReplyNestedInput = {
+    create?: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutReplyInput
+    upsert?: CommentUpsertWithoutReplyInput
+    disconnect?: CommentWhereInput | boolean
+    delete?: CommentWhereInput | boolean
+    connect?: CommentWhereUniqueInput
+    update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutReplyInput, CommentUpdateWithoutReplyInput>, CommentUncheckedUpdateWithoutReplyInput>
+  }
+
+  export type UserUpdateOneWithoutCommentNestedInput = {
+    create?: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentInput
+    upsert?: UserUpsertWithoutCommentInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentInput, UserUpdateWithoutCommentInput>, UserUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type VideoUpdateOneWithoutCommentNestedInput = {
+    create?: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutCommentInput
+    upsert?: VideoUpsertWithoutCommentInput
+    disconnect?: VideoWhereInput | boolean
+    delete?: VideoWhereInput | boolean
+    connect?: VideoWhereUniqueInput
+    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutCommentInput, VideoUpdateWithoutCommentInput>, VideoUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type CommentUncheckedUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutCommentInput | CommentUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutCommentInput | CommentUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutCommentInput | CommentUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutNotificationInput = {
@@ -14674,6 +16406,20 @@ export namespace Prisma {
     connect?: WorkSpaceWhereUniqueInput
   }
 
+  export type CommentCreateNestedManyWithoutVideoInput = {
+    create?: XOR<CommentCreateWithoutVideoInput, CommentUncheckedCreateWithoutVideoInput> | CommentCreateWithoutVideoInput[] | CommentUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutVideoInput | CommentCreateOrConnectWithoutVideoInput[]
+    createMany?: CommentCreateManyVideoInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutVideoInput = {
+    create?: XOR<CommentCreateWithoutVideoInput, CommentUncheckedCreateWithoutVideoInput> | CommentCreateWithoutVideoInput[] | CommentUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutVideoInput | CommentCreateOrConnectWithoutVideoInput[]
+    createMany?: CommentCreateManyVideoInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -14710,6 +16456,34 @@ export namespace Prisma {
     delete?: WorkSpaceWhereInput | boolean
     connect?: WorkSpaceWhereUniqueInput
     update?: XOR<XOR<WorkSpaceUpdateToOneWithWhereWithoutVideosInput, WorkSpaceUpdateWithoutVideosInput>, WorkSpaceUncheckedUpdateWithoutVideosInput>
+  }
+
+  export type CommentUpdateManyWithoutVideoNestedInput = {
+    create?: XOR<CommentCreateWithoutVideoInput, CommentUncheckedCreateWithoutVideoInput> | CommentCreateWithoutVideoInput[] | CommentUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutVideoInput | CommentCreateOrConnectWithoutVideoInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutVideoInput | CommentUpsertWithWhereUniqueWithoutVideoInput[]
+    createMany?: CommentCreateManyVideoInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutVideoInput | CommentUpdateWithWhereUniqueWithoutVideoInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutVideoInput | CommentUpdateManyWithWhereWithoutVideoInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutVideoNestedInput = {
+    create?: XOR<CommentCreateWithoutVideoInput, CommentUncheckedCreateWithoutVideoInput> | CommentCreateWithoutVideoInput[] | CommentUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutVideoInput | CommentCreateOrConnectWithoutVideoInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutVideoInput | CommentUpsertWithWhereUniqueWithoutVideoInput[]
+    createMany?: CommentCreateManyVideoInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutVideoInput | CommentUpdateWithWhereUniqueWithoutVideoInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutVideoInput | CommentUpdateManyWithWhereWithoutVideoInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutStudioInput = {
@@ -15282,6 +17056,7 @@ export namespace Prisma {
     summary?: string | null
     Folder?: FolderCreateNestedOneWithoutVideosInput
     WorkSpace?: WorkSpaceCreateNestedOneWithoutVideosInput
+    Comment?: CommentCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutUserInput = {
@@ -15295,6 +17070,7 @@ export namespace Prisma {
     workSpaceId?: string | null
     views?: number
     summary?: string | null
+    Comment?: CommentUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutUserInput = {
@@ -15421,6 +17197,34 @@ export namespace Prisma {
 
   export type InviteCreateManyReceiverInputEnvelope = {
     data: InviteCreateManyReceiverInput | InviteCreateManyReceiverInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutUserInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutUserInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentCreateOrConnectWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentCreateManyUserInputEnvelope = {
+    data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -15634,6 +17438,302 @@ export namespace Prisma {
     data: XOR<InviteUpdateManyMutationInput, InviteUncheckedUpdateManyWithoutReceiverInput>
   }
 
+  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutUserInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: UuidFilter<"Comment"> | string
+    comment?: StringFilter<"Comment"> | string
+    commentId?: UuidNullableFilter<"Comment"> | string | null
+    userId?: UuidNullableFilter<"Comment"> | string | null
+    videoId?: UuidNullableFilter<"Comment"> | string | null
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+  }
+
+  export type CommentCreateWithoutCommentInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    User?: UserCreateNestedOneWithoutCommentInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutCommentInput = {
+    id?: string
+    comment: string
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentCreateOrConnectWithoutCommentInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput>
+  }
+
+  export type CommentCreateManyCommentInputEnvelope = {
+    data: CommentCreateManyCommentInput | CommentCreateManyCommentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutReplyInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    User?: UserCreateNestedOneWithoutCommentInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutReplyInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentCreateOrConnectWithoutReplyInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+  }
+
+  export type UserCreateWithoutCommentInput = {
+    id?: string
+    email: string
+    firstname?: string | null
+    lastname?: string | null
+    clerkid: string
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trial?: boolean
+    firstView?: boolean
+    studio?: MediaCreateNestedOneWithoutUserInput
+    workspace?: WorkSpaceCreateNestedManyWithoutUserInput
+    videos?: VideoCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    members?: MemberCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
+    sender?: InviteCreateNestedManyWithoutSenderInput
+    receiver?: InviteCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentInput = {
+    id?: string
+    email: string
+    firstname?: string | null
+    lastname?: string | null
+    clerkid: string
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trial?: boolean
+    firstView?: boolean
+    studio?: MediaUncheckedCreateNestedOneWithoutUserInput
+    workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
+    videos?: VideoUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    members?: MemberUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
+    receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+  }
+
+  export type VideoCreateWithoutCommentInput = {
+    id?: string
+    title?: string | null
+    description?: string | null
+    source: string
+    createdAt?: Date | string
+    processing?: boolean
+    views?: number
+    summary?: string | null
+    Folder?: FolderCreateNestedOneWithoutVideosInput
+    User?: UserCreateNestedOneWithoutVideosInput
+    WorkSpace?: WorkSpaceCreateNestedOneWithoutVideosInput
+  }
+
+  export type VideoUncheckedCreateWithoutCommentInput = {
+    id?: string
+    title?: string | null
+    description?: string | null
+    source: string
+    createdAt?: Date | string
+    folderId?: string | null
+    userId?: string | null
+    processing?: boolean
+    workSpaceId?: string | null
+    views?: number
+    summary?: string | null
+  }
+
+  export type VideoCreateOrConnectWithoutCommentInput = {
+    where: VideoWhereUniqueInput
+    create: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutCommentInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutCommentInput, CommentUncheckedUpdateWithoutCommentInput>
+    create: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutCommentInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutCommentInput, CommentUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutCommentInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutCommentInput>
+  }
+
+  export type CommentUpsertWithoutReplyInput = {
+    update: XOR<CommentUpdateWithoutReplyInput, CommentUncheckedUpdateWithoutReplyInput>
+    create: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+    where?: CommentWhereInput
+  }
+
+  export type CommentUpdateToOneWithWhereWithoutReplyInput = {
+    where?: CommentWhereInput
+    data: XOR<CommentUpdateWithoutReplyInput, CommentUncheckedUpdateWithoutReplyInput>
+  }
+
+  export type CommentUpdateWithoutReplyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutReplyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutCommentInput = {
+    update: XOR<UserUpdateWithoutCommentInput, UserUncheckedUpdateWithoutCommentInput>
+    create: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentInput, UserUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type UserUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    clerkid?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
+    studio?: MediaUpdateOneWithoutUserNestedInput
+    workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
+    videos?: VideoUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    members?: MemberUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
+    sender?: InviteUpdateManyWithoutSenderNestedInput
+    receiver?: InviteUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    clerkid?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
+    studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
+    workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
+    videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    members?: MemberUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
+    receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+  }
+
+  export type VideoUpsertWithoutCommentInput = {
+    update: XOR<VideoUpdateWithoutCommentInput, VideoUncheckedUpdateWithoutCommentInput>
+    create: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+    where?: VideoWhereInput
+  }
+
+  export type VideoUpdateToOneWithWhereWithoutCommentInput = {
+    where?: VideoWhereInput
+    data: XOR<VideoUpdateWithoutCommentInput, VideoUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type VideoUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processing?: BoolFieldUpdateOperationsInput | boolean
+    views?: IntFieldUpdateOperationsInput | number
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    Folder?: FolderUpdateOneWithoutVideosNestedInput
+    User?: UserUpdateOneWithoutVideosNestedInput
+    WorkSpace?: WorkSpaceUpdateOneWithoutVideosNestedInput
+  }
+
+  export type VideoUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    folderId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    processing?: BoolFieldUpdateOperationsInput | boolean
+    workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type UserCreateWithoutNotificationInput = {
     id?: string
     email: string
@@ -15652,6 +17752,7 @@ export namespace Prisma {
     members?: MemberCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationInput = {
@@ -15672,6 +17773,7 @@ export namespace Prisma {
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationInput = {
@@ -15708,6 +17810,7 @@ export namespace Prisma {
     members?: MemberUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationInput = {
@@ -15728,6 +17831,7 @@ export namespace Prisma {
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutMembersInput = {
@@ -15748,6 +17852,7 @@ export namespace Prisma {
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMembersInput = {
@@ -15768,6 +17873,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMembersInput = {
@@ -15831,6 +17937,7 @@ export namespace Prisma {
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembersInput = {
@@ -15851,6 +17958,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceUpsertWithoutMembersInput = {
@@ -15904,6 +18012,7 @@ export namespace Prisma {
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -15924,6 +18033,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -15960,6 +18070,7 @@ export namespace Prisma {
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -15980,6 +18091,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceCreateWithoutFoldersInput = {
@@ -16020,6 +18132,7 @@ export namespace Prisma {
     summary?: string | null
     User?: UserCreateNestedOneWithoutVideosInput
     WorkSpace?: WorkSpaceCreateNestedOneWithoutVideosInput
+    Comment?: CommentCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutFolderInput = {
@@ -16033,6 +18146,7 @@ export namespace Prisma {
     workSpaceId?: string | null
     views?: number
     summary?: string | null
+    Comment?: CommentUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutFolderInput = {
@@ -16131,6 +18245,7 @@ export namespace Prisma {
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVideosInput = {
@@ -16151,6 +18266,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVideosInput = {
@@ -16183,6 +18299,34 @@ export namespace Prisma {
   export type WorkSpaceCreateOrConnectWithoutVideosInput = {
     where: WorkSpaceWhereUniqueInput
     create: XOR<WorkSpaceCreateWithoutVideosInput, WorkSpaceUncheckedCreateWithoutVideosInput>
+  }
+
+  export type CommentCreateWithoutVideoInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    User?: UserCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutVideoInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentCreateOrConnectWithoutVideoInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutVideoInput, CommentUncheckedCreateWithoutVideoInput>
+  }
+
+  export type CommentCreateManyVideoInputEnvelope = {
+    data: CommentCreateManyVideoInput | CommentCreateManyVideoInput[]
+    skipDuplicates?: boolean
   }
 
   export type FolderUpsertWithoutVideosInput = {
@@ -16239,6 +18383,7 @@ export namespace Prisma {
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVideosInput = {
@@ -16259,6 +18404,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceUpsertWithoutVideosInput = {
@@ -16294,6 +18440,22 @@ export namespace Prisma {
     invite?: InviteUncheckedUpdateManyWithoutWorkSpaceNestedInput
   }
 
+  export type CommentUpsertWithWhereUniqueWithoutVideoInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutVideoInput, CommentUncheckedUpdateWithoutVideoInput>
+    create: XOR<CommentCreateWithoutVideoInput, CommentUncheckedCreateWithoutVideoInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutVideoInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutVideoInput, CommentUncheckedUpdateWithoutVideoInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutVideoInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutVideoInput>
+  }
+
   export type UserCreateWithoutStudioInput = {
     id?: string
     email: string
@@ -16312,6 +18474,7 @@ export namespace Prisma {
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStudioInput = {
@@ -16332,6 +18495,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudioInput = {
@@ -16368,6 +18532,7 @@ export namespace Prisma {
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudioInput = {
@@ -16388,6 +18553,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSenderInput = {
@@ -16408,6 +18574,7 @@ export namespace Prisma {
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSenderInput = {
@@ -16428,6 +18595,7 @@ export namespace Prisma {
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSenderInput = {
@@ -16453,6 +18621,7 @@ export namespace Prisma {
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceiverInput = {
@@ -16473,6 +18642,7 @@ export namespace Prisma {
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceiverInput = {
@@ -16536,6 +18706,7 @@ export namespace Prisma {
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSenderInput = {
@@ -16556,6 +18727,7 @@ export namespace Prisma {
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReceiverInput = {
@@ -16587,6 +18759,7 @@ export namespace Prisma {
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceiverInput = {
@@ -16607,6 +18780,7 @@ export namespace Prisma {
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceUpsertWithoutInviteInput = {
@@ -16660,6 +18834,7 @@ export namespace Prisma {
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     receiver?: InviteCreateNestedManyWithoutReceiverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspaceInput = {
@@ -16680,6 +18855,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     receiver?: InviteUncheckedCreateNestedManyWithoutReceiverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspaceInput = {
@@ -16722,6 +18898,7 @@ export namespace Prisma {
     summary?: string | null
     Folder?: FolderCreateNestedOneWithoutVideosInput
     User?: UserCreateNestedOneWithoutVideosInput
+    Comment?: CommentCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutWorkSpaceInput = {
@@ -16735,6 +18912,7 @@ export namespace Prisma {
     processing?: boolean
     views?: number
     summary?: string | null
+    Comment?: CommentUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutWorkSpaceInput = {
@@ -16826,6 +19004,7 @@ export namespace Prisma {
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     receiver?: InviteUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspaceInput = {
@@ -16846,6 +19025,7 @@ export namespace Prisma {
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     receiver?: InviteUncheckedUpdateManyWithoutReceiverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FolderUpsertWithWhereUniqueWithoutWorkSpaceInput = {
@@ -16970,6 +19150,14 @@ export namespace Prisma {
     accepted?: boolean
   }
 
+  export type CommentCreateManyUserInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
   export type WorkSpaceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -17010,6 +19198,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     Folder?: FolderUpdateOneWithoutVideosNestedInput
     WorkSpace?: WorkSpaceUpdateOneWithoutVideosNestedInput
+    Comment?: CommentUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutUserInput = {
@@ -17023,6 +19212,7 @@ export namespace Prisma {
     workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
     summary?: NullableStringFieldUpdateOperationsInput | string | null
+    Comment?: CommentUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutUserInput = {
@@ -17122,6 +19312,66 @@ export namespace Prisma {
     accepted?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type CommentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateManyCommentInput = {
+    id?: string
+    comment: string
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VideoCreateManyFolderInput = {
     id?: string
     title?: string | null
@@ -17146,6 +19396,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     User?: UserUpdateOneWithoutVideosNestedInput
     WorkSpace?: WorkSpaceUpdateOneWithoutVideosNestedInput
+    Comment?: CommentUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutFolderInput = {
@@ -17159,6 +19410,7 @@ export namespace Prisma {
     workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
     summary?: NullableStringFieldUpdateOperationsInput | string | null
+    Comment?: CommentUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutFolderInput = {
@@ -17172,6 +19424,40 @@ export namespace Prisma {
     workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
     summary?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CommentCreateManyVideoInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentUpdateWithoutVideoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutVideoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutVideoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FolderCreateManyWorkSpaceInput = {
@@ -17239,6 +19525,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     Folder?: FolderUpdateOneWithoutVideosNestedInput
     User?: UserUpdateOneWithoutVideosNestedInput
+    Comment?: CommentUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutWorkSpaceInput = {
@@ -17252,6 +19539,7 @@ export namespace Prisma {
     processing?: BoolFieldUpdateOperationsInput | boolean
     views?: IntFieldUpdateOperationsInput | number
     summary?: NullableStringFieldUpdateOperationsInput | string | null
+    Comment?: CommentUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutWorkSpaceInput = {
