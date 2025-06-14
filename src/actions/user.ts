@@ -301,3 +301,107 @@ export const enableFirstView = async (state: boolean) => {
     };
   }
 };
+
+export const createCommentAndReply = async (
+  userId: string,
+  comment: string,
+  videoId: string,
+  commentId?: string | undefined
+) => {
+  try {
+    const reply = await client.comment.update({
+      where: {
+        id: commentId,
+      },
+      data: {
+        reply: {
+          create: {
+            comment,
+            userId,
+            videoId,
+          },
+        },
+      },
+    });
+
+    if (reply) {
+      return {
+        status: 200,
+        data: "Reply Posted",
+      };
+    }
+
+    const newComment = await client.comment.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        Comment: {
+          create: {
+            comment,
+            userId,
+          },
+        },
+      },
+    });
+
+    if (newComment) {
+      return {
+        status: 200,
+        data: "New Comment Created",
+      };
+    }
+
+    return { status: 404, data: null };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      error: `internal error on create or update comment,
+      ${error}`,
+    };
+  }
+};
+
+export const getUserProfile = async () => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for user profile",
+        data: null,
+      };
+    }
+
+    const profileIdAndImage = await client.user.findUnique({
+      where: {
+        id: user.id,
+      },
+      select: {
+        image: true,
+        id: true,
+      },
+    });
+
+    if (profileIdAndImage) {
+      return {
+        status: 200,
+        data: profileIdAndImage,
+        message: "Fetched User Profile",
+      };
+    }
+    return {
+      status: 404,
+      data: null,
+      message: "Can't fetch user profile",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      error: `internal error on fetching user profile,
+      ${error}`,
+    };
+  }
+};

@@ -133,7 +133,10 @@ const VideoPreview = ({ videoId }: Props) => {
             <>
               <AiTools plan={"FREE"} trial={false} videoId={videoId} />
               <VideoTranscript transcript="Transcript" />
-              <Activity />
+              <Activity
+                author={video?.User?.firstname as string}
+                videoId={videoId}
+              />
             </>
           </TabMenu>
         </div>
