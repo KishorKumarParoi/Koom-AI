@@ -154,3 +154,23 @@ export type VideoProps = {
       }
     | undefined;
 };
+
+export type CommentRepliesProps = {
+  id: string;
+  comment: string;
+  createdAt: Date;
+  commentId: string | null;
+  userId: string | null;
+  videoId: string | null;
+  User: {
+    id: string;
+    email: string;
+    firstname: string | null;
+    lastname: string | null;
+    createdAt: Date;
+    clerkId: string;
+    iamge: string | null;
+    trial: boolean;
+    firstView: boolean;
+  } | null;
+};

@@ -16,7 +16,7 @@ const CommentForm = ({ author, videoId, commentId, close }: Props) => {
     commentId ?? ""
   );
   return (
-    <form className="relative w-full">
+    <form className="relative w-full" onSubmit={onFormSubmit}>
       {/* {close && (
         <X
           onClick={close}

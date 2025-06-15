@@ -405,3 +405,40 @@ export const getUserProfile = async () => {
     };
   }
 };
+
+export const getVideoComments = async (id: string) => {
+  try {
+    const comments = await client.comment.findMany({
+      where: {
+        OR: [{ videoId: id }, { commentId: id }],
+        commentId: null,
+      },
+      include: {
+        reply: {
+          include: {
+            User: true,
+          },
+        },
+        User: true,
+      },
+    });
+    if (comments && comments.length > 0)
+      return {
+        status: 200,
+        data: comments,
+        message: "Video Comments Fetched Successfully!",
+      };
+    return {
+      status: 404,
+      data: null,
+      message: "Comments Not Found!",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      error: `internal error on fetching video comments,
+      ${error}`,
+    };
+  }
+};
