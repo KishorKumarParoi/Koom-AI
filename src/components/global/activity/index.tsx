@@ -1,4 +1,5 @@
 import { getVideoComments } from "@/actions/user";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { TabsContent } from "@/components/ui/tabs";
 import useQueryData from "@/hooks/useQueryData";
 import { VideoCommentProps } from "@/types/index.type";
@@ -41,7 +42,7 @@ const Activity = ({ author, videoId }: Props) => {
     >
       <CommentForm author={author} videoId={videoId} />
       {isFetched && Array.isArray(comments) && comments.length > 0 ? (
-        comments.map((comment) => (
+        comments?.map((comment) => (
           <CommentCard
             key={comment.id}
             comment={comment.comment}
@@ -58,6 +59,12 @@ const Activity = ({ author, videoId }: Props) => {
       ) : (
         <div className="text-muted-foreground text-center">
           No comments yet.
+          <div className="flex gap-x-2 items-center">
+            <Avatar>
+              <AvatarImage src={"/logo.png"} alt="author" />
+            </Avatar>
+            <p className="capitalize text-sm text-[#BDBDBD]">Kishor</p>
+          </div>
         </div>
       )}
     </TabsContent>

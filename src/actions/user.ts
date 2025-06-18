@@ -411,45 +411,57 @@ const test = [
   {
     id: "c1a2bw3",
     comment: "This is a great video!",
-    author: {
-      image: "https://example.com/avatar1.png",
+    commentId: "c1a2b3",
+    videoId: "v123",
+    createdAt: "2024-06-18T12:34:56.000Z",
+    User: {
+      id: "user1",
       firstname: "Alice",
       lastname: "Smith",
+      image: "https://example.com/avatar1.png",
     },
-    videoId: "v123",
     reply: [
       {
         id: "r1",
         comment: "Thanks!",
+        commentId: "c1a2bw3",
+        videoId: "v123",
+        createdAt: "2024-06-18T12:35:56.000Z",
         User: {
-          image: "https://example.com/avatar2.png",
+          id: "user2",
           firstname: "Bob",
           lastname: "Jones",
+          image: "https://example.com/avatar2.png",
         },
       },
       {
         id: "r2",
         comment: "Heyyyy!",
+        commentId: "c1a2bw3",
+        videoId: "v123",
+        createdAt: "2024-06-18T12:36:56.000Z",
         User: {
-          image: "https://example.com/avatar3.png",
+          id: "user3",
           firstname: "Bobssd",
           lastname: "Jonesssaa",
+          image: "https://example.com/avatar3.png",
         },
       },
     ],
-    commentId: "c1a2b3",
   },
   {
     id: "c4d5e6",
     comment: "Very informative, thank you!",
-    author: {
-      image: "https://example.com/avatar3.png",
+    commentId: "c4d5e6",
+    videoId: "v123",
+    createdAt: "2024-06-18T12:40:00.000Z",
+    User: {
+      id: "user4",
       firstname: "Charlie",
       lastname: "Brown",
+      image: "https://example.com/avatar3.png",
     },
-    videoId: "v123",
     reply: [],
-    commentId: "c4d5e6",
   },
 ];
 
@@ -479,7 +491,7 @@ export const getVideoComments = async (id: string) => {
 
     return {
       status: 404,
-      data: test,
+      data: null,
       message: "Comments Not Found!",
     };
   } catch (error) {

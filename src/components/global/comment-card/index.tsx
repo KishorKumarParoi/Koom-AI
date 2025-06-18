@@ -2,6 +2,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { CommentRepliesProps } from "@/types/index.type";
+import { useState } from "react";
 
 type Props = {
   comment: string;
@@ -19,7 +20,7 @@ const CommentCard = ({
   reply,
   isReply,
 }: Props) => {
-  //   const [onReply, setOnReply] = useState < boolean > false;
+  const [onReply, setOnReply] = useState<boolean>(false);
 
   return (
     <Card
@@ -40,11 +41,14 @@ const CommentCard = ({
       <div>
         <p className="text-[#BDBDBD">{comment}</p>
         <p className="text-[#BDBDBD">{videoId}</p>
+
         <p className="text-[#BDBDBD">{commentId}</p>
         <p className="text-[#BDBDBD">
-          {reply.map((rep) => (
-            <div key={rep.id}>{rep.comment}</div>
-          ))}
+          <ul>
+            {reply.map((rep) => (
+              <li key={rep.id}>{rep.comment}</li>
+            ))}
+          </ul>
         </p>
       </div>
     </Card>
