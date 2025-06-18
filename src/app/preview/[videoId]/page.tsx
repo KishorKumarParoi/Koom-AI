@@ -1,3 +1,4 @@
+import { getVideoComments } from "@/actions/user";
 import { getPreviewVideo } from "@/actions/workspace";
 import VideoPreview from "@/components/global/videos/preview";
 import {
@@ -20,6 +21,11 @@ const PreviewPage = async (props: Props) => {
   await query.prefetchQuery({
     queryKey: ["preview-video"],
     queryFn: () => getPreviewVideo(videoId),
+  });
+
+  await query.prefetchQuery({
+    queryKey: ["video-comments"],
+    queryFn: () => getVideoComments(videoId),
   });
 
   return (

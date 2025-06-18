@@ -174,3 +174,26 @@ export type CommentRepliesProps = {
     firstView: boolean;
   } | null;
 };
+
+export type VideoCommentProps = {
+  data: {
+    User: {
+      id: string;
+      firstname: string | null;
+      lastname: string | null;
+      email: string;
+      createdAt: Date;
+      clerkId: string;
+      image: string | null;
+      trial: boolean;
+      firstView: boolean;
+    } | null;
+    reply: CommentRepliesProps[];
+    id: string;
+    comment: string;
+    createdAt: Date;
+    commentId: string | null;
+    userId: string | null;
+    videoId: string | null;
+  }[];
+};

@@ -309,26 +309,27 @@ export const createCommentAndReply = async (
   commentId?: string | undefined
 ) => {
   try {
-    const reply = await client.comment.update({
-      where: {
-        id: commentId,
-      },
-      data: {
-        reply: {
-          create: {
-            comment,
-            userId,
-            videoId,
+    if (commentId) {
+      const reply = await client.comment.update({
+        where: {
+          id: commentId,
+        },
+        data: {
+          reply: {
+            create: {
+              comment,
+              userId,
+              videoId,
+            },
           },
         },
-      },
-    });
-
-    if (reply) {
-      return {
-        status: 200,
-        data: "Reply Posted",
-      };
+      });
+      if (reply) {
+        return {
+          status: 200,
+          data: "Reply Posted",
+        };
+      }
     }
 
     const newComment = await client.comment.update({
@@ -406,6 +407,52 @@ export const getUserProfile = async () => {
   }
 };
 
+const test = [
+  {
+    id: "c1a2bw3",
+    comment: "This is a great video!",
+    author: {
+      image: "https://example.com/avatar1.png",
+      firstname: "Alice",
+      lastname: "Smith",
+    },
+    videoId: "v123",
+    reply: [
+      {
+        id: "r1",
+        comment: "Thanks!",
+        User: {
+          image: "https://example.com/avatar2.png",
+          firstname: "Bob",
+          lastname: "Jones",
+        },
+      },
+      {
+        id: "r2",
+        comment: "Heyyyy!",
+        User: {
+          image: "https://example.com/avatar3.png",
+          firstname: "Bobssd",
+          lastname: "Jonesssaa",
+        },
+      },
+    ],
+    commentId: "c1a2b3",
+  },
+  {
+    id: "c4d5e6",
+    comment: "Very informative, thank you!",
+    author: {
+      image: "https://example.com/avatar3.png",
+      firstname: "Charlie",
+      lastname: "Brown",
+    },
+    videoId: "v123",
+    reply: [],
+    commentId: "c4d5e6",
+  },
+];
+
 export const getVideoComments = async (id: string) => {
   try {
     const comments = await client.comment.findMany({
@@ -422,15 +469,17 @@ export const getVideoComments = async (id: string) => {
         User: true,
       },
     });
+
     if (comments && comments.length > 0)
       return {
         status: 200,
         data: comments,
         message: "Video Comments Fetched Successfully!",
       };
+
     return {
       status: 404,
-      data: null,
+      data: test,
       message: "Comments Not Found!",
     };
   } catch (error) {
