@@ -64,6 +64,7 @@ const Activity = ({ author, videoId }: Props) => {
               <AvatarImage src={"/logo.png"} alt="author" />
             </Avatar>
             <p className="capitalize text-sm text-[#BDBDBD]">Kishor</p>
+            <p>Hello</p>
           </div>
         </div>
       )}
