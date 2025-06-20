@@ -169,7 +169,7 @@ export type CommentRepliesProps = {
     lastname: string | null;
     createdAt: Date;
     clerkId: string;
-    iamge: string | null;
+    image: string | null;
     trial: boolean;
     firstView: boolean;
   } | null;

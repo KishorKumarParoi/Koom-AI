@@ -60,7 +60,7 @@ const Activity = ({ author, videoId }: Props) => {
         <div className="text-muted-foreground text-center">
           No comments yet.
           <div className="flex gap-x-2 items-center">
-            <Avatar>
+            <Avatar className="w-6 h-6">
               <AvatarImage src={"/logo.png"} alt="author" />
             </Avatar>
             <p className="capitalize text-sm text-[#BDBDBD]">Kishor</p>
