@@ -503,3 +503,79 @@ export const getVideoComments = async (id: string) => {
     };
   }
 };
+
+export const inviteMembers = async (
+  workSpaceId: string,
+  receiverId: string,
+  email: string
+) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 403,
+        message: "Can't get authenticated user for inviting members",
+        data: null,
+      };
+    }
+
+    const senderInfo = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        id: true,
+        firstname: true,
+        lastname: true,
+      },
+    });
+
+    if (senderInfo?.id) {
+      const workspace = await client.workSpace.findUnique({
+        where: {
+          id: workSpaceId,
+        },
+        select: {
+          name: true,
+        },
+      });
+
+      if (workspace) {
+        const invitation = await client.invite.create({
+          data: {
+            senderId: senderInfo.id,
+            receiverId,
+            workSpaceId: workSpaceId,
+            content: `You are invited to join ${workspace.name} Workspace, click accept to confirm!`,
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        const notification = await client.user.update({
+          where: {
+            clerkid: user.id,
+          },
+          data: {
+            notification: {
+              create: {
+                content: `${user.firstName} ${user.lastName} invited ${senderInfo.firstname} into ${workspace.name}`,
+              },
+            },
+          },
+        });
+
+        // wip : send email
+        // const invite = await sendEmail ()
+      }
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      error: `internal error on inviting members to workspace,
+      ${error}`,
+    };
+  }
+};
