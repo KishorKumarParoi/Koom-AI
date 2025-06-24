@@ -1,3 +1,4 @@
+import { inviteMembers } from "@/actions/user";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -22,12 +23,12 @@ const Search = ({ workSpaceId }: Props) => {
   console.log("On Users: ", onUsers);
   console.log("Is Fetching: ", isFetching);
 
-  // TODO: Wire Up Sending Invitations
+  // TODO: Wire Up Sending Invitation
   // TODO: Wire Up Invite Button in UI
   const { mutate, isPending } = useMutationData(
     ["invite-member"],
     (data: { receiverId: string; email: string }) => {
-      inviteMembers(recei);
+      return inviteMembers(workSpaceId, data.receiverId, data.email);
     }
   );
 
@@ -47,6 +48,7 @@ const Search = ({ workSpaceId }: Props) => {
           firstname: "Kishor",
           lastname: "Paroi",
           image: "./logo.png",
+          email: "kishor.ruet.cse@gmail.com",
           subscription: {
             plan: "FREE",
           },
@@ -72,11 +74,16 @@ const Search = ({ workSpaceId }: Props) => {
           </div>
           <div className="flex-1 flex justify-end items-center">
             <Button
-              onClick={() => {}}
+              onClick={() => {
+                mutate({
+                  receiverId: user.id,
+                  email: user.email,
+                });
+              }}
               variant={"default"}
               className="w-5/12 font-bold bg-[#FFFFFF] text-black"
             >
-              <Loader state={false} color="#000">
+              <Loader state={isPending} color="#000">
                 Invite
               </Loader>
             </Button>
@@ -113,11 +120,16 @@ const Search = ({ workSpaceId }: Props) => {
               </div>
               <div className="flex-1 flex justify-end items-center">
                 <Button
-                  onClick={() => {}}
+                  onClick={() => {
+                    mutate({
+                      receiverId: user.id,
+                      email: user.email,
+                    });
+                  }}
                   variant={"default"}
                   className="w-5/12 font-bold bg-[#FFFFFF] text-black"
                 >
-                  <Loader state={false} color="#000">
+                  <Loader state={isPending} color="#000">
                     Invite
                   </Loader>
                 </Button>

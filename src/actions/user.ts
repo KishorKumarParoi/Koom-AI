@@ -2,6 +2,57 @@
 
 import client from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import nodemailer from "nodemailer";
+
+// Create a test account or replace with real credentials.
+const transporter = nodemailer.createTransport({
+  host: "smtp.ethereal.email",
+  port: 587,
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: "maddison53@ethereal.email",
+    pass: "jn7jnAPss4f63QBp6D",
+  },
+});
+
+// Wrap in an async IIFE so we can use await.
+(async () => {
+  const info = await transporter.sendMail({
+    from: '"Maddison Foo Koch" <maddison53@ethereal.email>',
+    to: "bar@example.com, baz@example.com",
+    subject: "Hello ✔",
+    text: "Hello world?", // plain‑text body
+    html: "<b>Hello world?</b>", // HTML body
+  });
+
+  console.log("Message sent:", info.messageId);
+})();
+
+export const sendEmail = async (
+  to: string,
+  subject: string,
+  text: string,
+  html?: string
+) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.NODE_MAILER_EMAIL,
+      pass: process.env.NODE_MAILER_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    to,
+    subject,
+    text,
+    html,
+  };
+
+  return { transporter, mailOptions };
+};
 
 export const onAuthenticateUser = async () => {
   try {
@@ -545,7 +596,7 @@ export const inviteMembers = async (
           data: {
             senderId: senderInfo.id,
             receiverId,
-            workSpaceId: workSpaceId,
+            workSpaceId,
             content: `You are invited to join ${workspace.name} Workspace, click accept to confirm!`,
           },
           select: {
@@ -553,7 +604,7 @@ export const inviteMembers = async (
           },
         });
 
-        const notification = await client.user.update({
+        await client.user.update({
           where: {
             clerkid: user.id,
           },
@@ -566,10 +617,40 @@ export const inviteMembers = async (
           },
         });
 
-        // wip : send email
-        // const invite = await sendEmail ()
+        if (invitation) {
+          const { transporter, mailOptions } = await sendEmail(
+            email,
+            "You got an invitation",
+            `You are invited to join ${workspace.name} Workspace, click accept to confirm`,
+            `<a href="${process.env.NEXT_PUBLIC_HOST_URL}/invite/${invitation.id}" style="background-color: #000; padding: 5px 10px; border-radius: 10px;">Accept Invite</a>`
+          );
+
+          transporter.sendMail(mailOptions, async (error, info) => {
+            if (error) {
+              console.log("❌ Error sending email:", error.message);
+            } else {
+              console.log("✅ Email Sent:", info);
+            }
+          });
+          return {
+            status: 200,
+            data: "Invite Sent",
+          };
+        }
+        return {
+          status: 400,
+          data: "Invitation Failed",
+        };
       }
+      return {
+        status: 404,
+        data: "Workspace not found",
+      };
     }
+    return {
+      status: 404,
+      data: "Recipient not found",
+    };
   } catch (error) {
     return {
       status: 500,
