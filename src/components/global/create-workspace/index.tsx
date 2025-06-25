@@ -4,7 +4,7 @@ import { getWorkSpaces } from "@/actions/workspace";
 import { Button } from "@/components/ui/button";
 import useQueryData from "@/hooks/useQueryData";
 import { PlanProps } from "@/types/index.type";
-import { FolderPlusIcon } from "lucide-react";
+import { FolderPlusIcon, Lock } from "lucide-react";
 import WorkspaceForm from "../forms/workspace-form";
 import Modal from "../modal";
 
@@ -16,7 +16,24 @@ const CreateWorkSpace = () => {
   const { data: plan } = data as PlanProps;
 
   if (plan.workSpaces.subscription?.plan === "FREE") {
-    return <div>Only PRO users can create a workspace.</div>;
+    return (
+      <div className="flex items-center gap-2 text-muted-foreground">
+        <Modal
+          title="Upgrade to Pro"
+          description="Upgrade to pro for create workspace"
+          trigger={
+            <Button className="bg-[#1D1D1D] text-[#c9c1c1] hover:text-black hover:bg-[#d2cbcb] flex items-center cursor-pointer gap-2 py-6 px-4 rounded-2xl ">
+              <Lock className="w-5 h-5" />
+              Create Workspace
+            </Button>
+          }
+        >
+          <span className="text-[#fff] bg-[#7c3aed] px-3 py-1 rounded-lg font-semibold shadow-md">
+            Upgrade to pro
+          </span>
+        </Modal>
+      </div>
+    );
   }
 
   if (plan.workSpaces.subscription?.plan === "PRO") {
