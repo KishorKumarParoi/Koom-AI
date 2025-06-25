@@ -74,8 +74,8 @@ enum SUBSCRIPTION_PLAN {
 
 model Subscription {
   id         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  User       User?             @relation(fields: [userId], references: [id])
-  userId     String?           @unique @db.Uuid
+  userId     String            @unique @db.Uuid
+  User       User              @relation(fields: [userId], references: [id])
   createdAt  DateTime          @default(now())
   plan       SUBSCRIPTION_PLAN @default(FREE)
   updatedAt  DateTime          @default(now())
