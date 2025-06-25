@@ -42,7 +42,7 @@ const Search = ({ workSpaceId }: Props) => {
         type="text"
       />
 
-      {[
+      {/* {[
         {
           id: "ksdfjsfihdfs",
           firstname: "Kishor",
@@ -89,7 +89,7 @@ const Search = ({ workSpaceId }: Props) => {
             </Button>
           </div>
         </div>
-      ))}
+      ))} */}
 
       {isFetching ? (
         <div className="flex flex-col gap-y-2">
@@ -105,7 +105,7 @@ const Search = ({ workSpaceId }: Props) => {
               className="flex gap-x-3 items-center border-2 w-full p-3 rounded-xl"
             >
               <Avatar>
-                <AvatarImage src={user?.image as string} />
+                <AvatarImage src={user?.image as string} className="w-6 h-6" />
                 <AvatarFallback>
                   <User />
                 </AvatarFallback>

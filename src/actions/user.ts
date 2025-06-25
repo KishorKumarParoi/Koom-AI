@@ -660,3 +660,82 @@ export const inviteMembers = async (
     };
   }
 };
+
+export const acceptInvite = async (inviteId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return {
+        status: 404,
+        message: "Can't authenticate user for accepting invitation!",
+      };
+    }
+
+    const invitation = await client.invite.findUnique({
+      where: {
+        id: inviteId,
+      },
+      select: {
+        workSpaceId: true,
+        receiver: {
+          select: {
+            clerkid: true,
+          },
+        },
+      },
+    });
+
+    if (user.id !== invitation?.receiver?.clerkid) {
+      return {
+        status: 401,
+        message: "User mismatched!",
+      };
+    }
+
+    const acceptInvite = client.invite.update({
+      where: {
+        id: inviteId,
+      },
+      data: {
+        accepted: true,
+      },
+    });
+
+    const updateMember = client.user.update({
+      where: {
+        clerkid: user.id,
+      },
+      data: {
+        members: {
+          create: {
+            workSpaceId: invitation.workSpaceId,
+          },
+        },
+      },
+    });
+
+    const membersTransaction = await client.$transaction([
+      acceptInvite,
+      updateMember,
+    ]);
+
+    if (membersTransaction) {
+      return {
+        status: 200,
+        message: "Members transaction successfull",
+      };
+    }
+
+    return {
+      status: 400,
+      message: "Failed member transaction",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      error: `internal error on inviting members to workspace,
+      ${error}`,
+    };
+  }
+};
