@@ -692,6 +692,34 @@ export const acceptInvite = async (inviteId: string) => {
       };
     }
 
+    // Find the user in your DB by Clerk ID to get their internal user ID
+    const dbUser = await client.user.findUnique({
+      where: { clerkid: user.id },
+      select: { id: true },
+    });
+
+    if (!dbUser) {
+      return {
+        status: 404,
+        message: "User not found in database",
+      };
+    }
+
+    // Check if the user is already a member of the workspace
+    const isUserPresent = await client.member.findFirst({
+      where: {
+        userId: dbUser.id,
+        workSpaceId: invitation.workSpaceId,
+      },
+    });
+
+    if (isUserPresent) {
+      return {
+        status: 401,
+        message: "Already Present in this workspace",
+      };
+    }
+
     const acceptInvite = client.invite.update({
       where: {
         id: inviteId,
