@@ -4,6 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
@@ -13,6 +14,10 @@ type Props = {
 };
 
 const GlobalCard = ({ title, description, children, footer }: Props) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
     <Card className="bg-transparent mt-4">
       <CardHeader className="p-4">

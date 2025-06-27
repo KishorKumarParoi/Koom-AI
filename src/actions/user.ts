@@ -767,3 +767,55 @@ export const acceptInvite = async (inviteId: string) => {
     };
   }
 };
+
+export const sendEmailForFirstView = async (videoId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return { status: 404 };
+    }
+    const firstViewSettings = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        firstView: true,
+      },
+    });
+
+    if (!firstViewSettings?.firstView) return 401;
+
+    const video = await client.video.findUnique({
+      where: {
+        id: videoId,
+      },
+      select: {
+        title: true,
+        views: true,
+        User: {
+          select: {
+            email: true,
+          },
+        },
+      },
+    });
+
+    if (video && video.views === 0) {
+      await client.video.update({
+        where: {
+          id: videoId,
+        },
+        data: {
+          views: video.views + 1,
+        },
+      });
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+      error: `internal error on sending email for first view,
+      ${error}`,
+    };
+  }
+};
