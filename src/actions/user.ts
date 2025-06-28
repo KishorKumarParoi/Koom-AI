@@ -3,30 +3,9 @@
 import client from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import nodemailer from "nodemailer";
+import Stripe from "stripe";
 
-// Create a test account or replace with real credentials.
-const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  secure: false, // true for 465, false for other ports
-  auth: {
-    user: "maddison53@ethereal.email",
-    pass: "jn7jnAPss4f63QBp6D",
-  },
-});
-
-// Wrap in an async IIFE so we can use await.
-(async () => {
-  const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch" <maddison53@ethereal.email>',
-    to: "bar@example.com, baz@example.com",
-    subject: "Hello ✔",
-    text: "Hello world?", // plain‑text body
-    html: "<b>Hello world?</b>", // HTML body
-  });
-
-  console.log("Message sent:", info.messageId);
-})();
+const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET as string);
 
 export const sendEmail = async (
   to: string,
@@ -847,5 +826,38 @@ export const sendEmailForFirstView = async (videoId: string) => {
       error: `internal error on sending email for first view,
       ${error}`,
     };
+  }
+};
+
+export const completeSubscription = async (session_id: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 404 };
+
+    const session = await stripe.checkout.sessions.retrieve(session_id);
+
+    if (session) {
+      const customer = await client.user.update({
+        where: {
+          clerkid: user.id,
+        },
+        data: {
+          subscription: {
+            update: {
+              data: {
+                customerId: session.customer as string,
+                plan: "PRO",
+              },
+            },
+          },
+        },
+      });
+      if (customer) {
+        return { status: 200 };
+      }
+    }
+    return { status: 404 };
+  } catch (error) {
+    return { status: 500, message: `Internal Error: ${error}` };
   }
 };
