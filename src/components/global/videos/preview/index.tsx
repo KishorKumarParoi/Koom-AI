@@ -1,10 +1,12 @@
 "use client";
+import { sendEmailForFirstView } from "@/actions/user";
 import { getPreviewVideo } from "@/actions/workspace";
 import useQueryData from "@/hooks/useQueryData";
 import { truncateString } from "@/lib/utils";
 import { VideoProps } from "@/types/index.type";
 import { Download } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Activity from "../../activity";
 import AiTools from "../../ai-tools";
 import Loader from "../../loader";
@@ -26,6 +28,8 @@ const VideoPreview = ({ videoId }: Props) => {
   const { data } = useQueryData(["preview-video"], () =>
     getPreviewVideo(videoId)
   );
+
+  const notifyFirstView = async () => await sendEmailForFirstView(videoId);
 
   if (!data)
     return (
@@ -52,6 +56,15 @@ const VideoPreview = ({ videoId }: Props) => {
             (24 * 60 * 60 * 1000)
         )
       : undefined;
+
+  useEffect(() => {
+    if (video?.views === 0) {
+      notifyFirstView();
+    }
+    return () => {
+      notifyFirstView();
+    };
+  }, []);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 p-10 lg:px-20 lg:py-10 overflow-y-auto gap-5">

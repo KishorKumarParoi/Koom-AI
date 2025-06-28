@@ -17,14 +17,16 @@ const GlobalHeader = (props: Props) => {
   return (
     <article className="flex flex-col gap-2 items-start w-full">
       <span className="text-[#707070] text-xs text-left w-full">
-        {workSpace.type.toLocaleUpperCase()}
+        {pathname.includes("video") ? "" : workSpace.type.toLocaleUpperCase()}
       </span>
       <h1
         className="text-4xl font-bold text-left w-full"
         style={{ textAlign: "left" }}
       >
-        {pathname && !pathname.includes("folder")
+        {pathname && !pathname.includes("folder") && !pathname.includes("video")
           ? pathname.charAt(1).toUpperCase() + pathname.slice(2).toLowerCase()
+          : pathname.includes("video")
+          ? ""
           : "My Library"}
       </h1>
     </article>

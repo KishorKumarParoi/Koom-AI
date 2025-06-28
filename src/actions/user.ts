@@ -810,6 +810,36 @@ export const sendEmailForFirstView = async (videoId: string) => {
         },
       });
     }
+
+    if (!video || !video.User) return;
+
+    const { transporter, mailOptions } = await sendEmail(
+      video.User?.email,
+      "You got a viewer",
+      `Your video ${video.title} got its first viewer`
+    );
+
+    transporter.sendMail(mailOptions, async (error, info) => {
+      if (error) {
+        console.log(error.message);
+      } else {
+        const notification = await client.user.update({
+          where: {
+            clerkid: user.id,
+          },
+          data: {
+            notification: {
+              create: {
+                content: mailOptions.text,
+              },
+            },
+          },
+        });
+        if (notification) {
+          return { status: 200 };
+        }
+      }
+    });
   } catch (error) {
     return {
       status: 500,
