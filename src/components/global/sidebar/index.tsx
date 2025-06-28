@@ -31,8 +31,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import GlobalCard from "../global-card";
 import InfoBar from "../infobar";
-import Loader from "../loader";
 import Modal from "../modal";
+import PaymentButton from "../payment-button";
 import Search from "../search";
 import SideBarItem from "./sidebar-item";
 import WorkSpacePlaceholder from "./work-space-placeholder";
@@ -237,16 +237,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
           <GlobalCard
             title="Upgrade to Pro"
             description="Unlock AI features like transcription, AI Summary, and more"
-            footer={
-              <Button
-                variant={"default"}
-                className="text-sm flex items-center justify-center mx-auto cursor-pointer w-2/3"
-              >
-                <Loader state={false} color="#000">
-                  Upgrade
-                </Loader>
-              </Button>
-            }
+            footer={<PaymentButton />}
           ></GlobalCard>
         )}
       </div>
