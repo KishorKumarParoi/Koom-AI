@@ -29,7 +29,7 @@ const WorkSpaceIdPage = async (props: Props) => {
   });
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       <Tabs defaultValue="videos" className="mt-6">
         <div className="flex w-full justify-between items-center">
           <TabsList className="bg-transparent gap-2 pl-0 ">

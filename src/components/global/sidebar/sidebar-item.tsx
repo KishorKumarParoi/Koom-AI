@@ -11,7 +11,7 @@ type Props = {
 
 const SideBarItem = ({ icon, title, href, selected, notifications }: Props) => {
   return (
-    <li className="cursor-pointer my-[5px]">
+    <li className="cursor-pointer my-[5px]" suppressHydrationWarning>
       <Link
         href={href}
         className={cn(
@@ -26,6 +26,7 @@ const SideBarItem = ({ icon, title, href, selected, notifications }: Props) => {
               "font-medium group-hover:text-[#9D9D9D] transition-all truncate w-32 ",
               selected ? "text-[#9D9D9D]" : "text-[#545454]"
             )}
+            suppressHydrationWarning
           >
             {title}
           </span>

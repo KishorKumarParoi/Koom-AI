@@ -88,7 +88,10 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
   // TODO: Add the Upgrade Button
 
   const SidebarSection = (
-    <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
+    <div
+      className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden"
+      suppressHydrationWarning
+    >
       {/* Logo and workspace selector section */}
       <div className="bg-[#111111] p-4 gap-2 justify-center items-center mb-4 absolute top-0 left-0 right-0">
         {/* App logo */}
@@ -245,7 +248,7 @@ const Sidebar = ({ activeWorkSpaceId }: Props) => {
   );
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-screen" suppressHydrationWarning>
       {/* INFOBAR */}
       <InfoBar />
       {/* Sheet mobile and Desktop */}

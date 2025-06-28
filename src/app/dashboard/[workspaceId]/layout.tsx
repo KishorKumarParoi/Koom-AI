@@ -82,16 +82,19 @@ const DashboardLayout = async (props: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
-      <div className="flex h-screen w-screen">
-        <div className="shadow-3xl md:border-r h-full">
+      <div className="flex h-screen w-screen" suppressHydrationWarning>
+        <div className="shadow-3xl md:border-r h-full" suppressHydrationWarning>
           <Sidebar activeWorkSpaceId={workSpaceId} />
         </div>
         <div
           className="w-full
         pt-28 p-6 overflow-y-scroll overflow-x-hidden "
+          suppressHydrationWarning
         >
           <GlobalHeader workspace={hasAccess.data.workSpace} />
-          <div className="mt-4">{children}</div>
+          <div className="mt-4" suppressHydrationWarning>
+            {children}
+          </div>
         </div>
       </div>
     </HydrationBoundary>
