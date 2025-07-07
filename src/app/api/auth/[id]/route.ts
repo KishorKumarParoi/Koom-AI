@@ -30,20 +30,21 @@ export async function GET(req: NextRequest, props: Props) {
 
     if (userProfile)
       return NextResponse.json({ status: 200, user: userProfile });
+
     // if there is no user found, create one
-    const clerkUserInstance = await clerkClient.users.getUser(id);
+    const clerkUserInstance = await (await clerkClient()).users.getUser(id);
     const createUser = await client.user.create({
       data: {
         clerkid: params.id,
         email: clerkUserInstance.emailAddresses[0].emailAddress,
-        firstname: clerkUserInstance.firstname,
-        lastname: clerkUserInstance.lastname,
+        firstname: clerkUserInstance.firstName,
+        lastname: clerkUserInstance.lastName,
         studio: {
           create: {},
         },
         workspace: {
           create: {
-            name: `${clerkUserInstance.firstname}'s Workspace`,
+            name: `${clerkUserInstance.firstName}'s Workspace`,
             type: "PERSONAL",
           },
         },
@@ -55,6 +56,13 @@ export async function GET(req: NextRequest, props: Props) {
         subscription: {
           select: {
             plan: true,
+          },
+        },
+        studio: true,
+        workspace: {
+          select: {
+            name: true,
+            type: true,
           },
         },
       },
