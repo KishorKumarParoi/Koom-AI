@@ -6,7 +6,7 @@ import { truncateString } from "@/lib/utils";
 import { VideoProps } from "@/types/index.type";
 import { Download } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Activity from "../../activity";
 import AiTools from "../../ai-tools";
 import Loader from "../../loader";
@@ -29,7 +29,21 @@ const VideoPreview = ({ videoId }: Props) => {
     getPreviewVideo(videoId)
   );
 
-  const notifyFirstView = async () => await sendEmailForFirstView(videoId);
+  const notifyFirstView = useCallback(async () => {
+    await sendEmailForFirstView(videoId);
+  }, [videoId]);
+
+  useEffect(() => {
+    if (data) {
+      const { data: video } = data as VideoProps;
+      if (typeof video?.views === "number" && video.views === 0) {
+        notifyFirstView();
+      }
+      return () => {
+        notifyFirstView();
+      };
+    }
+  }, [data, notifyFirstView]);
 
   if (!data)
     return (
@@ -56,15 +70,6 @@ const VideoPreview = ({ videoId }: Props) => {
             (24 * 60 * 60 * 1000)
         )
       : undefined;
-
-  useEffect(() => {
-    if (video?.views === 0) {
-      notifyFirstView();
-    }
-    return () => {
-      notifyFirstView();
-    };
-  }, []);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-3 p-10 lg:px-20 lg:py-10 overflow-y-auto gap-5">
@@ -96,15 +101,23 @@ const VideoPreview = ({ videoId }: Props) => {
             </p>
           </span>
         </div>
-        <video
-          preload="metadata"
-          className="w-full aspect-video opacity-50 rounded-xl"
-          controls
-        >
-          <source
-            src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${video?.source}#1`}
-          />
-        </video>
+        {process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL && video?.source ? (
+          <video
+            preload="metadata"
+            className="w-full aspect-video opacity-50 rounded-xl"
+            controls
+          >
+            <source
+              src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${video.source}#1`}
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <div className="w-full aspect-video flex items-center justify-center rounded-xl bg-gray-800 text-white">
+            Video source not available.
+          </div>
+        )}
         <div className="flex flex-col text-2xl gap-y-4">
           <div className=" flex gap-x-5 items-start justify-between">
             <h2 className="text-white font-semibold">Description </h2>
