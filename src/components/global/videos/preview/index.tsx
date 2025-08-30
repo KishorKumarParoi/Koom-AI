@@ -94,7 +94,13 @@ const VideoPreview = ({ videoId }: Props) => {
             </p>
             <p className="text-[707070]">
               {daysAgo !== undefined && Math.floor(daysAgo) === 0
-                ? "Today"
+                ? video?.createdAt
+                  ? `Today ${new Date(video.createdAt).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}`
+                  : "Today"
                 : daysAgo !== undefined
                 ? `${Math.floor(daysAgo)}d ago`
                 : undefined}
@@ -157,8 +163,16 @@ const VideoPreview = ({ videoId }: Props) => {
             triggers={["AI Tools", "Transcript", "Activity"]}
           >
             <>
-              <AiTools plan={"FREE"} trial={false} videoId={videoId} />
-              <VideoTranscript transcript="Transcript" />
+              <AiTools
+                plan={video?.User?.subscription.plan ?? "FREE"}
+                trial={video?.User?.trial ?? false}
+                videoId={videoId}
+              />
+              <VideoTranscript
+                transcript={
+                  typeof video?.summary === "string" ? video.summary : ""
+                }
+              />
               <Activity
                 author={video?.User?.firstname as string}
                 videoId={videoId}
