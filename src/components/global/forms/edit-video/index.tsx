@@ -36,6 +36,13 @@ const EditVideoForm = ({ description, title, videoId }: Props) => {
         lines={5}
         placeholder={"Video Description..."}
       />
+      <button
+        type="submit"
+        disabled={isPending}
+        className="bg-[#7c3aed] text-white font-bold py-2 px-6 cursor-pointer rounded-lg hover:bg-[#5b23c3] transition"
+      >
+        {isPending ? "Saving..." : "Save Changes"}
+      </button>
     </form>
   );
 };
