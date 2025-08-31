@@ -1,7 +1,8 @@
 "use server";
-
 import client from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import { items } from "@wix/data";
+import { createClient, OAuthStrategy } from "@wix/sdk";
 import { validate as isUuid } from "uuid";
 
 export const verifyAccessToWorkspace = async (workSpaceId: string) => {
@@ -645,6 +646,73 @@ export const editVideoInfo = async (
     return {
       status: 500,
       message: `Internal server error, unable to update video info: ${error}`,
+    };
+  }
+};
+
+export const getWixContent = async () => {
+  try {
+    const myWixClient = createClient({
+      modules: { items },
+      auth: OAuthStrategy({ clientId: process.env.WIX_OAUTH_KEY as string }),
+    });
+
+    const videos = await myWixClient.items.query("koom-ai-videos").find();
+    console.log("Videos@getWixContent: ", videos);
+
+    const mappedItems = videos.items.map((item) => ({
+      id: item._id,
+      owner: item._owner,
+      createdDate: item._createdDate,
+      updatedDate: item._updatedDate,
+      title: item.title_fld,
+    }));
+
+    const videoIds = mappedItems.map((v) => v.title);
+    console.log("VideoIds: ", videoIds);
+
+    const video = await client.video.findMany({
+      where: {
+        id: {
+          in: videoIds,
+        },
+      },
+      select: {
+        id: true,
+        createdAt: true,
+        title: true,
+        source: true,
+        processing: true,
+        workSpaceId: true,
+        User: {
+          select: {
+            firstname: true,
+            lastname: true,
+            image: true,
+          },
+        },
+        Folder: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+    });
+
+    if (video && video.length > 0) {
+      return {
+        status: 200,
+        data: video,
+      };
+    }
+    return {
+      status: 404,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error: ${error}`,
     };
   }
 };
