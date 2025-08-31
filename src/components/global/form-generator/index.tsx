@@ -11,6 +11,8 @@ type Props = {
   register: UseFormRegister<any>;
   name: string;
   errors: FieldErrors<FieldValues>;
+  className?: string;
+  labelClassName?: string;
   lines?: number;
 };
 
@@ -98,7 +100,9 @@ export const FormGenerator = (props: Props) => {
         >
           {label && label}
           <textarea
-            className="bg-transparent border-slate-700 text-slate-900 "
+            className={`bg-transparent border-slate-700 p-2 rounded-xl text-white w-full min-w-0 max-w-full resize-y ${
+              props.className ?? ""
+            }`}
             id={`textarea-${label}`}
             placeholder={placeholder}
             rows={lines}

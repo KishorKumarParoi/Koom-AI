@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
+import EditVideoForm from "../../forms/edit-video";
 import Modal from "../../modal";
 
 type Props = {
@@ -21,7 +22,11 @@ const EditVideo = (props: Props) => {
         </Button>
       }
     >
-      EditVideo
+      <EditVideoForm
+        videoId={videoId}
+        title={title}
+        description={description}
+      />
     </Modal>
   );
 };
