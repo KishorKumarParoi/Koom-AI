@@ -3,6 +3,7 @@ import client from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { items } from "@wix/data";
 import { createClient, OAuthStrategy } from "@wix/sdk";
+import axios from "axios";
 import { validate as isUuid } from "uuid";
 
 export const verifyAccessToWorkspace = async (workSpaceId: string) => {
@@ -709,6 +710,23 @@ export const getWixContent = async () => {
     return {
       status: 404,
     };
+  } catch (error) {
+    return {
+      status: 500,
+      message: `Internal server error: ${error}`,
+    };
+  }
+};
+
+export const howToPost = async () => {
+  try {
+    const response = await axios.get(process.env.CLOUD_WAYS_POST as string);
+    if (response.data) {
+      return {
+        title: response.data[0].title.rendered,
+        content: response.data[0].content.rendered,
+      };
+    }
   } catch (error) {
     return {
       status: 500,
