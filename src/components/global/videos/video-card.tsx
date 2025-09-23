@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserButton } from "@clerk/nextjs";
 import { Dot, Share2 } from "lucide-react";
