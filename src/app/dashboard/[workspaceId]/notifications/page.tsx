@@ -43,6 +43,18 @@ const Notifications = (props: Props) => {
     );
   }
 
+  // Add safety check here
+  if (
+    !notification?.notification ||
+    !Array.isArray(notification.notification)
+  ) {
+    return (
+      <div className="flex justify-center items-center h-full w-full">
+        <p>No Notifications Available</p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col">
       {notification.notification.map((n) => (
