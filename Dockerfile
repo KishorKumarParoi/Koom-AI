@@ -14,7 +14,8 @@ RUN bunx prisma generate
 
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1 \
-    NODE_ENV=production
+    NODE_ENV=production \
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_aW1tb3J0YWwtY2F0LTUzLmNsZXJrLmFjY291bnRzLmRldiQ"
 RUN bun run build
 
 # Production Runner
