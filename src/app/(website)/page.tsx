@@ -25,15 +25,22 @@ export default function HomePage() {
 
       {/* CTAs */}
       <div className="mt-10 flex flex-wrap gap-4 justify-center">
-        <Link href="/auth/sign-up">
+        <Link href="/studio">
           <Button className="h-12 px-8 text-base font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white rounded-xl shadow-lg shadow-purple-500/25 flex items-center gap-2">
-            Get Started Free
+            <Video className="w-4 h-4" />
+            Launch In-Browser Studio
             <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>
+        <Link href="/demo">
+          <Button variant="outline" className="h-12 px-8 text-base font-medium border-purple-500/40 bg-purple-500/10 hover:bg-purple-500/20 text-purple-200 rounded-xl backdrop-blur-sm flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-purple-400" />
+            Try Interactive Showcase
+          </Button>
+        </Link>
         <Link href="/dashboard">
-          <Button variant="outline" className="h-12 px-8 text-base font-medium border-neutral-700 bg-neutral-900/60 hover:bg-neutral-800 text-neutral-200 rounded-xl backdrop-blur-sm">
-            Open Dashboard
+          <Button variant="outline" className="h-12 px-7 text-base font-medium border-neutral-700 bg-neutral-900/60 hover:bg-neutral-800 text-neutral-300 rounded-xl backdrop-blur-sm">
+            Dashboard
           </Button>
         </Link>
       </div>

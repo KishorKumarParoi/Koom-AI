@@ -107,22 +107,38 @@ const VideoPreview = ({ videoId }: Props) => {
             </p>
           </span>
         </div>
-        {process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL && video?.source ? (
+        {video?.source ? (
           <video
             preload="metadata"
-            className="w-full aspect-video opacity-50 rounded-xl"
+            className="w-full aspect-video rounded-2xl shadow-2xl bg-black border border-neutral-800"
             controls
+            playsInline
           >
             <source
-              src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${video.source}#1`}
+              src={
+                video.source.startsWith("http://") || video.source.startsWith("https://")
+                  ? video.source
+                  : process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL
+                  ? `${process.env.NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL}/${video.source}`
+                  : `https://koom-ai-express.onrender.com/uploads/${video.source}`
+              }
               type="video/mp4"
             />
             Your browser does not support the video tag.
           </video>
         ) : (
-          <div className="w-full aspect-video flex items-center justify-center rounded-xl bg-gray-800 text-white">
-            Video source not available.
-          </div>
+          <video
+            preload="metadata"
+            className="w-full aspect-video rounded-2xl shadow-2xl bg-black border border-neutral-800"
+            controls
+            playsInline
+          >
+            <source
+              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
         )}
         <div className="flex flex-col text-2xl gap-y-4">
           <div className=" flex gap-x-5 items-start justify-between">
