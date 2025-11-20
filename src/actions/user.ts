@@ -5,7 +5,11 @@ import { currentUser } from "@clerk/nextjs/server";
 import nodemailer from "nodemailer";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET as string);
+const stripe = new Stripe(
+  process.env.STRIPE_SECRET_KEY ||
+  process.env.STRIPE_CLIENT_SECRET ||
+  "dummy_stripe_key"
+);
 
 export const sendEmail = async (
   to: string,

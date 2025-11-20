@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: koom-ai-web
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        value: pk_test_aW1tb3J0YWwtY2F0LTUzLmNsZXJrLmFjY291bnRzLmRldiQ
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: NEXT_PUBLIC_HOST_URL
+        value: https://koom-ai-web.onrender.com/
+      - key: NEXT_PUBLIC_URL
+        value: https://koom-ai-web.onrender.com
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PUBLISHABLE_KEY
+        sync: false
+      - key: STRIPE_SUBSCRIPTION_PRICE_ID
+        sync: false
+      - key: STRIPE_CLIENT_SECRET
+        sync: false
+      - key: NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL
+        value: https://d1350iy0inho7b.cloudfront.net
