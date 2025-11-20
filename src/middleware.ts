@@ -1,7 +1,11 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "https://koom-blkfykhdb-kishor-kumar-parois-projects.vercel.app",
+];
 
 const corsOptions = {
   "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
@@ -16,7 +20,7 @@ const isProtectedRoutes = createRouteMatcher([
 
 export default clerkMiddleware(async (auth, req: NextRequest) => {
   const origin = req.headers.get("origin") ?? "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
+  const isAllowedOrigin = allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
 
   // handle preflight requests
   if (req.method === "OPTIONS") {
@@ -49,7 +53,7 @@ export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
+    // Always run for API routes except /api/health
+    "/(api(?!/health)|trpc)(.*)",
   ],
 };
