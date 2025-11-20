@@ -1,13 +1,15 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+export const dynamic = "force-dynamic";
 
-const stripe = new Stripe(process.env.STRIPE_CLIENT_SECRET as string);
+const getStripe = () => new Stripe(process.env.STRIPE_CLIENT_SECRET || "dummy_stripe_key");
 
 export async function GET() {
   const user = await currentUser();
   if (!user) return NextResponse.json({ status: 404 });
   const priceId = process.env.STRIPE_SUBSCRIPTION_PRICE_ID;
+  const stripe = getStripe();
 
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",

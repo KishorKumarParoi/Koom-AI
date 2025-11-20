@@ -2,12 +2,13 @@ import { acceptInvite } from "@/actions/user";
 import { redirect } from "next/navigation";
 
 type Props = {
-  params: {
+  params: Promise<{
     inviteId: string;
-  };
+  }>;
 };
 
-const Invite = async ({ params: { inviteId } }: Props) => {
+const Invite = async ({ params }: Props) => {
+  const { inviteId } = await params;
   const invite = await acceptInvite(inviteId);
 
   if (invite.status === 400) return redirect("/redirect/sign-in");

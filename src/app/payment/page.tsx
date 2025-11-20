@@ -2,10 +2,10 @@ import { completeSubscription } from "@/actions/user";
 import { redirect } from "next/navigation";
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     session_id?: string;
     cancel?: boolean;
-  };
+  }>;
 };
 
 const page = async (props: Props) => {
@@ -27,6 +27,13 @@ const page = async (props: Props) => {
       </div>
     );
   }
+
+  return (
+    <div className="flex flex-col justify-center items-center h-screen w-full">
+      <h4 className="text-2xl font-bold">Processing Subscription</h4>
+      <p className="text-neutral-400">Please wait while we confirm your payment...</p>
+    </div>
+  );
 };
 
 export default page;

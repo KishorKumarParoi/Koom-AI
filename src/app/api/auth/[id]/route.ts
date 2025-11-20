@@ -2,14 +2,12 @@ import client from "@/lib/prisma";
 import { clerkClient } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
+export const dynamic = "force-dynamic";
 
-export async function GET(req: NextRequest, props: Props) {
-  const { params } = props;
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const { id } = await params;
 
   try {
@@ -35,7 +33,7 @@ export async function GET(req: NextRequest, props: Props) {
     const clerkUserInstance = await (await clerkClient()).users.getUser(id);
     const createUser = await client.user.create({
       data: {
-        clerkid: params.id,
+        clerkid: id,
         email: clerkUserInstance.emailAddresses[0].emailAddress,
         firstname: clerkUserInstance.firstName,
         lastname: clerkUserInstance.lastName,
@@ -44,7 +42,7 @@ export async function GET(req: NextRequest, props: Props) {
         },
         workspace: {
           create: {
-            name: `${clerkUserInstance.firstName}'s Workspace`,
+            name: `${clerkUserInstance.firstName || "User"}'s Workspace`,
             type: "PERSONAL",
           },
         },
@@ -71,5 +69,6 @@ export async function GET(req: NextRequest, props: Props) {
     if (createUser) return NextResponse.json({ status: 201, user: createUser });
   } catch (error) {
     console.log("error: ", error);
+    return NextResponse.json({ status: 500, error: String(error) }, { status: 500 });
   }
 }

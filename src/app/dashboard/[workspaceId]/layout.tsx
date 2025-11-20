@@ -15,19 +15,17 @@ import {
 import { redirect } from "next/navigation";
 
 type Props = {
-  params: {
+  params: Promise<{
     workSpaceId: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  }>;
   children: React.ReactNode;
 };
 
 const DashboardLayout = async (props: Props) => {
-  const { params, searchParams, children } = props;
+  const { params, children } = props;
   const { workSpaceId } = await params;
 
   console.log("WorkSpaceId@before: ", workSpaceId);
-  console.log("Search Params: ", searchParams);
   const auth = await onAuthenticateUser();
   console.log("Dashboard Auth Layout: ", auth);
 

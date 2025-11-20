@@ -8,9 +8,10 @@ import {
 } from "@tanstack/react-query";
 
 type Props = {
-  params: {
+  params: Promise<{
     videoId: string;
-  };
+    workSpaceId: string;
+  }>;
 };
 
 const VideoPage = async (props: Props) => {

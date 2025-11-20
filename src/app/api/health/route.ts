@@ -1,6 +1,8 @@
 import client from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const startTime = Date.now();
   let dbStatus = "DISCONNECTED";

@@ -12,14 +12,14 @@ import {
 } from "@tanstack/react-query";
 
 type Props = {
-  params: {
+  params: Promise<{
     workSpaceId: string;
-  };
+  }>;
 };
 
 const WorkSpaceIdPage = async (props: Props) => {
   const { params } = props;
-  const workSpaceId = await params.workSpaceId;
+  const { workSpaceId } = await params;
   console.log("dashboard/[workSpaceId]/page.tsx -> workSpaceId: ", workSpaceId);
 
   const query = new QueryClient();
