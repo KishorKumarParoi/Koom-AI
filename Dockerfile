@@ -5,9 +5,9 @@ WORKDIR /app
 RUN apk add --no-cache libc6-compat
 
 COPY package.json bun.lock* ./
+COPY prisma ./prisma
 RUN bun install --frozen-lockfile || bun install
 
-COPY prisma ./prisma
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL:-"postgresql://placeholder:placeholder@localhost:5432/placeholder"}
 RUN bunx prisma generate
