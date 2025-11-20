@@ -1,0 +1,133 @@
+import { Github, Sparkles, Video } from "lucide-react";
+import Link from "next/link";
+import React from "react";
+
+export default function WebsiteFooter() {
+  return (
+    <footer className="w-full border-t border-neutral-800/80 mt-20 pt-12 pb-10 text-neutral-400">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="space-y-4 md:col-span-1">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-white">
+              <Video className="w-4 h-4" />
+            </div>
+            <span className="text-xl font-extrabold text-white tracking-tight">KoomAI</span>
+          </div>
+          <p className="text-xs text-neutral-400 leading-relaxed">
+            High-performance asynchronous video collaboration with sub-120ms WebRTC streaming and autonomous Whisper AI transcription.
+          </p>
+          <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>All systems operational</span>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-semibold text-white mb-3">Product</h4>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/pricing" className="hover:text-purple-400 transition">
+                Pricing &amp; Plans
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:text-purple-400 transition">
+                Architecture &amp; Mission
+              </Link>
+            </li>
+            <li>
+              <Link href="/dashboard" className="hover:text-purple-400 transition">
+                Web Cockpit
+              </Link>
+            </li>
+            <li>
+              <a
+                href="https://github.com/KishorKumarParoi/Koom-ai-desktop"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-purple-400 transition"
+              >
+                Desktop Studio (Electron)
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/KishorKumarParoi/Koom-AI-Chrome-Extension"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-purple-400 transition"
+              >
+                Chrome Extension (MV3)
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-semibold text-white mb-3">Company &amp; Trust</h4>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/about" className="hover:text-purple-400 transition">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-purple-400 transition">
+                Contact Engineering
+              </Link>
+            </li>
+            <li>
+              <a href="/api/health" target="_blank" className="hover:text-purple-400 transition font-mono text-xs">
+                Health Check (/api/health)
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/KishorKumarParoi/koom-ai-express"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-purple-400 transition"
+              >
+                Express Media Engine
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-semibold text-white mb-3">Get Started</h4>
+          <p className="text-xs text-neutral-400 mb-4">
+            Try KoomAI today and experience real-time AI video sharing.
+          </p>
+          <Link
+            href="/auth/sign-up"
+            className="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-md shadow-purple-500/20 transition"
+          >
+            Create Free Account
+          </Link>
+        </div>
+      </div>
+
+      <div className="pt-6 border-t border-neutral-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <p>© {new Date().getFullYear()} KoomAI Inc. Engineered for Principal Performance.</p>
+        <div className="flex items-center gap-6">
+          <Link href="/privacy" className="hover:text-neutral-200 transition">
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className="hover:text-neutral-200 transition">
+            Terms of Service
+          </Link>
+          <a
+            href="https://github.com/KishorKumarParoi/Koom-AI"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-neutral-200 transition flex items-center gap-1"
+          >
+            <Github className="w-3.5 h-3.5" />
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
