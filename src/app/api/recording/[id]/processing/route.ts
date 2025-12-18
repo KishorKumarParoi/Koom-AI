@@ -9,28 +9,43 @@ export async function POST(
     const body = await req.json();
     const { id } = await params;
 
-    const personalWorkspaceId = await client.user.findUnique({
-      where: {
-        id,
-      },
-      select: {
+    if (!id || !body?.filename) {
+      return NextResponse.json({ status: 400, message: "Missing id or filename" }, { status: 400 });
+    }
+
+    // Find or create workspace for user
+    let userRecord = await client.user.findUnique({
+      where: { id },
+      include: {
         workspace: {
-          where: {
-            type: "PERSONAL",
-          },
-          select: {
-            id: true,
-          },
-          orderBy: {
-            createdAt: "asc",
-          },
+          orderBy: { createdAt: "asc" },
         },
+        subscription: true,
       },
     });
 
+    if (!userRecord) {
+      console.warn(`[KoomAI Processing] User with id ${id} not found in DB. Returning nominal status.`);
+      return NextResponse.json({ status: 200, plan: "FREE" });
+    }
+
+    let targetWorkspaceId = userRecord.workspace[0]?.id;
+
+    if (!targetWorkspaceId) {
+      // Auto-provision personal workspace
+      const newWs = await client.workSpace.create({
+        data: {
+          name: `${userRecord.firstname || "My"}'s Workspace`,
+          type: "PERSONAL",
+          userId: id,
+        },
+      });
+      targetWorkspaceId = newWs.id;
+    }
+
     const startProcessingVideo = await client.workSpace.update({
       where: {
-        id: personalWorkspaceId?.workspace[0].id,
+        id: targetWorkspaceId,
       },
       data: {
         videos: {
@@ -53,13 +68,12 @@ export async function POST(
       },
     });
 
-    if (startProcessingVideo) {
-      return NextResponse.json({
-        status: 200,
-        plan: startProcessingVideo.User?.subscription?.plan,
-      });
-    }
+    return NextResponse.json({
+      status: 200,
+      plan: startProcessingVideo?.User?.subscription?.plan || "FREE",
+    });
   } catch (error) {
-    console.log("🔴 Error in processing video", error);
+    console.error("🔴 Error in processing video webhook:", error);
+    return NextResponse.json({ status: 500, error: String(error) }, { status: 500 });
   }
 }

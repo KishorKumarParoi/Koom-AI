@@ -1,63 +1,70 @@
-# KooM-AI
+# 🌐 KoomAI — Enterprise Video Platform & Cockpit
 
-KooM-AI is a cutting-edge platform featuring **Realtime Video Sharing** and a **Desktop App**, powered by a robust tech stack including **AWS**, **Cloudfront**, **Next.js**, **Electron**, **Express**, **Socket.io**, **AI Agent**, **Three.js**, **Framer-Motion**, and **GSAP**.
+[![Next.js](https://img.shields.io/badge/Next.js-v15.3%2B-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-v19.1-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-v5.8-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-v6.10-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon_Cloud-4169E1?logo=postgresql&logoColor=white)](https://neon.tech/)
+[![Clerk](https://img.shields.io/badge/Clerk-Auth-6C47FF?logo=clerk&logoColor=white)](https://clerk.com/)
+[![Stripe](https://img.shields.io/badge/Stripe-Billing-008CDD?logo=stripe&logoColor=white)](https://stripe.com/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4.1-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-## Features
+> Full-stack Next.js enterprise video recording and sharing platform. Features multi-tenant workspaces, AI-generated speech transcriptions and summaries, dynamic video waveform scrubbing, CloudFront edge delivery, and Stripe subscription monetization.
 
-- **Realtime Video Sharing**: Seamlessly share video streams in real-time.
-- **Desktop App**: Built with Electron for cross-platform compatibility.
-- **AI Agent**: Intelligent features powered by AI.
-- **3D Visualizations**: Stunning 3D experiences using Three.js.
-- **Smooth Animations**: Enhanced user experience with Framer-Motion and GSAP.
+---
 
-## Getting Started
+## ⚡ Quickstart Runbooks
 
-First, run the development server:
-
+### 1. Launch in Development Mode (Port 3000)
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+./deploy.sh
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Launch in Background Daemon Mode
+```bash
+./deploy.sh --daemon
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Build & Run Production Bundle
+```bash
+./deploy.sh --prod
+```
 
-## Tech Stack
+### 4. Zero-Cost Instant Teardown
+```bash
+./clear.sh
+```
 
-- **Frontend**: Next.js, Three.js, Framer-Motion, GSAP
-- **Backend**: Express, Socket.io
-- **Desktop App**: Electron
-- **Cloud Services**: AWS, Cloudfront
-- **AI**: Custom AI Agent
+---
 
-## Learn More
+## 🚪 Key Platform Routes
 
-To learn more about the technologies used in this project, take a look at the following resources:
+| Route | Purpose |
+| :--- | :--- |
+| `http://localhost:3000/` | Public Landing Page & Features Showcase |
+| `http://localhost:3000/dashboard` | Main User Cockpit (Videos, Folders, Team Workspaces) |
+| `http://localhost:3000/auth/sign-in` | Clerk Enterprise Authentication & SSO |
+| `http://localhost:3000/api/health` | System & Database Health Check Probe |
+| `http://localhost:3000/api/recording/:id/processing` | Webhook: Initializes video processing stage |
+| `http://localhost:3000/api/recording/:id/transcribe` | Webhook: Receives Whisper AI transcript and GPT summary |
+| `http://localhost:3000/api/recording/:id/complete` | Webhook: Marks video ready for user playback |
 
-- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API.
-- [Electron Documentation](https://www.electronjs.org/docs) - Build cross-platform desktop apps.
-- [Three.js Documentation](https://threejs.org/docs) - Create 3D experiences on the web.
-- [Framer Motion Documentation](https://www.framer.com/motion/) - Add animations to your React components.
-- [GSAP Documentation](https://greensock.com/gsap/) - Create high-performance animations.
-- [Socket.io Documentation](https://socket.io/docs/) - Enable real-time communication.
-- [AWS Documentation](https://aws.amazon.com/documentation/) - Learn about AWS services.
+---
 
-## Deploy on Vercel
+## 🔧 Environment Variables (`.env`)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ini
+NEXT_PUBLIC_URL=http://localhost:3000
+DATABASE_URL="postgresql://user:password@neon.tech/Koom?sslmode=require"
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
+CLERK_SECRET_KEY="sk_test_..."
+STRIPE_SECRET_KEY="sk_test_..."
+STRIPE_PUBLISHABLE_KEY="pk_test_..."
+STRIPE_SUBSCRIPTION_PRICE_ID="price_..."
+NEXT_PUBLIC_CLOUD_FRONT_STREAM_URL="https://d1350iy0inho7b.cloudfront.net"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
 
-## Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests to improve the project.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## 🏛️ Architecture & System Design
+For complete architectural diagrams, ERDs, and trade-off analyses, read [ARCHITECTURE.md](file:///Users/kishorkumarparoi/job-project/koom-ai/ARCHITECTURE.md).

@@ -3,35 +3,56 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
   req: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
-  }
+  { params }: { params: { id: string } }
 ) {
-  // wire up AI Agent
-  const body = await req.json();
-  const { id } = await params;
+  try {
+    const body = await req.json();
+    const { id } = await params;
 
-  const content = JSON.parse(body.content);
+    if (!id || !body?.filename) {
+      return NextResponse.json({ status: 400, message: "Missing id or filename" }, { status: 400 });
+    }
 
-  const transcribed = await client.video.update({
-    where: {
-      userId: id,
-      source: body.filename,
-    },
-    data: {
-      title: content.title,
-      description: content.summary,
-      summary: body.transcript,
-    },
-  });
+    let parsedContent: { title?: string; summary?: string } = {};
+    if (typeof body.content === "string") {
+      try {
+        parsedContent = JSON.parse(body.content);
+      } catch {
+        parsedContent = { title: "Screen Recording", summary: body.content };
+      }
+    } else if (body.content && typeof body.content === "object") {
+      parsedContent = body.content;
+    }
 
-  if (transcribed) {
-    console.log("🟢 Transcribed");
-    return NextResponse.json({ status: 200 });
+    const title = parsedContent.title || "Screen Recording";
+    const description = parsedContent.summary || "Recorded via KoomAI";
+    const summaryText = body.transcript || description;
+
+    // Check if video exists first
+    const existingVideo = await client.video.findFirst({
+      where: {
+        userId: id,
+        source: body.filename,
+      },
+    });
+
+    if (existingVideo) {
+      await client.video.update({
+        where: { id: existingVideo.id },
+        data: {
+          title,
+          description,
+          summary: summaryText,
+        },
+      });
+      console.log(`[KoomAI Transcribe] 🟢 Updated transcription for ${body.filename}`);
+    } else {
+      console.warn(`[KoomAI Transcribe] 🟡 Video ${body.filename} not found for user ${id}`);
+    }
+
+    return NextResponse.json({ status: 200, message: "Transcription processed" });
+  } catch (error) {
+    console.error("🔴 Transcription error in route:", error);
+    return NextResponse.json({ status: 500, error: String(error) }, { status: 500 });
   }
-  console.log("🔴 Transcription went wrong");
-
-  return NextResponse.json({ status: 400 });
 }
