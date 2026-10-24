@@ -88,11 +88,33 @@ export default function WebsiteFooter() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold text-white mb-3">Company &amp; Trust</h4>
+          <h4 className="text-sm font-semibold text-white mb-3">Ecosystem &amp; Portfolio</h4>
           <ul className="space-y-2 text-sm">
             <li>
+              <a
+                href="https://kishor-paroi.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-purple-400 transition flex items-center gap-1.5"
+              >
+                <span>macOS Portfolio (Live Desktop)</span>
+                <span className="text-[10px] text-emerald-400 font-mono">↗</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://reinvent-rho.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-cyan-400 transition flex items-center gap-1.5"
+              >
+                <span>Reinvent 3D (Live Portfolio)</span>
+                <span className="text-[10px] text-cyan-400 font-mono">↗</span>
+              </a>
+            </li>
+            <li>
               <Link href="/about" className="hover:text-purple-400 transition">
-                About Us
+                About Architecture
               </Link>
             </li>
             <li>
@@ -103,16 +125,6 @@ export default function WebsiteFooter() {
             <li>
               <a href="/api/health" target="_blank" className="hover:text-purple-400 transition font-mono text-xs">
                 Health Check (/api/health)
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/KishorKumarParoi/koom-ai-express"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-purple-400 transition"
-              >
-                Express Media Engine
               </a>
             </li>
           </ul>

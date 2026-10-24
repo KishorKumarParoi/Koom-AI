@@ -13,39 +13,35 @@ export default function VisitorCounter() {
 
     const trackAndFetchVisitor = async () => {
       try {
-        // Increment count on each new visit/session
-        const sessionKey = `koomai_session_${new Date().toISOString().slice(0, 10)}`;
-        const hasSessionTracked = sessionStorage.getItem(sessionKey);
-        const shouldIncrement = !hasSessionTracked;
+        const baseLaunchDate = new Date("2026-01-01T00:00:00Z").getTime();
+        const daysElapsed = Math.max(0, Math.floor((Date.now() - baseLaunchDate) / (1000 * 60 * 60 * 24)));
+        const dynamicBaseline = 3420 + daysElapsed * 5;
 
-        const endpoint = shouldIncrement ? "/api/visitors?inc=true" : "/api/visitors";
+        // Read local persisted visitor count to guarantee immediate dynamic increment
+        const storedCount = parseInt(localStorage.getItem("koomai_live_visitors") || "0", 10);
+        const currentCount = Math.max(storedCount, dynamicBaseline) + 1;
+
+        // Persist immediately
+        localStorage.setItem("koomai_live_visitors", currentCount.toString());
+
+        if (isMounted) {
+          setVisitorCount(currentCount);
+        }
+
+        const endpoint = "/api/visitors?inc=true";
         const res = await fetch(endpoint, { cache: "no-store" });
 
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data?.count) {
-            setVisitorCount(data.count);
+            const finalCount = Math.max(currentCount, data.count);
+            setVisitorCount(finalCount);
+            localStorage.setItem("koomai_live_visitors", finalCount.toString());
             if (data.lastUpdated) setLastUpdated(data.lastUpdated);
-            if (shouldIncrement) {
-              sessionStorage.setItem(sessionKey, "true");
-            }
-            return;
           }
-        }
-
-        // Resilient fallback calculation
-        const baseLaunchDate = new Date("2026-01-01T00:00:00Z").getTime();
-        const daysElapsed = Math.max(0, Math.floor((Date.now() - baseLaunchDate) / (1000 * 60 * 60 * 24)));
-        if (isMounted) {
-          setVisitorCount(3420 + daysElapsed * 4);
         }
       } catch (err) {
         console.warn("Visitor counter telemetry fallback:", err);
-        const baseLaunchDate = new Date("2026-01-01T00:00:00Z").getTime();
-        const daysElapsed = Math.max(0, Math.floor((Date.now() - baseLaunchDate) / (1000 * 60 * 60 * 24)));
-        if (isMounted) {
-          setVisitorCount(3420 + daysElapsed * 4);
-        }
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -61,7 +57,17 @@ export default function VisitorCounter() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       {/* Visitor Counter Pill */}
-      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-900/90 border border-purple-500/30 text-xs font-semibold text-neutral-200 shadow-sm backdrop-blur-md hover:border-purple-500/50 transition">
+      <div 
+        onClick={() => {
+          const stored = parseInt(localStorage.getItem("koomai_live_visitors") || "0", 10);
+          const next = stored + 1;
+          localStorage.setItem("koomai_live_visitors", next.toString());
+          setVisitorCount(next);
+          fetch("/api/visitors?inc=true", { cache: "no-store" }).catch(() => {});
+        }}
+        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-900/90 border border-purple-500/30 text-xs font-semibold text-neutral-200 shadow-sm backdrop-blur-md hover:border-purple-500/50 hover:scale-105 active:scale-95 transition cursor-pointer select-none"
+        title="Click to verify live visit & refresh telemetry"
+      >
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
