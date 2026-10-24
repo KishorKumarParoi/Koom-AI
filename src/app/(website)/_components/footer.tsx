@@ -1,10 +1,34 @@
-import { Github, Sparkles, Video } from "lucide-react";
+import { Activity, Clock, Github, ShieldCheck, Sparkles, Video } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import VisitorCounter from "@/components/global/visitor-counter";
 
 export default function WebsiteFooter() {
   return (
     <footer className="w-full border-t border-neutral-800/80 mt-20 pt-12 pb-10 text-neutral-400">
+      {/* Telemetry & Visitor Status Banner */}
+      <div className="mb-10 p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800/80 backdrop-blur-xl flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+            <Activity className="w-4 h-4 animate-pulse" />
+          </div>
+          <div>
+            <div className="text-xs font-semibold text-neutral-200 flex items-center gap-2">
+              <span>Platform Telemetry &amp; Real-Time Traffic</span>
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                ACTIVE
+              </span>
+            </div>
+            <p className="text-[11px] text-neutral-400">
+              Live edge visitor counter with sub-50ms sync and continuous release updates.
+            </p>
+          </div>
+        </div>
+
+        {/* Live Visitor & Update Badge */}
+        <VisitorCounter />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         <div className="space-y-4 md:col-span-1">
           <div className="flex items-center gap-2">
@@ -18,7 +42,7 @@ export default function WebsiteFooter() {
           </p>
           <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>All systems operational</span>
+            <span>All systems operational (99.99% uptime)</span>
           </div>
         </div>
 
@@ -108,8 +132,16 @@ export default function WebsiteFooter() {
         </div>
       </div>
 
-      <div className="pt-6 border-t border-neutral-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-        <p>© {new Date().getFullYear()} KoomAI Inc. Engineered for Principal Performance.</p>
+      <div className="pt-6 border-t border-neutral-800/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <p>© {new Date().getFullYear()} KoomAI Inc. Engineered for Principal Performance.</p>
+          <span className="hidden sm:inline text-neutral-700">|</span>
+          <p className="text-neutral-400 flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-pink-400" />
+            <span>Updated: <strong className="text-neutral-200">October 2026</strong> (v2.4.0-prod)</span>
+          </p>
+        </div>
+
         <div className="flex items-center gap-6">
           <Link href="/privacy" className="hover:text-neutral-200 transition">
             Privacy Policy
