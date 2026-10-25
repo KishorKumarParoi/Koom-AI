@@ -92,7 +92,7 @@ export default function WebsiteFooter() {
           <ul className="space-y-2 text-sm">
             <li>
               <a
-                href="https://macos-portofolio.vercel.app/"
+                href="https://macos-portofolio-virid.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-purple-400 transition flex items-center gap-1.5"
