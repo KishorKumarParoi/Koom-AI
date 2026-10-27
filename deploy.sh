@@ -82,10 +82,12 @@ elif [ "$1" = "--daemon" ] || [ "$1" = "-d" ]; then
     nohup $PKG_MGR run dev -- -p "${PORT}" > logs/web.log 2>&1 &
     APP_PID=$!
     echo -e "${GREEN}[✓] KoomAI Web running in background (PID: ${APP_PID})${NC}"
-    echo -e "  • Cockpit:   ${CYAN}http://localhost:${PORT}${NC}"
-    echo -e "  • Dashboard: ${CYAN}http://localhost:${PORT}/dashboard${NC}"
-    echo -e "  • Health:    ${CYAN}http://localhost:${PORT}/api/health${NC}"
-    echo -e "  • Logs:      ${YELLOW}tail -f logs/web.log${NC}"
+    echo -e "  • Beast Cockpit: ${CYAN}http://localhost:${PORT}/beast${NC}"
+    echo -e "  • Web Home:      ${CYAN}http://localhost:${PORT}${NC}"
+    echo -e "  • Dashboard:     ${CYAN}http://localhost:${PORT}/dashboard${NC}"
+    echo -e "  • Health:        ${CYAN}http://localhost:${PORT}/api/health${NC}"
+    echo -e "  • Logs:          ${YELLOW}tail -f logs/web.log${NC}"
 else
+    echo -e "  • Beast Cockpit: ${CYAN}http://localhost:${PORT}/beast${NC}"
     exec $PKG_MGR run dev -- -p "${PORT}"
 fi
