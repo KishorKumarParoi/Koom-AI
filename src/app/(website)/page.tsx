@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, CheckCircle2, Cpu, Globe2, HelpCircle, Mail, MapPin, Monitor, ShieldCheck, Sparkles, Video, Zap } from "lucide-react";
+import { ArrowRight, Bot, Check, CheckCircle2, CheckSquare, Code2, Cpu, FileText, GitPullRequest, Globe2, HelpCircle, Mail, MapPin, Monitor, ShieldCheck, Sparkles, Video, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -77,6 +77,80 @@ export default function HomePage() {
           </p>
         </div>
       </div>
+
+      {/* SECTION: KoomAgent Autonomous Action Engine Showcase */}
+      <section className="mt-28 max-w-5xl w-full text-left">
+        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-purple-950/40 via-neutral-900/60 to-black/80 border border-purple-500/30 backdrop-blur-xl relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-purple-500/40 bg-purple-500/15 text-purple-200 text-xs font-semibold mb-4 backdrop-blur-md">
+            <Bot className="w-3.5 h-3.5 text-purple-400" />
+            <span>Next-Level Innovation &bull; KoomAgent v3.0</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Turn Async Screen Recordings into{" "}
+                <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+                  Actionable Code &amp; Tickets
+                </span>
+              </h2>
+              <p className="text-neutral-300 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+                Legacy tools stop at video playback. <b>KoomAgent</b> listens, understands, and executes—turning team video walkthroughs into production Pull Requests, Jira tickets, and Playwright E2E test specs with single-click autonomy.
+              </p>
+            </div>
+            <Link href="/demo" className="shrink-0">
+              <Button className="h-11 px-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white rounded-xl shadow-lg shadow-purple-500/25 flex items-center gap-2 text-sm font-semibold">
+                <Sparkles className="w-4 h-4" /> Experience Live Agent <ArrowRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-purple-500/20">
+            <div className="p-4 rounded-2xl bg-neutral-900/60 border border-purple-500/20 backdrop-blur-sm">
+              <div className="w-9 h-9 rounded-lg bg-purple-500/15 flex items-center justify-center text-purple-400 mb-3">
+                <GitPullRequest className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-white mb-1">GitHub PR &amp; Bug Reports</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Generates complete pull request summaries with video timestamp citations and reproduction steps.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-neutral-900/60 border border-pink-500/20 backdrop-blur-sm">
+              <div className="w-9 h-9 rounded-lg bg-pink-500/15 flex items-center justify-center text-pink-400 mb-3">
+                <CheckSquare className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-white mb-1">Jira &amp; Linear Stories</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Synthesizes formal user stories and BDD Gherkin acceptance criteria (Given/When/Then).
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-neutral-900/60 border border-cyan-500/20 backdrop-blur-sm">
+              <div className="w-9 h-9 rounded-lg bg-cyan-500/15 flex items-center justify-center text-cyan-400 mb-3">
+                <Code2 className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-white mb-1">Playwright E2E Tests</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Translates UI interactions seen in the recording directly into executable TypeScript test specs.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-neutral-900/60 border border-amber-500/20 backdrop-blur-sm">
+              <div className="w-9 h-9 rounded-lg bg-amber-500/15 flex items-center justify-center text-amber-400 mb-3">
+                <Zap className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-white mb-1">Confluence SOPs</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Produces executive briefs and standard operating procedures with checkpoint timelines.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* SECTION: About Preview */}
       <section id="about" className="mt-28 max-w-5xl w-full text-left">

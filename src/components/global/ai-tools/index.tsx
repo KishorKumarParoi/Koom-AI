@@ -170,14 +170,34 @@ const AiTools = ({ plan, trial, videoId }: Props) => {
             <div className="p-3 rounded-full border-2 border-[#2fdbe0] bg-gradient-to-br from-[#2b2b2b] via-[#2fdbe022] to-[#a22fe022] shadow">
               <Bot color="#2fdbe0" />
             </div>
-            <div className="flex flex-col">
-              <h3 className="text-base font-semibold text-[#e0e0e0]">
-                AI Agent
-              </h3>
-              <p className="text-[#bdbdbd] text-sm">
-                Viewers can ask questions on your video and our AI agent will
-                respond.
-              </p>
+            <div className="flex flex-col gap-2">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-semibold text-[#e0e0e0]">
+                    KoomAgent Copilot
+                  </h3>
+                  <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    Active
+                  </span>
+                </div>
+                <p className="text-[#bdbdbd] text-sm mt-0.5">
+                  Autonomously answers viewer questions with timestamp citations and synthesizes production-ready software deliverables.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-1.5 mt-1">
+                <span className="text-[11px] px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30 font-medium">
+                  🚀 GitHub PR
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-md bg-pink-500/20 text-pink-300 border border-pink-500/30 font-medium">
+                  📋 Jira Ticket
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-medium">
+                  🧪 Playwright E2E
+                </span>
+                <span className="text-[11px] px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 font-medium">
+                  ⚡ Action Items
+                </span>
+              </div>
             </div>
           </div>
         </div>

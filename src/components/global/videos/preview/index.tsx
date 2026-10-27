@@ -9,12 +9,14 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import Activity from "../../activity";
 import AiTools from "../../ai-tools";
+import KoomAgentCockpit from "../../koom-agent";
 import Loader from "../../loader";
 import TabMenu from "../../tabs";
 import VideoTranscript from "../../transcript";
 import CopyLink from "../copy-link";
 import EditVideo from "../edit-video";
 import RichLink from "./rich-link";
+
 
 type Props = {
   videoId: string;
@@ -175,10 +177,19 @@ const VideoPreview = ({ videoId }: Props) => {
         </div>
         <div>
           <TabMenu
-            defaultValue="AI Tools"
-            triggers={["AI Tools", "Transcript", "Activity"]}
+            defaultValue="KoomAgent ⚡"
+            triggers={["KoomAgent ⚡", "AI Tools", "Transcript", "Activity"]}
           >
             <>
+              <KoomAgentCockpit
+                videoId={videoId}
+                videoTitle={video?.title || "Screen Recording"}
+                videoDescription={video?.description || ""}
+                transcript={
+                  typeof video?.summary === "string" ? video.summary : ""
+                }
+                authorName={`${video?.User?.firstname || ""} ${video?.User?.lastname || ""}`}
+              />
               <AiTools
                 plan={video?.User?.subscription.plan ?? "FREE"}
                 trial={video?.User?.trial ?? false}
